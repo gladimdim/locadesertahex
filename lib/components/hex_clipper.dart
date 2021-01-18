@@ -50,7 +50,7 @@ class HexPainter extends CustomPainter {
     Point center = Point(size.width / 2, size.height / 2);
     Paint paint = new Paint()
       ..color = color
-      ..strokeWidth = 4
+      ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
     Path path = Path();

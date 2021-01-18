@@ -1,11 +1,14 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/hex_clipper.dart';
+import 'package:locadesertahex/components/hex_item.dart';
+import 'package:locadesertahex/models/cube.dart';
 
 class HexSurface extends StatefulWidget {
   final double dimension;
   final double size;
+
   HexSurface({this.dimension, this.size});
 
   @override
@@ -22,84 +25,42 @@ class _HexSurfaceState extends State<HexSurface> {
         SizedBox(
           width: dimension,
           height: dimension,
-          child: Container(color: Colors.red,),
-        ),
-        Positioned(
-          left: dimension / 2 - size * 3/4,
-          top: dimension / 2 - size * sin(pi * 60 / 180) / 2,
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: ClipPath(
-              child: InkWell(
-                hoverColor: Colors.white.withAlpha(0),
-                splashColor: Colors.white.withAlpha(0),
-                highlightColor: Colors.white.withAlpha(0),
-                child: CustomPaint(
-                  // child: Container(color: Colors.blue),
-                  foregroundPainter: HexPainter(
-                    color: Colors.black,
-                  ),
-                ),
-                onTap: () {
-                  print("lol");
-                },
-              ),
-              clipper: const HexClipper(),
-            ),
+          child: Container(
+            color: Colors.red,
           ),
         ),
-        Positioned(
-          left: dimension / 2 ,
-          top: dimension / 2 - size * sin(pi * 60 / 180),
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: ClipPath(
-              child: InkWell(
-                hoverColor: Colors.white.withAlpha(0),
-                splashColor: Colors.white.withAlpha(0),
-                highlightColor: Colors.white.withAlpha(0),
-                child: CustomPaint(
-                  // child: Container(color: Colors.blue),
-                  foregroundPainter: HexPainter(
-                    color: Colors.black,
-                  ),
-                ),
-                onTap: () {
-                  print("lol");
-                },
-              ),
-              clipper: const HexClipper(),
-            ),
-          ),
-        ),
-        Positioned(
-          left: dimension / 2,
-          top: dimension/ 2,
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: ClipPath(
-              child: InkWell(
-                hoverColor: Colors.white.withAlpha(0),
-                splashColor: Colors.white.withAlpha(0),
-                highlightColor: Colors.white.withAlpha(0),
-                child: CustomPaint(
-                  // child: Container(color: Colors.blue),
-                  foregroundPainter: HexPainter(
-                    color: Colors.black,
-                  ),
-                ),
-                onTap: () {
-                  print("lol");
-                },
-              ),
-              clipper: const HexClipper(),
-            ),
-          ),
-        ),
+        ...MapStorage.generateCubes(100).map((cube) {
+          return HexItem(
+              cube: cube,
+              size: size,
+              center: Point(dimension / 2, dimension / 2));
+        }).toList(),
       ],
     );
+  }
+}
+
+class MapStorage {
+  Map<String, Cube> map;
+
+  MapStorage({this.map});
+
+  static List<Cube> generateCubes(int amount) {
+    var counter = 0;
+    Map<String, Cube> map = {};
+    var start = Cube(0, 0, 0);
+    Queue<Cube> queue = Queue.from([start]);
+
+    while (queue.isNotEmpty && counter < amount) {
+      Cube next = queue.removeFirst();
+      if (map[next.toHash()] != null) {
+        continue;
+      }
+      var neighbours = next.allNeighbours();
+      queue.addAll(neighbours);
+      map[next.toHash()] = next;
+      counter++;
+    }
+    return map.values.toList();
   }
 }
