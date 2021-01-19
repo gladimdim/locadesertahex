@@ -51,10 +51,8 @@ class _HexItemTileState extends State<HexItemTile> {
                 Positioned.fill(
                   child: Align(
                     alignment: Alignment.center,
-                    child: widget.hex.attachment == null
-                        ? Text(
-                            widget.hex.toHash(),
-                          )
+                    child: widget.hex.attachment != null && widget.hex.owned
+                        ? Container()
                         : ResourceImageView(resource: widget.hex.attachment),
                   ),
                 ),

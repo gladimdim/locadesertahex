@@ -16,34 +16,48 @@ class HexSurface extends StatefulWidget {
 }
 
 class _HexSurfaceState extends State<HexSurface> {
+  TransformationController _controller = TransformationController();
+
+  @override
+  void initState() {
+    var _homeMatrix = Matrix4.identity()..translate(widget.dimension / 2 - widget.size, widget.dimension/2 - widget.size, 4);
+    _controller.value = Matrix4.inverted(_homeMatrix);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var dimension = widget.dimension;
     var size = widget.size;
-    return Stack(
-      children: <Widget>[
-        SizedBox(
-          width: dimension,
-          height: dimension,
-          child: Container(
-            color: Colors.red,
+    return InteractiveViewer(
+      transformationController: _controller,
+      constrained: false,
+      minScale: 0.1,
+      maxScale: 5,
+      child: Stack(
+        children: <Widget>[
+          SizedBox(
+            width: dimension,
+            height: dimension,
+            child: Container(
+              color: Colors.red,
+            ),
           ),
-        ),
-        ...widget.storage.asList().map(
-          (hex) {
-            return HexItemTile(
-              hex: hex,
-              size: size,
-              center: Point(dimension / 2, dimension / 2),
-              onPress: () {
-                setState(() {
-                  widget.storage.ownHex(hex);
-                });
-              },
-            );
-          },
-        ).toList(),
-      ],
+          ...widget.storage.asList().map(
+            (hex) {
+              return HexItemTile(
+                hex: hex,
+                size: size,
+                center: Point(dimension / 2, dimension / 2),
+                onPress: () {
+                  setState(() {
+                    widget.storage.ownHex(hex);
+                  });
+                },
+              );
+            },
+          ).toList(),
+        ],
+      ),
     );
   }
 }

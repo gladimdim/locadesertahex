@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Loca Deserta: Hex',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: "Hex"),
     );
   }
 }
@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final double size = 50;
-  final double dimension = 500;
+  final double dimension = 1500;
   final MapStorage map = MapStorage.generate();
   @override
   Widget build(BuildContext context) {
