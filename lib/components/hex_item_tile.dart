@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
+import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/models/hex.dart';
 
 class HexItemTile extends StatefulWidget {
@@ -35,7 +36,11 @@ class _HexItemTileState extends State<HexItemTile> {
                 Container(
                   width: widget.size,
                   height: widget.size,
-                  color: widget.hex.owned ? Colors.green : widget.hex.visible ? Colors.yellow : Colors.grey,
+                  color: widget.hex.owned
+                      ? Colors.green
+                      : widget.hex.visible
+                          ? Colors.yellow
+                          : Colors.grey,
                   child: CustomPaint(
                     // child: Container(color: Colors.blue),
                     foregroundPainter: HexPainter(
@@ -46,9 +51,11 @@ class _HexItemTileState extends State<HexItemTile> {
                 Positioned.fill(
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text(
-                      widget.hex.toHash(),
-                    ),
+                    child: widget.hex.attachment == null
+                        ? Text(
+                            widget.hex.toHash(),
+                          )
+                        : ResourceImageView(resource: widget.hex.attachment),
                   ),
                 ),
               ],

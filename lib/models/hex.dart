@@ -1,14 +1,17 @@
+import 'package:locadesertahex/models/resources/resource.dart';
+
 class Hex {
   final int x;
   final int y;
   final int z;
   bool owned = false;
   bool visible = false;
+  Resource attachment;
 
-  Hex(this.x, this.y, this.z);
+  Hex(this.x, this.y, this.z, {this.attachment});
 
   Hex toRightBottom() {
-    toDirection(0);
+    return toDirection(0);
   }
 
   Hex toBottom() {

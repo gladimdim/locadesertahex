@@ -1,6 +1,9 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:locadesertahex/models/hex.dart';
+import 'package:locadesertahex/models/resources/resource.dart';
+import 'package:locadesertahex/models/resources/resource_utils.dart';
 
 class MapStorage {
   Map<String, Hex> map;
@@ -14,6 +17,7 @@ class MapStorage {
     hex.allNeighbours().forEach((element) {
       var item = getOrCreate(element);
       item.visible = true;
+      item.attachment = MapStorage.getRandomResource();
     });
   }
 
@@ -52,6 +56,7 @@ class MapStorage {
       var neighbours = next.allNeighbours();
       queue.addAll(neighbours);
       map[next.toHash()] = next;
+      next.attachment = MapStorage.getRandomResource();
       counter++;
     }
 
@@ -64,5 +69,11 @@ class MapStorage {
     });
 
     return map;
+  }
+
+  static Resource getRandomResource() {
+    var resourceTypes = RESOURCE_TYPES.values;
+    var i = Random().nextInt(resourceTypes.length);
+    return Resource.fromType(resourceTypes[i], 10);
   }
 }
