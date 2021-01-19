@@ -17,7 +17,6 @@ class MapStorage {
     hex.allNeighbours().forEach((element) {
       var item = getOrCreate(element);
       item.visible = true;
-      item.attachment = MapStorage.getRandomResource();
     });
   }
 
@@ -30,6 +29,7 @@ class MapStorage {
     if (item == null) {
       addHex(hex);
       item = hex;
+      item.attachment = MapStorage.getRandomResource();
     }
     return item;
   }

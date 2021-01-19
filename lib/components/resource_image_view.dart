@@ -14,7 +14,7 @@ class ResourceImageView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Image.asset(
-          resource.toImagePath(),
+          resource.toIconPath(),
           width: 22,
         ),
         if (showAmount)

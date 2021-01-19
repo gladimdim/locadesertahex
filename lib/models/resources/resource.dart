@@ -15,7 +15,7 @@ abstract class Resource {
   }
 
   String toIconPath() {
-    return "images/resources/${localizedKey}_64.png";
+    return "images/resources/${localizedKey}_128.png";
   }
 
   Resource([value]);
