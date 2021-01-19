@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/hex_clipper.dart';
-import 'dart:math';
 
 import 'package:locadesertahex/components/hex_surface.dart';
+import 'package:locadesertahex/models/map_storage.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final double size = 50;
   final double dimension = 500;
-
+  final MapStorage map = MapStorage.generate();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,9 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: HexSurface(
           dimension: dimension,
           size: size,
+          storage: map,
         ),
       ),
     );
   }
 }
-

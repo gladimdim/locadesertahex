@@ -1,15 +1,15 @@
-import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/hex_item.dart';
-import 'package:locadesertahex/models/cube.dart';
+import 'package:locadesertahex/components/hex_item_tile.dart';
+import 'package:locadesertahex/models/map_storage.dart';
 
 class HexSurface extends StatefulWidget {
   final double dimension;
   final double size;
+  final MapStorage storage;
 
-  HexSurface({this.dimension, this.size});
+  HexSurface({this.dimension, this.size, this.storage});
 
   @override
   _HexSurfaceState createState() => _HexSurfaceState();
@@ -29,38 +29,21 @@ class _HexSurfaceState extends State<HexSurface> {
             color: Colors.red,
           ),
         ),
-        ...MapStorage.generateCubes(100).map((cube) {
-          return HexItem(
-              cube: cube,
+        ...widget.storage.asList().map(
+          (hex) {
+            return HexItemTile(
+              hex: hex,
               size: size,
-              center: Point(dimension / 2, dimension / 2));
-        }).toList(),
+              center: Point(dimension / 2, dimension / 2),
+              onPress: () {
+                setState(() {
+                  widget.storage.ownHex(hex);
+                });
+              },
+            );
+          },
+        ).toList(),
       ],
     );
-  }
-}
-
-class MapStorage {
-  Map<String, Cube> map;
-
-  MapStorage({this.map});
-
-  static List<Cube> generateCubes(int amount) {
-    var counter = 0;
-    Map<String, Cube> map = {};
-    var start = Cube(0, 0, 0);
-    Queue<Cube> queue = Queue.from([start]);
-
-    while (queue.isNotEmpty && counter < amount) {
-      Cube next = queue.removeFirst();
-      if (map[next.toHash()] != null) {
-        continue;
-      }
-      var neighbours = next.allNeighbours();
-      queue.addAll(neighbours);
-      map[next.toHash()] = next;
-      counter++;
-    }
-    return map.values.toList();
   }
 }

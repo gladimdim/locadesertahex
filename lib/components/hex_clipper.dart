@@ -14,13 +14,13 @@ class HexClipper extends CustomClipper<Path> {
     Point center = Point(size.width / 2, size.height / 2);
 
     Path path = Path();
-    var point = point_hex_corner(center, size.width / 2, 0);
+    var point = pointHexCorner(center, size.width / 2, 0);
     path.moveTo(point.x, point.y);
     for (var i = 1; i < 6; i++) {
-      point = point_hex_corner(center, size.width / 2, i);
+      point = pointHexCorner(center, size.width / 2, i);
       path.lineTo(point.x, point.y);
     }
-    point = point_hex_corner(center, size.width / 2, 0);
+    point = pointHexCorner(center, size.width / 2, 0);
     path.lineTo(point.x, point.y);
     path.close();
     return path;
@@ -30,7 +30,7 @@ class HexClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-Point point_hex_corner(Point center, double size, int i) {
+Point pointHexCorner(Point center, double size, int i) {
   var angleDeg = 60 * i;
   var angleRad = pi / 180 * angleDeg;
   return Point(
@@ -54,13 +54,13 @@ class HexPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     Path path = Path();
-    var point = point_hex_corner(center, size.width / 2, 0);
+    var point = pointHexCorner(center, size.width / 2, 0);
     path.moveTo(point.x, point.y);
     for (var i = 1; i < 6; i++) {
-      point = point_hex_corner(center, size.width / 2, i);
+      point = pointHexCorner(center, size.width / 2, i);
       path.lineTo(point.x, point.y);
     }
-    point = point_hex_corner(center, size.width / 2, 0);
+    point = pointHexCorner(center, size.width / 2, 0);
     path.lineTo(point.x, point.y);
     path.close();
     canvas.drawPath(path, paint);
