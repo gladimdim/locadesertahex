@@ -19,6 +19,7 @@ class HexSurface extends StatefulWidget {
 class _HexSurfaceState extends State<HexSurface> {
   TransformationController _controller = TransformationController();
   Hex selectedHex;
+  final double scaleFactor = 5;
 
   @override
   void initState() {
@@ -51,11 +52,11 @@ class _HexSurfaceState extends State<HexSurface> {
             (hex) {
               return Positioned(
                 left: Point(dimension / 2, dimension / 2).x.toDouble() -
-                    size * 3 / 4 * hex.x.toDouble() * 1.01 -
+                    size * 3 / 4 * hex.x.toDouble() * 1.01 +
                     selectedShift(hex),
                 top: Point(dimension / 2, dimension / 2).y.toDouble() -
                     size * sin(pi * 60 / 180) * hex.y -
-                    size / 2.4 * hex.x.toDouble() * 1.01 -
+                    size / 2.4 * hex.x.toDouble() * 1.01 +
                     selectedShift(hex),
                 child: AnimatedContainer(
                   width: getSizeForHex(hex),
@@ -91,13 +92,13 @@ class _HexSurfaceState extends State<HexSurface> {
   double selectedShift(Hex hex) {
     var selected = selectedHex == hex;
     if (selected) {
-      return widget.size;
+      return -widget.size * (scaleFactor - 1) / 2;
     } else {
       return 0.0;
     }
   }
 
   double getSizeForHex(Hex hex) {
-    return hex == selectedHex ? widget.size * 5 : widget.size;
+    return hex == selectedHex ? widget.size * scaleFactor : widget.size;
   }
 }
