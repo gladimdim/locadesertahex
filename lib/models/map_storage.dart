@@ -7,6 +7,7 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 
 class MapStorage {
   Map<String, Hex> map;
+  List<Resource> stock = [];
 
   MapStorage({this.map});
 
@@ -20,6 +21,31 @@ class MapStorage {
     });
   }
 
+  bool satisfiesResourceRequirement(Resource resource) {
+    var existing = stockForResource(resource);
+    return existing != null && existing.value >= resource.value;
+  }
+
+  Resource stockForResource(Resource resource) {
+    var existing = stock.firstWhere((element) => element.type == resource.type);
+    return existing;
+  }
+
+  void removeResource(Resource resource) {
+    if (satisfiesResourceRequirement(resource)) {
+      stockForResource(resource).value -= resource.value;
+    }
+  }
+
+  void addResource(Resource resource) {
+    var existing = stockForResource(resource);
+    if (existing == null) {
+      stock.add(resource);
+    } else {
+      existing.value = resource.value;
+    }
+  }
+
   void addHex(Hex hex) {
     map[hex.toHash()] = hex;
   }
@@ -29,7 +55,7 @@ class MapStorage {
     if (item == null) {
       addHex(hex);
       item = hex;
-      item.attachment = MapStorage.getRandomResource();
+      item.output = MapStorage.getRandomResource();
     }
     return item;
   }
@@ -56,7 +82,7 @@ class MapStorage {
       var neighbours = next.allNeighbours();
       queue.addAll(neighbours);
       map[next.toHash()] = next;
-      next.attachment = MapStorage.getRandomResource();
+      next.output = MapStorage.getRandomResource();
       counter++;
     }
 

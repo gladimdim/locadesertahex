@@ -38,10 +38,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: HexSurface(
-          dimension: dimension,
-          size: size,
-          storage: map,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: HexSurface(
+            dimension: dimension,
+            size: size,
+            storage: map,
+          ),
         ),
       ),
     );

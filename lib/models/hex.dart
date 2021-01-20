@@ -6,9 +6,9 @@ class Hex {
   final int z;
   bool owned = false;
   bool visible = false;
-  Resource attachment;
-
-  Hex(this.x, this.y, this.z, {this.attachment});
+  Resource output;
+  final Resource requirement;
+  Hex(this.x, this.y, this.z, {this.output, this.requirement,});
 
   Hex toRightBottom() {
     return toDirection(0);

@@ -9,6 +9,7 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 abstract class Resource {
   String localizedKey;
   int value;
+  RESOURCE_TYPES type;
 
   String toImagePath() {
     return "images/resources/$localizedKey.png";
