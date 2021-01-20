@@ -21,6 +21,11 @@ class MapStorage {
     });
   }
 
+  void putLast(Hex hex) {
+    map.removeWhere((key, value) => key == hex.toHash());
+    addHex(hex);
+  }
+
   bool satisfiesResourceRequirement(Resource resource) {
     var existing = stockForResource(resource);
     return existing != null && existing.value >= resource.value;

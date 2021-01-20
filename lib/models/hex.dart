@@ -8,7 +8,14 @@ class Hex {
   bool visible = false;
   Resource output;
   final Resource requirement;
-  Hex(this.x, this.y, this.z, {this.output, this.requirement,});
+
+  Hex(
+    this.x,
+    this.y,
+    this.z, {
+    this.output,
+    this.requirement,
+  });
 
   Hex toRightBottom() {
     return toDirection(0);

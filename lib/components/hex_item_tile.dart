@@ -4,66 +4,90 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/models/hex.dart';
+import 'package:locadesertahex/models/map_storage.dart';
 
 class HexItemTile extends StatefulWidget {
   final Hex hex;
   final Point center;
   final double size;
-  final VoidCallback onPress;
+  final MapStorage storage;
+  final Function(bool) onPress;
+  final bool expanded;
 
-  HexItemTile({this.center, this.hex, this.size, this.onPress});
+  HexItemTile(
+      {this.center,
+      this.hex,
+      this.size,
+      @required this.storage,
+      @required this.onPress,
+      @required this.expanded});
 
   @override
   _HexItemTileState createState() => _HexItemTileState();
 }
 
 class _HexItemTileState extends State<HexItemTile> {
-  bool owned = false;
-
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: left,
-      top: top,
-      child: Container(
-        child: ClipPath(
-          child: InkWell(
-            hoverColor: Colors.white.withAlpha(0),
-            splashColor: Colors.white.withAlpha(0),
-            highlightColor: Colors.white.withAlpha(0),
-            child: Stack(
-              children: [
-                Container(
-                  width: widget.size,
-                  height: widget.size,
-                  color: widget.hex.owned
-                      ? Colors.green
-                      : widget.hex.visible
-                          ? Colors.yellow
-                          : Colors.grey,
-                  child: CustomPaint(
-                    // child: Container(color: Colors.blue),
-                    foregroundPainter: HexPainter(
-                      color: widget.hex.owned ? Colors.black : Colors.red,
-                    ),
+    return Container(
+      child: ClipPath(
+        child: InkWell(
+          hoverColor: Colors.white.withAlpha(0),
+          splashColor: Colors.white.withAlpha(0),
+          highlightColor: Colors.white.withAlpha(0),
+          child: Stack(
+            children: [
+              Container(
+                width: widget.size,
+                height: widget.size,
+                color: widget.hex.owned
+                    ? Colors.green
+                    : widget.hex.visible
+                        ? Colors.yellow
+                        : Colors.grey,
+                child: CustomPaint(
+                  // child: Container(color: Colors.blue),
+                  foregroundPainter: HexPainter(
+                    color: widget.hex.owned ? Colors.black : Colors.red,
                   ),
                 ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: widget.hex.output != null && widget.hex.owned
-                        ? Container()
-                        : ResourceImageView(resource: widget.hex.output),
-                  ),
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: widget.hex.output != null && widget.hex.owned
+                      ? Container()
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ResourceImageView(resource: widget.hex.output),
+                            if (widget.expanded)
+                              ElevatedButton(
+                                child: Text("Capture"),
+                                onPressed: processPressToOwn,
+                              ),
+                          ],
+                        ),
                 ),
-              ],
-            ),
-            onTap: widget.hex.visible ? widget.onPress : null,
+              ),
+            ],
           ),
-          clipper: const HexClipper(),
+          onTap: widget.hex.visible ? () => processPress(context) : null,
         ),
+        clipper: const HexClipper(),
       ),
     );
+  }
+
+  void processPress(BuildContext context) {
+    widget.onPress(!widget.expanded);
+  }
+
+  void processPressToOwn() {
+    setState(() {
+      widget.storage.ownHex(widget.hex);
+    });
+    widget.onPress(false);
   }
 
   get left {
@@ -87,6 +111,10 @@ class _HexItemTileState extends State<HexItemTile> {
         2.0;
   }
 
+  get diffWithOriginalSize {
+    return widget.size - widget.size;
+  }
+
   Point cubeToAxial(Hex cube) {
     return Point(cube.x, cube.z);
   }
@@ -96,11 +124,5 @@ class _HexItemTileState extends State<HexItemTile> {
     var z = hex.y;
     var y = -x - z;
     return Hex(x, y, z);
-  }
-
-  Point pointyHexToPixel(Point hex) {
-    var x = widget.size * (3 / 2 * hex.x);
-    var y = widget.size * (sqrt(3) / 2 * hex.x + sqrt(3) * hex.y);
-    return Point(x, y);
   }
 }
