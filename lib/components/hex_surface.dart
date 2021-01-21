@@ -50,7 +50,7 @@ class _HexSurfaceState extends State<HexSurface> {
           ),
           ...widget.storage.asList().map(
             (hex) {
-              return AnimatedPositioned(
+              return Positioned(
                 left: Point(dimension / 2, dimension / 2).x.toDouble() -
                     size * 3 / 4 * hex.x.toDouble() * 1.01 +
                     selectedShift(hex),
@@ -58,12 +58,12 @@ class _HexSurfaceState extends State<HexSurface> {
                     size * sin(pi * 60 / 180) * hex.y -
                     size / 2.4 * hex.x.toDouble() * 1.01 +
                     selectedShift(hex),
-                duration: Duration(milliseconds: 150),
-                curve: Curves.ease,
+                // duration: Duration(milliseconds: 150),
+                // curve: Curves.ease,
                 child: AnimatedContainer(
                   width: getSizeForHex(hex),
                   height: getSizeForHex(hex),
-                  duration: Duration(milliseconds: 150),
+                  duration: Duration(milliseconds: 250),
                   curve: Curves.ease,
                   child: HexItemTile(
                     hex: hex,
