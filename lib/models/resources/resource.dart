@@ -8,7 +8,7 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 
 abstract class Resource {
   String localizedKey;
-  int value;
+  double value;
   RESOURCE_TYPES type;
 
   String toImagePath() {
@@ -21,7 +21,11 @@ abstract class Resource {
 
   Resource([this.value]);
 
-  static Resource fromType(RESOURCE_TYPES type, [int value]) {
+  List<Resource> toRequirement() {
+    return [];
+  }
+
+  static Resource fromType(RESOURCE_TYPES type, [double value]) {
     switch (type) {
       case RESOURCE_TYPES.FIREARM:
         return FireArm(value);
@@ -63,7 +67,7 @@ abstract class Resource {
     throw "Resource Type $type is not recognized";
   }
 
-  static Resource fromKey(String key, [int value]) {
+  static Resource fromKey(String key, [double value]) {
     switch (key) {
       case 'firearm':
         return FireArm(value);
@@ -167,6 +171,10 @@ class FireArm extends Resource {
   RESOURCE_TYPES type = RESOURCE_TYPES.FIREARM;
 
   FireArm([value]) : super(value);
+
+  List<Resource> toRequirement() {
+    return [Wood(value), Powder(value/2)];
+  }
 }
 
 class Fish extends Resource {
@@ -183,6 +191,10 @@ class Food extends Resource {
   RESOURCE_TYPES type = RESOURCE_TYPES.FOOD;
 
   Food([value]) : super(value);
+
+  List<Resource> toRequirement() {
+    return [Grains(value / 4)];
+  }
 }
 
 class Fur extends Resource {
@@ -207,6 +219,10 @@ class Cossack extends Resource {
   RESOURCE_TYPES type = RESOURCE_TYPES.COSSACK;
 
   Cossack([value]) : super(value);
+
+  List<Resource> toRequirement() {
+    return [FireArm(value), Food(value/10)];
+  }
 }
 
 class Grains extends Resource {
@@ -216,5 +232,3 @@ class Grains extends Resource {
 
   Grains([value]) : super(value);
 }
-
-const cheapResources = [RESOURCE_TYPES.FOOD, RESOURCE_TYPES.GRAINS, RESOURCE_TYPES.WOOD, RESOURCE_TYPES.STONE];

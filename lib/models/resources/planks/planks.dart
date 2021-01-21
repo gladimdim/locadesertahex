@@ -7,4 +7,8 @@ class Planks extends Resource {
   RESOURCE_TYPES type = RESOURCE_TYPES.PLANKS;
 
   Planks([value]) : super(value);
+
+  List<Resource> toRequirement() {
+    return [Wood(value / 5)];
+  }
 }

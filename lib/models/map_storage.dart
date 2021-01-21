@@ -31,12 +31,20 @@ class MapStorage {
     addHex(hex);
   }
 
-  bool satisfiesResourceRequirement(Resource resource) {
-    if (resource == null) {
+  bool satisfiesResourceRequirement(List<Resource> requirements) {
+    if (requirements.isEmpty) {
       return true;
     }
-    var existing = stockForResource(resource);
-    return existing != null && existing.value >= resource.value;
+    var result = true;
+    for (var req  in requirements) {
+      var existing = stockForResource(req);
+      if (existing == null || existing.value < req.value) {
+        result = false;
+        break;
+      }
+    }
+
+    return result;
   }
 
   Resource stockForResource(Resource resource) {
@@ -50,7 +58,7 @@ class MapStorage {
   }
 
   void removeResource(Resource resource) {
-    if (satisfiesResourceRequirement(resource)) {
+    if (satisfiesResourceRequirement(resource.toRequirement())) {
       stockForResource(resource).value -= resource.value;
     }
   }
@@ -74,6 +82,7 @@ class MapStorage {
       addHex(hex);
       item = hex;
       item.output = MapStorage.getRandomResource();
+      item.requirement = item.output.toRequirement();
     }
     return item;
   }
@@ -101,10 +110,7 @@ class MapStorage {
       queue.addAll(neighbours);
       map[next.toHash()] = next;
       next.output = MapStorage.getRandomResource();
-      if (cheapResources.contains(next.output.type)) {
-      } else {
-        next.requirement = MapStorage.getRandomResource();
-      }
+      next.requirement = next.output.toRequirement();
       counter++;
     }
 

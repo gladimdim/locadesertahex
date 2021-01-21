@@ -121,10 +121,16 @@ class _HexItemTileState extends State<HexItemTile> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     if (widget.hex.requirement != null)
-                      ResourceImageView(
-                        resource: widget.hex.requirement,
-                        showAmount: true,
-                        size: 60,
+                      Row(
+                        children: widget.hex.requirement
+                            .map(
+                              (requirement) => ResourceImageView(
+                                resource: requirement,
+                                showAmount: true,
+                                size: 60,
+                              ),
+                            )
+                            .toList(),
                       ),
                   ],
                 ),

@@ -7,7 +7,7 @@ class Hex {
   bool owned = false;
   bool visible = false;
   Resource output;
-  Resource requirement;
+  List<Resource> requirement;
 
   Hex(
     this.x,

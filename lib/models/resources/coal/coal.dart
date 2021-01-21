@@ -7,4 +7,8 @@ class Charcoal extends Resource {
   RESOURCE_TYPES type = RESOURCE_TYPES.CHARCOAL;
 
   Charcoal([value]) : super(value);
+
+  List<Resource> toRequirement() {
+    return [Wood(value / 5)];
+  }
 }
