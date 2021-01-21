@@ -81,50 +81,69 @@ class _HexItemTileState extends State<HexItemTile> {
         maxHeight: widget.size / 2 * sqrt(3),
         maxWidth: widget.size,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            width: widget.size,
-            height: widget.size / 10,
-            color: Colors.indigoAccent,
-            child: Center(
-              child: Text(
-                widget.hex.output.localizedKey,
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      child: Container(
+        decoration: widget.expanded
+            ? BoxDecoration(
+                // Box decoration takes a gradient
+                gradient: RadialGradient(
+                  center: const Alignment(0, -1), // near the top right
+                  radius: 0.8,
+                  colors: [
+                    const Color(0xFF4ca1af), // yellow sun
+                    const Color(0xFFc4e0e5), // blue sky
+                  ],
+                  stops: [0.4, 1.0],
+                ),
+              )
+            : null,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              width: widget.size,
+              height: widget.size / 10,
+              child: Center(
+                child: Text(
+                  widget.hex.output.localizedKey,
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-          ),
-          ResourceImageView(
-            resource: widget.hex.output,
-            size: 60,
-          ),
-          Container(
-            color: Colors.teal,
-            child: Padding(
-              padding: EdgeInsets.all(widget.size / 6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  if (widget.hex.requirement != null)
-                    ResourceImageView(
-                      resource: widget.hex.requirement,
-                      showAmount: true,
-                      size: 60,
-                    ),
-                ],
+            ResourceImageView(
+              resource: widget.hex.output,
+              size: 60,
+            ),
+            Container(
+              child: Padding(
+                padding: EdgeInsets.all(widget.size / 6),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    if (widget.hex.requirement != null)
+                      ResourceImageView(
+                        resource: widget.hex.requirement,
+                        showAmount: true,
+                        size: 60,
+                      ),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            width: widget.size,
-            child: ElevatedButton(
-              child: Text("Захопити"),
-              onPressed: processPressToOwn,
+            SizedBox(
+              width: widget.size,
+              child: ElevatedButton(
+                child: Text(
+                  "Захопити",
+                  style: TextStyle(
+                    fontSize: 22,
+                  ),
+                ),
+                onPressed: processPressToOwn,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

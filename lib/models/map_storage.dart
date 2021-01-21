@@ -32,14 +32,17 @@ class MapStorage {
   }
 
   bool satisfiesResourceRequirement(Resource resource) {
+    if (resource == null) {
+      return true;
+    }
     var existing = stockForResource(resource);
     return existing != null && existing.value >= resource.value;
   }
 
   Resource stockForResource(Resource resource) {
     try {
-      var existing = stock.firstWhere((element) =>
-      element.type == resource.type);
+      var existing =
+          stock.firstWhere((element) => element.type == resource.type);
       return existing;
     } catch (e) {
       return null;
@@ -98,7 +101,10 @@ class MapStorage {
       queue.addAll(neighbours);
       map[next.toHash()] = next;
       next.output = MapStorage.getRandomResource();
-      next.requirement = MapStorage.getRandomResource();
+      if (cheapResources.contains(next.output.type)) {
+      } else {
+        next.requirement = MapStorage.getRandomResource();
+      }
       counter++;
     }
 

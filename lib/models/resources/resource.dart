@@ -216,3 +216,5 @@ class Grains extends Resource {
 
   Grains([value]) : super(value);
 }
+
+const cheapResources = [RESOURCE_TYPES.FOOD, RESOURCE_TYPES.GRAINS, RESOURCE_TYPES.WOOD, RESOURCE_TYPES.STONE];
