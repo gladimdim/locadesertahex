@@ -55,25 +55,28 @@ class _HexItemTileState extends State<HexItemTile> {
               Positioned(
                 child: Align(
                   alignment: Alignment.center,
-                  child: widget.hex.output == null
+                  child: (widget.hex.output == null || widget.hex.owned == true)
                       ? Container()
                       : widget.expanded
                           ? buildExpandedView(context)
                           : widget.hex.owned
-                              ? Container()
+                              ? Container(
+                                  child: Text(distanceFromCenter(widget.hex)
+                                      .toString()))
                               : Container(
                                   width: widget.size,
                                   height: widget.size * sqrt(3),
                                   child: ResourceImageView(
                                     resource: widget.hex.output,
-
                                   ),
                                 ),
                 ),
               ),
             ],
           ),
-          onTap: widget.hex.visible ? () => processPress(context) : null,
+          onTap: widget.hex.visible
+              ? () => widget.hex.owned ? null : processPress(context)
+              : null,
         ),
         clipper: const HexClipper(),
       ),
