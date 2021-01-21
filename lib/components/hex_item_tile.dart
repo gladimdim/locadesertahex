@@ -39,7 +39,7 @@ class _HexItemTileState extends State<HexItemTile> {
             children: [
               Container(
                 width: widget.size,
-                height: widget.size / 2 * sqrt(3),
+                height: widget.size * sqrt(3),
                 color: widget.hex.owned
                     ? Colors.green
                     : widget.hex.visible
@@ -59,7 +59,11 @@ class _HexItemTileState extends State<HexItemTile> {
                       ? Container()
                       : widget.expanded
                           ? buildExpandedView(context)
-                          : ResourceImageView(resource: widget.hex.output),
+                          : Container(
+                              width: widget.size,
+                              height: widget.size * sqrt(3),
+                              child: ResourceImageView(
+                                  resource: widget.hex.output)),
                 ),
               ),
             ],
@@ -81,20 +85,44 @@ class _HexItemTileState extends State<HexItemTile> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         // mainAxisSize: MainAxisSize.max,
         children: [
-          ResourceImageView(resource: widget.hex.output),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              if (widget.hex.requirement != null)
-                ResourceImageView(
-                  resource: widget.hex.requirement,
-                  showAmount: true,
-                ),
-            ],
+          Container(
+            width: widget.size,
+            height: widget.size / 10,
+            color: Colors.indigoAccent,
+            child: Center(
+              child: Text(
+                widget.hex.output.localizedKey,
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
-          ElevatedButton(
-            child: Text("Захопити"),
-            onPressed: processPressToOwn,
+          ResourceImageView(
+            resource: widget.hex.output,
+            size: 60,
+          ),
+          Container(
+            color: Colors.teal,
+            child: Padding(
+              padding: EdgeInsets.all(widget.size / 6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  if (widget.hex.requirement != null)
+                    ResourceImageView(
+                      resource: widget.hex.requirement,
+                      showAmount: true,
+                      size: 60,
+                    ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: widget.size,
+            child: ElevatedButton(
+              child: Text("Захопити"),
+              onPressed: processPressToOwn,
+            ),
           ),
         ],
       ),
