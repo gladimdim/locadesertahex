@@ -4,8 +4,9 @@ import 'package:locadesertahex/models/resources/resource.dart';
 class ResourceImageView extends StatelessWidget {
   final Resource resource;
   final bool showAmount;
+  final double size;
 
-  ResourceImageView({@required this.resource, this.showAmount = false});
+  ResourceImageView({@required this.resource, this.showAmount = false, this.size = 32});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ResourceImageView extends StatelessWidget {
       children: <Widget>[
         Image.asset(
           resource.toIconPath(),
-          width: 22,
+          width: size,
         ),
         if (showAmount)
           Text(

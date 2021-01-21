@@ -39,7 +39,7 @@ class _HexItemTileState extends State<HexItemTile> {
             children: [
               Container(
                 width: widget.size,
-                height: widget.size,
+                height: widget.size / 2 * sqrt(3),
                 color: widget.hex.owned
                     ? Colors.green
                     : widget.hex.visible
@@ -52,36 +52,14 @@ class _HexItemTileState extends State<HexItemTile> {
                   ),
                 ),
               ),
-              Positioned.fill(
+              Positioned(
                 child: Align(
                   alignment: Alignment.center,
                   child: widget.hex.output != null && widget.hex.owned
                       ? Container()
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ResourceImageView(resource: widget.hex.output),
-                            if (widget.expanded)
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    if (widget.hex.requirement != null)
-                                      ResourceImageView(
-                                        resource: widget.hex.requirement,
-                                        showAmount: true,
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            if (widget.expanded)
-                              ElevatedButton(
-                                child: Text("Capture"),
-                                onPressed: processPressToOwn,
-                              ),
-                          ],
-                        ),
+                      : widget.expanded
+                          ? buildExpandedView(context)
+                          : ResourceImageView(resource: widget.hex.output),
                 ),
               ),
             ],
@@ -89,6 +67,36 @@ class _HexItemTileState extends State<HexItemTile> {
           onTap: widget.hex.visible ? () => processPress(context) : null,
         ),
         clipper: const HexClipper(),
+      ),
+    );
+  }
+
+  Widget buildExpandedView(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: widget.size / 2 * sqrt(3),
+        maxWidth: widget.size,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisSize: MainAxisSize.max,
+        children: [
+          ResourceImageView(resource: widget.hex.output),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              if (widget.hex.requirement != null)
+                ResourceImageView(
+                  resource: widget.hex.requirement,
+                  showAmount: true,
+                ),
+            ],
+          ),
+          ElevatedButton(
+            child: Text("Захопити"),
+            onPressed: processPressToOwn,
+          ),
+        ],
       ),
     );
   }

@@ -34,19 +34,18 @@ Point pointHexCorner(Point center, double size, int i) {
   var angleDeg = 60 * i;
   var angleRad = pi / 180 * angleDeg;
   return Point(
-      center.x + size * cos(angleRad), center.y + size * sin(angleRad));
+    center.x + size * cos(angleRad),
+    center.y + size * sin(angleRad),
+  );
 }
 
-
 class HexPainter extends CustomPainter {
-
   final Color color;
 
   HexPainter({this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
-
     Point center = Point(size.width / 2, size.height / 2);
     Paint paint = new Paint()
       ..color = color
