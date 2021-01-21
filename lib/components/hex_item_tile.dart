@@ -62,6 +62,20 @@ class _HexItemTileState extends State<HexItemTile> {
                           children: [
                             ResourceImageView(resource: widget.hex.output),
                             if (widget.expanded)
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    if (widget.hex.requirement != null)
+                                      ResourceImageView(
+                                        resource: widget.hex.requirement,
+                                        showAmount: true,
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            if (widget.expanded)
                               ElevatedButton(
                                 child: Text("Capture"),
                                 onPressed: processPressToOwn,
@@ -84,10 +98,12 @@ class _HexItemTileState extends State<HexItemTile> {
   }
 
   void processPressToOwn() {
-    setState(() {
-      widget.storage.ownHex(widget.hex);
-    });
-    widget.onPress(false);
+    var success = widget.storage.ownHex(widget.hex);
+
+    widget.onPress(!success);
+    if (success) {
+      setState(() {});
+    }
   }
 
   get left {
@@ -109,10 +125,6 @@ class _HexItemTileState extends State<HexItemTile> {
     return (widget.hex.x + widget.hex.z * 0.5 - widget.hex.z / 2) *
         widget.size *
         2.0;
-  }
-
-  get diffWithOriginalSize {
-    return widget.size - widget.size;
   }
 
   Point cubeToAxial(Hex cube) {

@@ -11,7 +11,10 @@ class MapStorage {
 
   MapStorage({this.map});
 
-  void ownHex(Hex hex) {
+  bool ownHex(Hex hex) {
+    if (!satisfiesResourceRequirement(hex.requirement)) {
+      return false;
+    }
     map[hex.toHash()] = hex;
     hex.owned = true;
     hex.visible = true;
@@ -19,6 +22,8 @@ class MapStorage {
       var item = getOrCreate(element);
       item.visible = true;
     });
+    addResource(hex.output);
+    return true;
   }
 
   void putLast(Hex hex) {
@@ -32,8 +37,13 @@ class MapStorage {
   }
 
   Resource stockForResource(Resource resource) {
-    var existing = stock.firstWhere((element) => element.type == resource.type);
-    return existing;
+    try {
+      var existing = stock.firstWhere((element) =>
+      element.type == resource.type);
+      return existing;
+    } catch (e) {
+      return null;
+    }
   }
 
   void removeResource(Resource resource) {
@@ -47,7 +57,7 @@ class MapStorage {
     if (existing == null) {
       stock.add(resource);
     } else {
-      existing.value = resource.value;
+      existing.value += resource.value;
     }
   }
 
@@ -88,6 +98,7 @@ class MapStorage {
       queue.addAll(neighbours);
       map[next.toHash()] = next;
       next.output = MapStorage.getRandomResource();
+      next.requirement = MapStorage.getRandomResource();
       counter++;
     }
 

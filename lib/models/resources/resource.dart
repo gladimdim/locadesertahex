@@ -19,7 +19,7 @@ abstract class Resource {
     return "images/resources/${localizedKey}_128.png";
   }
 
-  Resource([value]);
+  Resource([this.value]);
 
   static Resource fromType(RESOURCE_TYPES type, [int value]) {
     switch (type) {
