@@ -1,5 +1,6 @@
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
+import 'package:locadesertahex/models/resources/wood.dart';
 
 class Charcoal extends Resource {
   String localizedKey = 'charcoal';

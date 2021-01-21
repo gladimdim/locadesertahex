@@ -2,9 +2,21 @@ import 'package:locadesertahex/models/resources/boat/boat.dart';
 import 'package:locadesertahex/models/resources/cannon_resource.dart';
 import 'package:locadesertahex/models/resources/cart/cart.dart';
 import 'package:locadesertahex/models/resources/coal/coal.dart';
+import 'package:locadesertahex/models/resources/cossack.dart';
+import 'package:locadesertahex/models/resources/firearm.dart';
+import 'package:locadesertahex/models/resources/fish.dart';
+import 'package:locadesertahex/models/resources/food.dart';
+import 'package:locadesertahex/models/resources/fur.dart';
+import 'package:locadesertahex/models/resources/grains.dart';
+import 'package:locadesertahex/models/resources/horse.dart';
+import 'package:locadesertahex/models/resources/iron_ore.dart';
 import 'package:locadesertahex/models/resources/metal_parts/metal_parts.dart';
+import 'package:locadesertahex/models/resources/money.dart';
 import 'package:locadesertahex/models/resources/planks/planks.dart';
+import 'package:locadesertahex/models/resources/powder.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
+import 'package:locadesertahex/models/resources/stone.dart';
+import 'package:locadesertahex/models/resources/wood.dart';
 
 abstract class Resource {
   String localizedKey;
@@ -122,113 +134,4 @@ abstract class Resource {
     type.value = json["value"];
     return type;
   }
-}
-
-class Powder extends Resource {
-  String localizedKey = 'powder';
-  String localizedDescriptionKey = 'powderDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.POWDER;
-
-  Powder([value]) : super(value);
-}
-
-class Horse extends Resource {
-  String localizedKey = 'horse';
-  String localizedDescriptionKey = 'horseDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.HORSE;
-
-  Horse([value]) : super(value);
-}
-
-class Money extends Resource {
-  String localizedKey = 'money';
-  String localizedDescriptionKey = 'moneyDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.MONEY;
-
-
-  Money([value]) : super(value);
-}
-
-class Wood extends Resource {
-  String localizedKey = 'wood';
-  String localizedDescriptionKey = 'woodDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.WOOD;
-
-  Wood([value]) : super(value);
-}
-
-class Stone extends Resource {
-  String localizedKey = 'stone';
-  String localizedDescriptionKey = 'stoneDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.STONE;
-
-  Stone([value]) : super(value);
-}
-
-class FireArm extends Resource {
-  String localizedKey = 'firearm';
-  String localizedDescriptionKey = 'firearmDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.FIREARM;
-
-  FireArm([value]) : super(value);
-
-  List<Resource> toRequirement() {
-    return [Wood(value), Powder(value/2)];
-  }
-}
-
-class Fish extends Resource {
-  String localizedKey = 'fish';
-  String localizedDescriptionKey = 'fishDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.FISH;
-
-  Fish([value]) : super(value);
-}
-
-class Food extends Resource {
-  String localizedKey = 'food';
-  String localizedDescriptionKey = 'foodDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.FOOD;
-
-  Food([value]) : super(value);
-
-  List<Resource> toRequirement() {
-    return [Grains(value / 4)];
-  }
-}
-
-class Fur extends Resource {
-  String localizedKey = 'fur';
-  String localizedDescriptionKey = 'furDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.FUR;
-
-  Fur([value]) : super(value);
-}
-
-class IronOre extends Resource {
-  String localizedKey = 'ore';
-  String localizedDescriptionKey = 'oreDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.IRON_ORE;
-
-  IronOre([value]) : super(value);
-}
-
-class Cossack extends Resource {
-  String localizedKey = 'cossack';
-  String localizedDescriptionKey = 'cossackDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.COSSACK;
-
-  Cossack([value]) : super(value);
-
-  List<Resource> toRequirement() {
-    return [FireArm(value), Food(value/10)];
-  }
-}
-
-class Grains extends Resource {
-  String localizedKey = 'grains';
-  String localizedDescriptionKey = 'grainsDescription';
-  RESOURCE_TYPES type = RESOURCE_TYPES.GRAINS;
-
-  Grains([value]) : super(value);
 }

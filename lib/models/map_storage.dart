@@ -12,7 +12,7 @@ class MapStorage {
   MapStorage({this.map});
 
   bool ownHex(Hex hex) {
-    if (!satisfiesResourceRequirement(hex.requirement)) {
+    if (!satisfiesResourceRequirement(hex.toRequirement())) {
       return false;
     }
     map[hex.toHash()] = hex;
@@ -36,7 +36,7 @@ class MapStorage {
       return true;
     }
     var result = true;
-    for (var req  in requirements) {
+    for (var req in requirements) {
       var existing = stockForResource(req);
       if (existing == null || existing.value < req.value) {
         result = false;
@@ -81,8 +81,8 @@ class MapStorage {
     if (item == null) {
       addHex(hex);
       item = hex;
-      item.output = MapStorage.getRandomResource();
-      item.requirement = item.output.toRequirement();
+      item.output =
+          MapStorage.getRandomResourceForLevel(distanceFromCenter(hex));
     }
     return item;
   }
@@ -109,8 +109,10 @@ class MapStorage {
       var neighbours = next.allNeighbours();
       queue.addAll(neighbours);
       map[next.toHash()] = next;
-      next.output = MapStorage.getRandomResource();
-      next.requirement = next.output.toRequirement();
+      if (counter != 0) {
+        next.output =
+            MapStorage.getRandomResourceForLevel(distanceFromCenter(next));
+      }
       counter++;
     }
 
@@ -125,9 +127,68 @@ class MapStorage {
     return map;
   }
 
-  static Resource getRandomResource() {
-    var resourceTypes = RESOURCE_TYPES.values;
+  static Resource getRandomResourceForLevel(int level) {
+    var resourceTypes = resourcesForLevel(level);
     var i = Random().nextInt(resourceTypes.length);
     return Resource.fromType(resourceTypes[i], 10);
   }
+
+  static List<List<RESOURCE_TYPES>> resourcesByLevels() {
+    var first = [
+      RESOURCE_TYPES.GRAINS,
+      RESOURCE_TYPES.STONE,
+      RESOURCE_TYPES.WOOD
+    ];
+    var second = [
+      ...first,
+      RESOURCE_TYPES.FISH,
+      RESOURCE_TYPES.FOOD,
+      RESOURCE_TYPES.IRON_ORE
+    ];
+    var third = [
+      ...second,
+      RESOURCE_TYPES.FUR,
+      RESOURCE_TYPES.POWDER,
+      RESOURCE_TYPES.CHARCOAL,
+    ];
+    var fourth = [
+      ...third,
+      RESOURCE_TYPES.MONEY,
+      RESOURCE_TYPES.HORSE,
+      RESOURCE_TYPES.BOAT,
+      RESOURCE_TYPES.PLANKS,
+    ];
+    var fifth = [
+      ...fourth,
+      RESOURCE_TYPES.CART,
+      RESOURCE_TYPES.METAL_PARTS,
+      RESOURCE_TYPES.FIREARM,
+    ];
+    var sixth = [
+      ...fifth,
+      RESOURCE_TYPES.CANNON,
+      RESOURCE_TYPES.COSSACK,
+    ];
+    return [
+      [],
+      first,
+      second,
+      third,
+      fourth,
+      fifth,
+      sixth,
+    ];
+  }
+
+  static List<RESOURCE_TYPES> resourcesForLevel(int level) {
+    var levels = MapStorage.resourcesByLevels();
+    if (level >= levels.length) {
+      level = 4;
+    }
+    return levels[level];
+  }
+}
+
+int distanceFromCenter(Hex hex) {
+  return ((hex.x.abs() + hex.y.abs() + hex.z.abs()) / 2).floor();
 }

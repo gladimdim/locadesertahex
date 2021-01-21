@@ -7,15 +7,17 @@ class Hex {
   bool owned = false;
   bool visible = false;
   Resource output;
-  List<Resource> requirement;
 
   Hex(
     this.x,
     this.y,
     this.z, {
     this.output,
-    this.requirement,
   });
+
+  List<Resource> toRequirement() {
+    return output.toRequirement();
+  }
 
   Hex toRightBottom() {
     return toDirection(0);

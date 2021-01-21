@@ -1,6 +1,9 @@
 import 'package:locadesertahex/models/resources/metal_parts/metal_parts.dart';
+import 'package:locadesertahex/models/resources/money.dart';
+import 'package:locadesertahex/models/resources/powder.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
+import 'package:locadesertahex/models/resources/wood.dart';
 
 class Cannon extends Resource {
   String localizedKey = 'cannon';

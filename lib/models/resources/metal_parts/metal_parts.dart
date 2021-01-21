@@ -1,4 +1,5 @@
 import 'package:locadesertahex/models/resources/coal/coal.dart';
+import 'package:locadesertahex/models/resources/iron_ore.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 

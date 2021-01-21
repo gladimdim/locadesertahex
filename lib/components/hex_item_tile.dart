@@ -55,15 +55,20 @@ class _HexItemTileState extends State<HexItemTile> {
               Positioned(
                 child: Align(
                   alignment: Alignment.center,
-                  child: widget.hex.output != null && widget.hex.owned
+                  child: widget.hex.output == null
                       ? Container()
                       : widget.expanded
                           ? buildExpandedView(context)
-                          : Container(
-                              width: widget.size,
-                              height: widget.size * sqrt(3),
-                              child: ResourceImageView(
-                                  resource: widget.hex.output)),
+                          : widget.hex.owned
+                              ? Container()
+                              : Container(
+                                  width: widget.size,
+                                  height: widget.size * sqrt(3),
+                                  child: ResourceImageView(
+                                    resource: widget.hex.output,
+
+                                  ),
+                                ),
                 ),
               ),
             ],
@@ -113,6 +118,7 @@ class _HexItemTileState extends State<HexItemTile> {
             ResourceImageView(
               resource: widget.hex.output,
               size: 60,
+              showAmount: true,
             ),
             Container(
               child: Padding(
@@ -120,9 +126,10 @@ class _HexItemTileState extends State<HexItemTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    if (widget.hex.requirement != null)
+                    if (widget.hex.toRequirement().isNotEmpty)
                       Row(
-                        children: widget.hex.requirement
+                        children: widget.hex
+                            .toRequirement()
                             .map(
                               (requirement) => ResourceImageView(
                                 resource: requirement,
@@ -138,6 +145,7 @@ class _HexItemTileState extends State<HexItemTile> {
             ),
             SizedBox(
               width: widget.size,
+              height: widget.size / 8,
               child: ElevatedButton(
                 child: Text(
                   "Захопити",
