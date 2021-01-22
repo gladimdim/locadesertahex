@@ -1,5 +1,6 @@
 import 'package:locadesertahex/models/resources/firearm.dart';
 import 'package:locadesertahex/models/resources/food.dart';
+import 'package:locadesertahex/models/resources/horse.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 
@@ -11,6 +12,6 @@ class Cossack extends Resource {
   Cossack([value]) : super(value);
 
   List<Resource> toRequirement() {
-    return [FireArm(value), Food(value / 10)];
+    return [FireArm(value), Food(value / 10), Horse(value)];
   }
 }

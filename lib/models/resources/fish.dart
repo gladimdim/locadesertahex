@@ -1,3 +1,4 @@
+import 'package:locadesertahex/models/resources/food.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 
@@ -7,4 +8,8 @@ class Fish extends Resource {
   RESOURCE_TYPES type = RESOURCE_TYPES.FISH;
 
   Fish([value]) : super(value);
+
+  List<Resource> toRequirement() {
+    return [Food(value / 5)];
+  }
 }
