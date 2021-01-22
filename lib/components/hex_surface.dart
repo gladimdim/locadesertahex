@@ -1,9 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+
 import 'package:locadesertahex/components/hex_item_tile.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/map_storage.dart';
+
+import 'hex_clipper.dart';
 
 class HexSurface extends StatefulWidget {
   final double dimension;
@@ -46,22 +49,22 @@ class _HexSurfaceState extends State<HexSurface> {
             height: dimension,
             child: Container(
               child: Image.asset(
-                "images/background/map_bw.png",
+                "images/background/map_squared.png",
                 width: widget.dimension,
                 fit: BoxFit.contain,
               ),
             ),
           ),
+          SizedBox(
+            width: widget.dimension,
+            height: widget.dimension,
+            child: getFogOfWar(),
+          ),
           ...widget.storage.asList().map(
             (hex) {
               return Positioned(
-                left: Point(dimension / 2, dimension / 2).x.toDouble() -
-                    size * 3 / 4 * hex.x.toDouble() +
-                    selectedShift(hex),
-                top: Point(dimension / 2, dimension / 2).y.toDouble() -
-                    size * sin(pi * 60 / 180) * hex.y -
-                    size / 2.4 * hex.x.toDouble() * 1.04 +
-                    selectedShift(hex),
+                left: leftForHex(hex),
+                top: topForHex(hex),
                 // duration: Duration(milliseconds: 150),
                 // curve: Curves.ease,
                 child: AnimatedContainer(
@@ -95,6 +98,19 @@ class _HexSurfaceState extends State<HexSurface> {
     );
   }
 
+  double leftForHex(Hex hex) {
+    return Point(widget.dimension / 2, widget.dimension / 2).x.toDouble() -
+        widget.size * 3 / 4 * hex.x.toDouble() +
+        selectedShift(hex);
+  }
+
+  double topForHex(Hex hex) {
+    return Point(widget.dimension / 2, widget.dimension / 2).y.toDouble() -
+        widget.size * sin(pi * 60 / 180) * hex.y -
+        widget.size / 2.4 * hex.x.toDouble() * 1.04 +
+        selectedShift(hex);
+  }
+
   double selectedShift(Hex hex) {
     var selected = selectedHex == hex;
     if (selected) {
@@ -107,4 +123,31 @@ class _HexSurfaceState extends State<HexSurface> {
   double getSizeForHex(Hex hex) {
     return hex == selectedHex ? widget.size * scaleFactor : widget.size;
   }
+
+  Widget getFogOfWar() {
+    var hexes = widget.storage.map.values.where((element) => element.owned);
+    var holes = hexes.map((hex) => toFogCirclePoint(hex)).toList();
+    return ClipPath(
+      clipper: FogOfWarClipper(
+        holes: holes,
+      ),
+      child: Image.asset(
+        "images/background/map_bw.png",
+        width: widget.dimension,
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+
+  FogCirclePoint toFogCirclePoint(Hex hex) {
+    var center = Point<double>(leftForHex(hex), topForHex(hex));
+    return FogCirclePoint(coords: center, radius: widget.size / 2);
+  }
+}
+
+class FogCirclePoint {
+  final Point coords;
+  final double radius;
+
+  FogCirclePoint({this.coords, this.radius});
 }

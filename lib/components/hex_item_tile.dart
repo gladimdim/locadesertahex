@@ -66,9 +66,7 @@ class _HexItemTileState extends State<HexItemTile> {
   }
 
   Color borderColor() {
-    if (widget.expanded) {
-      return Colors.black;
-    } else if (widget.hex.owned) {
+    if (widget.hex.owned) {
       return Colors.transparent;
     } else {
       return Colors.black;
@@ -77,11 +75,11 @@ class _HexItemTileState extends State<HexItemTile> {
 
   Color backgroundColor() {
     if (widget.expanded && widget.hex.owned) {
-      return Colors.green[200];
+      return Colors.green[400];
     } else if (widget.hex.owned) {
-      return Colors.green;
+      return Colors.transparent;
     } else {
-      return Colors.grey[400];
+      return Colors.green[200];
     }
   }
 

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/hex_surface.dart';
 
 class HexClipper extends CustomClipper<Path> {
   final Color color;
@@ -69,4 +70,38 @@ class HexPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
+}
+
+class FogOfWarClipper extends CustomClipper<Path> {
+  final List<FogCirclePoint> holes;
+
+  FogOfWarClipper({this.holes = const []});
+
+  @override
+  Path getClip(Size size) {
+    var pathOpened = Path();
+    for (var hole in holes) {
+      Path path = Path();
+      var point = pointHexCorner(hole.coords, hole.radius, 0);
+      path.moveTo(point.x, point.y);
+      for (var i = 1; i < 6; i++) {
+        point = pointHexCorner(hole.coords, hole.radius, i);
+        path.lineTo(point.x, point.y);
+      }
+      point = pointHexCorner(hole.coords, hole.radius, 0);
+      path.lineTo(point.x, point.y);
+      path.close();
+
+      pathOpened.addPath(path, Offset(hole.radius, hole.radius));
+    }
+    var path = Path.combine(
+      PathOperation.difference,
+      Path()..addRect(Rect.fromLTWH(0, 0, size.width, size.height)),
+      pathOpened..close(),
+    );
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
