@@ -57,6 +57,10 @@ class MapStorage {
     }
   }
 
+  Resource stockForResourceType(RESOURCE_TYPES type) {
+    return stockForResource(Resource.fromType(type));
+  }
+
   void removeResource(Resource resource) {
     if (satisfiesResourceRequirement(resource.toRequirement())) {
       stockForResource(resource).value -= resource.value;

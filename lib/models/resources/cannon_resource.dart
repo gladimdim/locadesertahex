@@ -13,6 +13,6 @@ class Cannon extends Resource {
   Cannon([value]) : super(value);
 
   List<Resource> toRequirement() {
-    return [Wood(value), Powder(value/2), MetalParts(3), Money(5)];
+    return [Wood(value), Powder(value/2), MetalParts(3.0), Money(5.0)];
   }
 }

@@ -1,7 +1,6 @@
 import 'package:locadesertahex/models/resources/grains.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
-import 'package:locadesertahex/models/resources/wood.dart';
 
 class Horse extends Resource {
   String localizedKey = 'horse';

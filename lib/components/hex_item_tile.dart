@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_expanded_view.dart';
+import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/map_storage.dart';
@@ -61,9 +62,7 @@ class _HexItemTileState extends State<HexItemTile> {
               ),
             ],
           ),
-          onTap: widget.hex.visible
-              ? () => widget.hex.owned ? null : processPress(context)
-              : null,
+          onTap: () => processPress(context),
         ),
         clipper: const HexClipper(),
       ),
@@ -71,12 +70,19 @@ class _HexItemTileState extends State<HexItemTile> {
   }
 
   Widget buildChild(BuildContext context) {
-    if (widget.hex.owned) {
-      return Container(
-          child: Text(distanceFromCenter(widget.hex).toString()));
-    }
     if (widget.expanded) {
-      return HexExpandedView(size: widget.size, hex: widget.hex, onPressOwn: processPressToOwn,);
+      return widget.hex.owned
+          ? HexSettlementExpandedView(
+              size: widget.size,
+              storage: widget.storage,
+            )
+          : HexExpandedView(
+              size: widget.size,
+              hex: widget.hex,
+              onPressOwn: processPressToOwn,
+            );
+    } else if (widget.hex.owned) {
+      return Container(child: Text(distanceFromCenter(widget.hex).toString()));
     } else {
       return Container(
         width: widget.size,
@@ -87,7 +93,6 @@ class _HexItemTileState extends State<HexItemTile> {
       );
     }
   }
-
 
   void processPress(BuildContext context) {
     widget.onPress(!widget.expanded);
