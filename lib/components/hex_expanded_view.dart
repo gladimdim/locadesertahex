@@ -39,55 +39,65 @@ class _HexExpandedViewState extends State<HexExpandedView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           // mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-              width: widget.size,
-              height: widget.size / 10,
-              child: Center(
-                child: Text(
-                  widget.hex.output.localizedKey,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            ResourceImageView(
-              resource: widget.hex.output,
-              size: 60,
-              showAmount: true,
-            ),
-            Container(
-              child: Padding(
-                padding: EdgeInsets.all(widget.size / 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    if (widget.hex.toRequirement().isNotEmpty)
-                      Row(
-                        children: widget.hex
-                            .toRequirement()
-                            .map(
-                              (requirement) => ResourceImageView(
-                            resource: requirement,
-                            showAmount: true,
-                            size: 60,
-                          ),
-                        )
-                            .toList(),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: widget.size,
-              height: widget.size / 8,
-              child: ElevatedButton(
-                child: Text(
-                  "Захопити",
-                  style: TextStyle(
-                    fontSize: 22,
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: widget.size,
+                child: Center(
+                  child: Text(
+                    widget.hex.output.localizedKey,
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
                 ),
-                onPressed: widget.onPressOwn,
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: ResourceImageView(
+                resource: widget.hex.output,
+                size: 140,
+                showAmount: true,
+              ),
+            ),
+
+            Expanded(
+              flex: 4,
+              child: SizedBox(
+                width: widget.size,
+                child: ElevatedButton(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (widget.hex.toRequirement().isNotEmpty)
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: widget.hex
+                                .toRequirement()
+                                .map(
+                                  (requirement) => ResourceImageView(
+                                resource: requirement,
+                                showAmount: true,
+                                size: 64,
+                              ),
+                            )
+                                .toList(),
+                          ),
+                        ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "Захопити",
+                          style: TextStyle(
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  onPressed: widget.onPressOwn,
+                ),
               ),
             ),
           ],
