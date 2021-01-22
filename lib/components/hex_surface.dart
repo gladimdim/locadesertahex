@@ -45,18 +45,22 @@ class _HexSurfaceState extends State<HexSurface> {
             width: dimension,
             height: dimension,
             child: Container(
-              color: Colors.red,
+              child: Image.asset(
+                "images/background/map_bw.png",
+                width: widget.dimension,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
           ...widget.storage.asList().map(
             (hex) {
               return Positioned(
                 left: Point(dimension / 2, dimension / 2).x.toDouble() -
-                    size * 3 / 4 * hex.x.toDouble() * 1.01 +
+                    size * 3 / 4 * hex.x.toDouble() +
                     selectedShift(hex),
                 top: Point(dimension / 2, dimension / 2).y.toDouble() -
                     size * sin(pi * 60 / 180) * hex.y -
-                    size / 2.4 * hex.x.toDouble() * 1.01 +
+                    size / 2.4 * hex.x.toDouble() * 1.04 +
                     selectedShift(hex),
                 // duration: Duration(milliseconds: 150),
                 // curve: Curves.ease,

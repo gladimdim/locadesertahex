@@ -42,15 +42,11 @@ class _HexItemTileState extends State<HexItemTile> {
               Container(
                 width: widget.size,
                 height: widget.size * sqrt(3),
-                color: widget.hex.owned
-                    ? Colors.green
-                    : widget.hex.visible
-                        ? Colors.yellow
-                        : Colors.grey,
+                color: backgroundColor(),
                 child: CustomPaint(
                   // child: Container(color: Colors.blue),
                   foregroundPainter: HexPainter(
-                    color: widget.hex.owned ? Colors.black : Colors.red,
+                    color: borderColor(),
                   ),
                 ),
               ),
@@ -67,6 +63,26 @@ class _HexItemTileState extends State<HexItemTile> {
         clipper: const HexClipper(),
       ),
     );
+  }
+
+  Color borderColor() {
+    if (widget.expanded) {
+      return Colors.black;
+    } else if (widget.hex.owned) {
+      return Colors.transparent;
+    } else {
+      return Colors.black;
+    }
+  }
+
+  Color backgroundColor() {
+    if (widget.expanded && widget.hex.owned) {
+      return Colors.green[200];
+    } else if (widget.hex.owned) {
+      return Colors.green;
+    } else {
+      return Colors.grey[400];
+    }
   }
 
   Widget buildChild(BuildContext context) {
