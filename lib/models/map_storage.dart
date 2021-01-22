@@ -144,43 +144,47 @@ class MapStorage {
       RESOURCE_TYPES.WOOD
     ];
     var second = [
-      ...first,
+
       RESOURCE_TYPES.FISH,
       RESOURCE_TYPES.FOOD,
       RESOURCE_TYPES.IRON_ORE
     ];
     var third = [
-      ...second,
+
       RESOURCE_TYPES.FUR,
       RESOURCE_TYPES.POWDER,
       RESOURCE_TYPES.CHARCOAL,
     ];
     var fourth = [
-      ...third,
+
       RESOURCE_TYPES.MONEY,
       RESOURCE_TYPES.HORSE,
       RESOURCE_TYPES.BOAT,
       RESOURCE_TYPES.PLANKS,
     ];
     var fifth = [
-      ...fourth,
+
       RESOURCE_TYPES.CART,
       RESOURCE_TYPES.METAL_PARTS,
       RESOURCE_TYPES.FIREARM,
     ];
     var sixth = [
-      ...fifth,
+
       RESOURCE_TYPES.CANNON,
       RESOURCE_TYPES.COSSACK,
     ];
     return [
       [],
       first,
-      second,
+      [...first, ...second],
       third,
-      fourth,
-      fifth,
-      sixth,
+      [...first, ...fourth],
+      [...second, ...fifth],
+      [...first, ...second, ...fourth, ...sixth],
+      [...third, ...sixth],
+      [...fifth, ...fifth],
+      [...sixth, ...sixth, ...first, ...second],
+      [...second, ...second, ...fourth, ...fifth],
     ];
   }
 
