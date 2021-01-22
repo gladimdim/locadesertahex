@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final double size = 120;
-  final double dimension = 1500;
+  final double dimension = 8000;
   final MapStorage map = MapStorage.generate();
   @override
   Widget build(BuildContext context) {

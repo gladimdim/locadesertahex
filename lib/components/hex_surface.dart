@@ -24,8 +24,8 @@ class _HexSurfaceState extends State<HexSurface> {
   @override
   void initState() {
     var _homeMatrix = Matrix4.identity()
-      ..translate(widget.dimension / 4 - widget.size,
-          widget.dimension / 4 - widget.size, 2);
+      ..translate(widget.dimension / 2 - widget.size,
+          widget.dimension / 2 - widget.size, 2);
     _controller.value = Matrix4.inverted(_homeMatrix);
     super.initState();
   }

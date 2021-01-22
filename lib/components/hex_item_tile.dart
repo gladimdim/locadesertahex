@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
+import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/map_storage.dart';
@@ -55,21 +56,7 @@ class _HexItemTileState extends State<HexItemTile> {
               Positioned(
                 child: Align(
                   alignment: Alignment.center,
-                  child: (widget.hex.output == null || widget.hex.owned == true)
-                      ? Container()
-                      : widget.expanded
-                          ? buildExpandedView(context)
-                          : widget.hex.owned
-                              ? Container(
-                                  child: Text(distanceFromCenter(widget.hex)
-                                      .toString()))
-                              : Container(
-                                  width: widget.size,
-                                  height: widget.size * sqrt(3),
-                                  child: ResourceImageView(
-                                    resource: widget.hex.output,
-                                  ),
-                                ),
+                  child: buildChild(context),
                 ),
               ),
             ],
@@ -83,87 +70,24 @@ class _HexItemTileState extends State<HexItemTile> {
     );
   }
 
-  Widget buildExpandedView(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: widget.size / 2 * sqrt(3),
-        maxWidth: widget.size,
-      ),
-      child: Container(
-        decoration: widget.expanded
-            ? BoxDecoration(
-                // Box decoration takes a gradient
-                gradient: RadialGradient(
-                  center: const Alignment(0, -1), // near the top right
-                  radius: 0.8,
-                  colors: [
-                    const Color(0xFF4ca1af), // yellow sun
-                    const Color(0xFFc4e0e5), // blue sky
-                  ],
-                  stops: [0.4, 1.0],
-                ),
-              )
-            : null,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              width: widget.size,
-              height: widget.size / 10,
-              child: Center(
-                child: Text(
-                  widget.hex.output.localizedKey,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            ResourceImageView(
-              resource: widget.hex.output,
-              size: 60,
-              showAmount: true,
-            ),
-            Container(
-              child: Padding(
-                padding: EdgeInsets.all(widget.size / 6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    if (widget.hex.toRequirement().isNotEmpty)
-                      Row(
-                        children: widget.hex
-                            .toRequirement()
-                            .map(
-                              (requirement) => ResourceImageView(
-                                resource: requirement,
-                                showAmount: true,
-                                size: 60,
-                              ),
-                            )
-                            .toList(),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: widget.size,
-              height: widget.size / 8,
-              child: ElevatedButton(
-                child: Text(
-                  "Захопити",
-                  style: TextStyle(
-                    fontSize: 22,
-                  ),
-                ),
-                onPressed: processPressToOwn,
-              ),
-            ),
-          ],
+  Widget buildChild(BuildContext context) {
+    if (widget.hex.owned) {
+      return Container(
+          child: Text(distanceFromCenter(widget.hex).toString()));
+    }
+    if (widget.expanded) {
+      return HexExpandedView(size: widget.size, hex: widget.hex, onPressOwn: processPressToOwn,);
+    } else {
+      return Container(
+        width: widget.size,
+        height: widget.size * sqrt(3),
+        child: ResourceImageView(
+          resource: widget.hex.output,
         ),
-      ),
-    );
+      );
+    }
   }
+
 
   void processPress(BuildContext context) {
     widget.onPress(!widget.expanded);
