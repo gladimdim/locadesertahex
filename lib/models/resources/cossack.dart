@@ -12,6 +12,6 @@ class Cossack extends Resource {
   Cossack([value]) : super(value);
 
   List<Resource> toRequirement() {
-    return [FireArm(value), Food(value / 10), Horse(value)];
+    return [FireArm(value), Food(value * 3), Horse(value)];
   }
 }

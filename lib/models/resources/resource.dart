@@ -112,14 +112,16 @@ abstract class Resource {
         return Grains(value);
       case 'planks':
         return Planks(value);
-      case 'coal':
+      case 'charcoal':
         return Charcoal(value);
       case 'metalParts':
         return MetalParts(value);
       case 'cart':
         return Cart(value);
-      case 'resource.boat':
+      case 'boat':
         return Boat(value);
+      case 'tower':
+        return Tower(value);
     }
 
     throw "Resource localized Key $key was not recognized";

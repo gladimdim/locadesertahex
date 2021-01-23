@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   simple_animations: ^2.4.2
   soundpool: ^1.1.1
+  shared_preferences: ^0.5.11
 
 dev_dependencies:
   flutter_test:

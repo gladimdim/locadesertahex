@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
@@ -25,7 +26,12 @@ class MapStorage {
       item.visible = true;
     });
     addResource(hex.output);
+    save();
     return true;
+  }
+
+  void save() async {
+    await AppPreferences.instance.saveMap(this.toJson());
   }
 
   void putLast(Hex hex) {
@@ -175,14 +181,14 @@ class MapStorage {
     ];
     return [
       [],
-      food,
+      [RESOURCE_TYPES.GRAINS],
       [...food, ...resources],
-      food,
+      [...food, ...moneyMakers],
       [...food, ...resources],
       [...moneyMakers, ...resources],
       [...food, ...food, ...military, ...resources],
       [...food, ...army, ...higherLevel],
-      [...army, ...higherLevel, ...food],
+      [...army, ...higherLevel, ...food, ...military],
       [...food, ...military, ...army],
       [...resources, ...moneyMakers, ...food],
       [...resources, ...food],
@@ -205,6 +211,25 @@ class MapStorage {
       level = 4;
     }
     return levels[level];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "map": map.values.map((hex) => hex.toJson()).toList(),
+      "stock": stock.map((e) => e.toJson()).toList(),
+    };
+  }
+
+  static MapStorage fromJson(Map<String, dynamic> json) {
+    List hexJsons = json["map"] as List;
+    List stockJson = json["stock"] as List;
+    var hexes = hexJsons.map((e) => Hex.fromJson(e));
+    var map = MapStorage(map: {});
+    hexes.forEach((hex) {
+      map.addHex(hex);
+    });
+    map.stock = stockJson.map((e) => Resource.fromJson(e)).toList();
+    return map;
   }
 }
 
