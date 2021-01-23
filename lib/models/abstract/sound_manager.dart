@@ -58,6 +58,15 @@ abstract class SoundManagerClass {
       case RESOURCE_TYPES.CHARCOAL:
         action = SOUND_TYPE.COAL_GATHERED;
         break;
+      case RESOURCE_TYPES.FUR:
+        action = SOUND_TYPE.FUR_GATHERED;
+        break;
+      case RESOURCE_TYPES.METAL_PARTS:
+        action = SOUND_TYPE.METAL_PARTS_GATHERED;
+        break;
+      case RESOURCE_TYPES.POWDER:
+        action = SOUND_TYPE.POWDER_GATHERED;
+        break;
     }
     return action;
   }
@@ -79,4 +88,7 @@ enum SOUND_TYPE {
   CART_GATHERED,
   ORE_GATHERED,
   COAL_GATHERED,
+  FUR_GATHERED,
+  METAL_PARTS_GATHERED,
+  POWDER_GATHERED,
 }
