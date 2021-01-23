@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:locadesertahex/components/hex_surface.dart';
+import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SoundManager.instance.initSounds();
   runApp(MyApp());
 }
 

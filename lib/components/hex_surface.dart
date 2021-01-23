@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:locadesertahex/components/hex_item_tile.dart';
+import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 
@@ -81,6 +82,7 @@ class _HexSurfaceState extends State<HexSurface> {
                     onPress: (expanded) {
                       setState(() {
                         if (expanded) {
+                          SoundManager.instance.playSound(SOUND_TYPE.FIREARM_GATHERED);
                           selectedHex = hex;
                           widget.storage.putLast(hex);
                         } else {
