@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/label_text.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/models/hex.dart';
 
@@ -32,12 +33,8 @@ class _HexExpandedViewState extends State<HexExpandedView> {
             child: Container(
               width: widget.size,
               child: Center(
-                child: Text(
+                child: LabelText(
                   widget.hex.output.localizedKey,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green[800]),
                 ),
               ),
             ),
@@ -59,11 +56,11 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.hovered))
-                        return Colors.green[600];
+                        return Colors.green[700];
                       if (states.contains(MaterialState.focused) ||
                           states.contains(MaterialState.pressed))
-                        return Colors.green[900];
-                      return Colors.green; // Defer to the widget's default.
+                        return Colors.green[600];
+                      return Colors.green[400]; // Defer to the widget's default.
                     },
                   ),
                   foregroundColor:
@@ -97,11 +94,8 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                       ),
                     Expanded(
                       flex: 1,
-                      child: Text(
+                      child: LabelText(
                         "Захопити",
-                        style: TextStyle(
-                          fontSize: 22,
-                        ),
                       ),
                     ),
                   ],
