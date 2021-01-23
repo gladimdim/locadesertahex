@@ -50,10 +50,10 @@ class _HexSettlementExpandedViewState extends State<HexSettlementExpandedView> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           rowForRange(0, 2),
-          rowForRange(3, 6),
-          rowForRange(7, 12),
-          rowForRange(13, 16),
-          rowForRange(17, 18),
+          rowForRange(3, 7),
+          rowForRange(8, 13),
+          rowForRange(14, 17),
+          rowForRange(18, 18),
         ],
       ),
     );

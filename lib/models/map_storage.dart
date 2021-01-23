@@ -181,8 +181,8 @@ class MapStorage {
       [...first, ...fourth],
       [...second, ...fifth],
       [...first, ...second, ...fourth, ...sixth],
-      [...third, ...sixth],
-      [...fifth, ...fifth],
+      [...third, ...sixth, RESOURCE_TYPES.FOOD],
+      [...fifth, ...fifth, RESOURCE_TYPES.FOOD],
       [...sixth, ...sixth, ...first, ...second],
       [...second, ...second, ...fourth, ...fifth],
     ];

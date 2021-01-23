@@ -56,7 +56,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
                       if (states.contains(MaterialState.hovered))
-                        return Colors.green[700];
+                        return Colors.green[900];
                       if (states.contains(MaterialState.focused) ||
                           states.contains(MaterialState.pressed))
                         return Colors.green[600];
