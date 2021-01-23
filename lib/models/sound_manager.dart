@@ -23,7 +23,7 @@ class SoundManager extends SoundManagerClass {
     SOUND_TYPE.ORE_GATHERED: "assets/sounds/mining.mp3",
     SOUND_TYPE.COAL_GATHERED: "assets/sounds/mining.mp3",
     SOUND_TYPE.FUR_GATHERED: "assets/sounds/fur_gathered.mp3",
-    SOUND_TYPE.METAL_PARTS_GATHERED: "assets/sounds/metal_gathered.mp3",
+    SOUND_TYPE.METAL_PARTS_GATHERED: "assets/sounds/metal_parts_gathered.mp3",
     SOUND_TYPE.POWDER_GATHERED: "assets/sounds/powder_gathered.mp3",
   };
   SoundManager._internal();
