@@ -15,9 +15,11 @@ class MapStorage {
     if (!satisfiesResourceRequirement(hex.toRequirement())) {
       return false;
     }
+    hex.toRequirement().forEach(removeResource);
     map[hex.toHash()] = hex;
     hex.owned = true;
     hex.visible = true;
+
     hex.allNeighbours().forEach((element) {
       var item = getOrCreate(element);
       item.visible = true;

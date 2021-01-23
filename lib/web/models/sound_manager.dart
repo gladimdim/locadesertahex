@@ -23,6 +23,11 @@ class SoundManager extends SoundManagerClass {
     SOUND_TYPE.PLANKS_GATHERED: "/hex/assets/assets/sounds/planks_gathered.mp3",
     SOUND_TYPE.MONEY_GATHERED: "/hex/assets/assets/sounds/money_gathered.mp3",
     SOUND_TYPE.CANNON_GATHERED: "/hex/assets/assets/sounds/cannon_gathered.mp3",
+    SOUND_TYPE.FOOD_GATHERED: "/hex/assets/assets/sounds/food_gathered.mp3",
+    SOUND_TYPE.COSSACK_GATHERED: "/hex/assets/assets/sounds/cossack_gathered.mp3",
+    SOUND_TYPE.CART_GATHERED: "/hex/assets/assets/sounds/cart_gathered.mp3",
+    SOUND_TYPE.ORE_GATHERED: "/hex/assets/assets/sounds/mining_gathered.mp3",
+    SOUND_TYPE.COAL_GATHERED: "/hex/assets/assets/sounds/mining_gathered.mp3",
   };
   SoundManager._internal();
 

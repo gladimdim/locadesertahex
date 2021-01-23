@@ -34,7 +34,29 @@ abstract class SoundManagerClass {
       case RESOURCE_TYPES.BOAT:
         action = SOUND_TYPE.BOAT_GATHERED;
         break;
-      default:
+      case RESOURCE_TYPES.PLANKS:
+        action = SOUND_TYPE.PLANKS_GATHERED;
+        break;
+      case RESOURCE_TYPES.MONEY:
+        action = SOUND_TYPE.MONEY_GATHERED;
+        break;
+      case RESOURCE_TYPES.CANNON:
+        action = SOUND_TYPE.CANNON_GATHERED;
+        break;
+      case RESOURCE_TYPES.FOOD:
+        action = SOUND_TYPE.FOOD_GATHERED;
+        break;
+      case RESOURCE_TYPES.COSSACK:
+        action = SOUND_TYPE.COSSACK_GATHERED;
+        break;
+      case RESOURCE_TYPES.CART:
+        action = SOUND_TYPE.CART_GATHERED;
+        break;
+      case RESOURCE_TYPES.IRON_ORE:
+        action = SOUND_TYPE.ORE_GATHERED;
+        break;
+      case RESOURCE_TYPES.CHARCOAL:
+        action = SOUND_TYPE.COAL_GATHERED;
         break;
     }
     return action;
@@ -52,4 +74,9 @@ enum SOUND_TYPE {
   PLANKS_GATHERED,
   MONEY_GATHERED,
   CANNON_GATHERED,
+  FOOD_GATHERED,
+  COSSACK_GATHERED,
+  CART_GATHERED,
+  ORE_GATHERED,
+  COAL_GATHERED,
 }
