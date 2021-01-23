@@ -18,6 +18,7 @@ enum RESOURCE_TYPES {
   METAL_PARTS,
   CART,
   BOAT,
+  TOWER,
 }
 
 String resourceTypesToString(RESOURCE_TYPES type) {
@@ -58,6 +59,8 @@ String resourceTypesToString(RESOURCE_TYPES type) {
       return "CART";
     case RESOURCE_TYPES.BOAT:
       return "BOAT";
+    case RESOURCE_TYPES.TOWER:
+      return "TOWER";
   }
   throw 'Resource type $type is not recognized';
 }
@@ -100,6 +103,8 @@ RESOURCE_TYPES stringToResourceType(String type) {
       return RESOURCE_TYPES.CART;
     case "BOAT":
       return RESOURCE_TYPES.BOAT;
+    case "TOWER":
+      return RESOURCE_TYPES.TOWER;
   }
   throw 'Resource type $type is not recognized';
 }

@@ -16,6 +16,7 @@ import 'package:locadesertahex/models/resources/planks/planks.dart';
 import 'package:locadesertahex/models/resources/powder.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:locadesertahex/models/resources/stone.dart';
+import 'package:locadesertahex/models/resources/tower.dart';
 import 'package:locadesertahex/models/resources/wood.dart';
 
 abstract class Resource {
@@ -75,6 +76,8 @@ abstract class Resource {
         return Cart(value);
       case RESOURCE_TYPES.BOAT:
         return Boat(value);
+      case RESOURCE_TYPES.TOWER:
+        return Tower(value);
     }
     throw "Resource Type $type is not recognized";
   }

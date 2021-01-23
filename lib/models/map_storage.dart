@@ -140,53 +140,62 @@ class MapStorage {
   }
 
   static List<List<RESOURCE_TYPES>> resourcesByLevels() {
-    var first = [
+    var food = [
       RESOURCE_TYPES.GRAINS,
-      RESOURCE_TYPES.STONE,
-      RESOURCE_TYPES.WOOD
-    ];
-    var second = [
-
-      RESOURCE_TYPES.FISH,
       RESOURCE_TYPES.FOOD,
-      RESOURCE_TYPES.IRON_ORE
     ];
-    var third = [
-
-      RESOURCE_TYPES.FUR,
-      RESOURCE_TYPES.POWDER,
+    var resources = [
+      RESOURCE_TYPES.WOOD,
+      RESOURCE_TYPES.STONE,
+      RESOURCE_TYPES.FOOD,
+      RESOURCE_TYPES.IRON_ORE,
       RESOURCE_TYPES.CHARCOAL,
     ];
-    var fourth = [
-
+    var military = [
+      RESOURCE_TYPES.FIREARM,
+      RESOURCE_TYPES.MONEY,
+      RESOURCE_TYPES.POWDER,
+    ];
+    var moneyMakers = [
+      RESOURCE_TYPES.FISH,
+      RESOURCE_TYPES.FUR,
+    ];
+    var higherLevel = [
       RESOURCE_TYPES.MONEY,
       RESOURCE_TYPES.HORSE,
-      RESOURCE_TYPES.BOAT,
       RESOURCE_TYPES.PLANKS,
-    ];
-    var fifth = [
-
-      RESOURCE_TYPES.CART,
       RESOURCE_TYPES.METAL_PARTS,
-      RESOURCE_TYPES.FIREARM,
     ];
-    var sixth = [
 
+    var army = [
+      RESOURCE_TYPES.BOAT,
+      RESOURCE_TYPES.CART,
       RESOURCE_TYPES.CANNON,
       RESOURCE_TYPES.COSSACK,
     ];
     return [
       [],
-      first,
-      [...first, ...second],
-      third,
-      [...first, ...fourth],
-      [...second, ...fifth],
-      [...first, ...second, ...fourth, ...sixth],
-      [...third, ...sixth, RESOURCE_TYPES.FOOD],
-      [...fifth, ...fifth, RESOURCE_TYPES.FOOD],
-      [...sixth, ...sixth, ...first, ...second],
-      [...second, ...second, ...fourth, ...fifth],
+      food,
+      [...food, ...resources],
+      food,
+      [...food, ...resources],
+      [...moneyMakers, ...resources],
+      [...food, ...food, ...military, ...resources],
+      [...food, ...army, ...higherLevel],
+      [...army, ...higherLevel, ...food],
+      [...food, ...military, ...army],
+      [...resources, ...moneyMakers, ...food],
+      [...resources, ...food],
+      [...moneyMakers, ...food, ...military],
+      [...army, ...moneyMakers],
+      [...resources, ...higherLevel, ...food],
+      [...moneyMakers, ...higherLevel, ...food],
+      [...resources, ...higherLevel, ...food],
+      military,
+      resources,
+      food,
+      higherLevel,
+      moneyMakers,
     ];
   }
 

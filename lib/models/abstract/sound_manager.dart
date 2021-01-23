@@ -67,6 +67,9 @@ abstract class SoundManagerClass {
       case RESOURCE_TYPES.POWDER:
         action = SOUND_TYPE.POWDER_GATHERED;
         break;
+      case RESOURCE_TYPES.TOWER:
+        action = SOUND_TYPE.CANNON_GATHERED;
+        break;
     }
     return action;
   }
