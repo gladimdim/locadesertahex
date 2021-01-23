@@ -10,6 +10,7 @@ class HexExpandedView extends StatefulWidget {
   final VoidCallback onPressOwn;
 
   HexExpandedView({this.size, this.hex, this.onPressOwn});
+
   @override
   _HexExpandedViewState createState() => _HexExpandedViewState();
 }
@@ -33,7 +34,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
               child: Center(
                 child: Text(
                   widget.hex.output.localizedKey,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green[800]),
                 ),
               ),
             ),
@@ -46,29 +47,40 @@ class _HexExpandedViewState extends State<HexExpandedView> {
               showAmount: true,
             ),
           ),
-
           Expanded(
             flex: 4,
             child: SizedBox(
               width: widget.size,
-              child: ElevatedButton(
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.green[200]),
+                  textStyle: MaterialStateProperty.all<TextStyle>(
+                    TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     if (widget.hex.toRequirement().isNotEmpty)
                       Expanded(
-                        flex: 2,
+                        flex: 4,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: widget.hex
                               .toRequirement()
                               .map(
                                 (requirement) => ResourceImageView(
-                              resource: requirement,
-                              showAmount: true,
-                              size: 64,
-                            ),
-                          )
+                                  resource: requirement,
+                                  showAmount: true,
+                                  size: 64,
+                                ),
+                              )
                               .toList(),
                         ),
                       ),
