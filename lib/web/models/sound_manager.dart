@@ -1,7 +1,13 @@
+import 'dart:js' as js;
+
 import 'package:flutter/services.dart';
 import 'package:locadesertahex/models/abstract/sound_manager.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:soundpool/soundpool.dart';
+
+void playWebAudio(String path) {
+  js.context.callMethod('playAudio', [path]);
+}
 
 class SoundManager extends SoundManagerClass {
   // contains ids of loaded sounds
@@ -48,6 +54,7 @@ class SoundManager extends SoundManagerClass {
     }
   }
   playSound(SOUND_TYPE action) async {
-    await pool.play(sounds[actionMapping[action]]);
+    print("playing web sound");
+    playWebAudio(actionMapping[action]);
   }
 }

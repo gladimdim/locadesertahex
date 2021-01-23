@@ -82,7 +82,6 @@ class _HexSurfaceState extends State<HexSurface> {
                     onPress: (expanded) {
                       setState(() {
                         if (expanded) {
-                          SoundManager.instance.playSound(SOUND_TYPE.FIREARM_GATHERED);
                           selectedHex = hex;
                           widget.storage.putLast(hex);
                         } else {
