@@ -13,11 +13,11 @@ class SoundManager extends SoundManagerClass {
   // contains ids of loaded sounds
   Map<String, int> sounds = {};
   Map<SOUND_TYPE, String> actionMapping = {
-    SOUND_TYPE.FIREARM_GATHERED: "assets/sounds/firearm_gathered.mp3",
-    SOUND_TYPE.STONE_GATHERED: "assets/sounds/stone_gathered.mp3",
-    SOUND_TYPE.GRAINS_GATHERED: "assets/sounds/grains_gathered.mp3",
-    SOUND_TYPE.WOOD_GATHERED: "assets/sounds/wood_gathered.mp3",
-    SOUND_TYPE.HORSE_GATHERED: "assets/sounds/horse_gathered.mp3",
+    SOUND_TYPE.FIREARM_GATHERED: "/hex/assets/assets/sounds/firearm_gathered.mp3",
+    SOUND_TYPE.STONE_GATHERED: "/hex/assets/assets/sounds/stone_gathered.mp3",
+    SOUND_TYPE.GRAINS_GATHERED: "/hex/assets/assets/sounds/grains_gathered.mp3",
+    SOUND_TYPE.WOOD_GATHERED: "/hex/assets/assets/sounds/wood_gathered.mp3",
+    SOUND_TYPE.HORSE_GATHERED: "/hex/assets/assets/sounds/horse_gathered.mp3",
   };
   SoundManager._internal();
 
