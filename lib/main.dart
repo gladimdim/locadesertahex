@@ -78,13 +78,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 storage: map,
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.refresh, size: 32,),
-              onPressed: () {
-                setState(() {
-                  map = MapStorage.generate();
-                });
-              },
+            Positioned(
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.refresh,
+                    size: 32,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      map = MapStorage.generate();
+                    });
+                  },
+                ),
+              ),
             )
           ],
         ),
