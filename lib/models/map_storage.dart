@@ -76,7 +76,7 @@ class MapStorage {
   }
 
   void removeResource(Resource resource) {
-    if (satisfiesResourceRequirement(resource.toRequirement())) {
+    if (satisfiesResourceRequirement([resource])) {
       stockForResource(resource).value -= resource.value;
     }
   }
@@ -148,7 +148,7 @@ class MapStorage {
   static Resource getRandomResourceForLevel(int level) {
     var resourceTypes = resourcesForLevel(level);
     var i = Random().nextInt(resourceTypes.length);
-    return Resource.fromType(resourceTypes[i], 10);
+    return Resource.fromType(resourceTypes[i]);
   }
 
   static List<List<RESOURCE_TYPES>> resourcesByLevels() {
@@ -160,7 +160,9 @@ class MapStorage {
       RESOURCE_TYPES.WOOD,
       RESOURCE_TYPES.STONE,
       RESOURCE_TYPES.FOOD,
+      RESOURCE_TYPES.WOOD,
       RESOURCE_TYPES.IRON_ORE,
+      RESOURCE_TYPES.WOOD,
       RESOURCE_TYPES.CHARCOAL,
     ];
     var military = [
@@ -180,29 +182,39 @@ class MapStorage {
     ];
 
     var army = [
-      RESOURCE_TYPES.BOAT,
-      RESOURCE_TYPES.CART,
       RESOURCE_TYPES.CANNON,
       RESOURCE_TYPES.COSSACK,
+    ];
+
+    var highLevelArmy = [
+      RESOURCE_TYPES.BOAT,
+      RESOURCE_TYPES.CART,
     ];
     return [
       [],
       [RESOURCE_TYPES.GRAINS],
       [...food, ...resources],
-      [...food, ...moneyMakers],
       [...food, ...resources],
+      [...food, ...moneyMakers, ...military],
       [...moneyMakers, ...resources],
-      [...food, ...food, ...military, ...resources],
-      [...food, ...army, ...higherLevel],
-      [...army, ...higherLevel, ...food, ...military],
-      [...food, ...military, ...army],
+      [...food, ...resources, ...military],
+      [...army, ...higherLevel],
+      [...army, ...higherLevel, ...military],
+      [...military, ...higherLevel],
+      [RESOURCE_TYPES.TOWER],
       [...resources, ...moneyMakers, ...food],
-      [...resources, ...food],
-      [...moneyMakers, ...food, ...military],
+      [RESOURCE_TYPES.TOWER],
+      [...resources],
+      [...moneyMakers, ...military],
+      [RESOURCE_TYPES.TOWER],
       [...army, ...moneyMakers],
       [...resources, ...higherLevel],
-      [...moneyMakers, ...higherLevel,],
+      [
+        ...moneyMakers,
+        ...higherLevel,
+      ],
       [...resources, ...higherLevel, ...food],
+      [...highLevelArmy, ...higherLevel],
       military,
       resources,
       food,

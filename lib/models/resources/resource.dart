@@ -22,6 +22,7 @@ import 'package:locadesertahex/models/resources/wood.dart';
 abstract class Resource {
   String localizedKey;
   double value;
+  double defaultValue = 10;
   RESOURCE_TYPES type;
 
   String toImagePath() {
@@ -32,7 +33,9 @@ abstract class Resource {
     return "images/resources/${localizedKey}_128.png";
   }
 
-  Resource([this.value]);
+  Resource([this.value])  {
+    value = value ?? defaultValue;
+  }
 
   List<Resource> toRequirement() {
     return [];

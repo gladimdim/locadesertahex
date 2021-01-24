@@ -8,11 +8,13 @@ class Tower extends Resource {
   String localizedKey = 'tower';
   String localizedDescriptionKey = 'towerDescription';
   RESOURCE_TYPES type = RESOURCE_TYPES.TOWER;
-
-  Tower([value]) : super(value);
+  double defaultValue = 1;
+  Tower([value]) : super(value)  {
+    value = value ?? defaultValue;
+  }
 
   List<Resource> toRequirement() {
-    return [Cannon(value * 3), Cossack(value * 15)];
+    return [Cannon(value * 10), Cossack(value * 40)];
   }
 
 }
