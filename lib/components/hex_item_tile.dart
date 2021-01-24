@@ -119,7 +119,6 @@ class _HexItemTileState extends State<HexItemTile> {
     widget.onPress(!success);
     if (success) {
       SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
-      setState(() {});
     }
   }
 

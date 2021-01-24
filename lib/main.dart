@@ -4,6 +4,7 @@ import 'package:locadesertahex/components/hex_surface.dart';
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/views/game_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,65 +39,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: "Hex", map: map),
+      home: GameView(title: "Hex", map: map),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.map}) : super(key: key);
-  final MapStorage map;
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final double size = 120;
-  final double dimension = 8000;
-
-  MapStorage map;
-
-  void initState() {
-    map = widget.map;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Stack(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: HexSurface(
-                dimension: dimension,
-                size: size,
-                storage: map,
-              ),
-            ),
-            Positioned(
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.refresh,
-                    size: 32,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      map = MapStorage.generate();
-                    });
-                  },
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}

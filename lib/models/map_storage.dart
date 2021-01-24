@@ -5,12 +5,17 @@ import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MapStorage {
   Map<String, Hex> map;
   List<Resource> stock = [];
+  BehaviorSubject _innerChanges = BehaviorSubject<MapStorage>();
+  ValueStream<MapStorage> changes;
 
-  MapStorage({this.map});
+  MapStorage({this.map}) {
+    changes = _innerChanges.stream;
+  }
 
   bool ownHex(Hex hex) {
     if (!satisfiesResourceRequirement(hex.toRequirement())) {
@@ -27,6 +32,7 @@ class MapStorage {
     });
     addResource(hex.output);
     save();
+    _innerChanges.add(this);
     return true;
   }
 
