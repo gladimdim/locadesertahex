@@ -36,7 +36,6 @@ class _HexSurfaceState extends State<HexSurface> {
   @override
   Widget build(BuildContext context) {
     var dimension = widget.dimension;
-    var size = widget.size;
     return InteractiveViewer(
       transformationController: _controller,
       constrained: false,

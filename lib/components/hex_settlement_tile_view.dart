@@ -49,10 +49,10 @@ class _HexSettlementExpandedViewState extends State<HexSettlementExpandedView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          rowForRange(0, 2),
-          rowForRange(3, 6),
-          rowForRange(7, 12),
-          rowForRange(13, 16),
+          rowForRange(0, 3),
+          rowForRange(3, 7),
+          rowForRange(7, 13),
+          rowForRange(13, 17),
           rowForRange(17, 18),
         ],
       ),
@@ -71,7 +71,7 @@ class _HexSettlementExpandedViewState extends State<HexSettlementExpandedView> {
     return ResourceImageView(
       resource: resource,
       showAmount: true,
-      size: 54,
+      size: 48,
     );
   }
 }

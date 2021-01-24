@@ -15,6 +15,25 @@ class Hex {
     this.output,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      "x": x,
+      "y": y,
+      "z": z,
+      "owned": owned,
+      "visible": visible,
+      "output": output == null ? null : output.toJson(),
+    };
+  }
+
+  static Hex fromJson(Map<String, dynamic> json) {
+    var output = json["output"] == null ? null : Resource.fromJson(json["output"]);
+    var hex = Hex(json["x"], json["y"], json["z"], output: output);
+    hex.visible = json["visible"];
+    hex.owned = json["owned"];
+    return hex;
+  }
+
   List<Resource> toRequirement() {
     return output.toRequirement();
   }

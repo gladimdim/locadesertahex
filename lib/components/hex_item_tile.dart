@@ -5,6 +5,7 @@ import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
+import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 
@@ -117,6 +118,7 @@ class _HexItemTileState extends State<HexItemTile> {
 
     widget.onPress(!success);
     if (success) {
+      SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
       setState(() {});
     }
   }

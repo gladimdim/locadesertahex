@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
@@ -15,15 +16,22 @@ class MapStorage {
     if (!satisfiesResourceRequirement(hex.toRequirement())) {
       return false;
     }
+    hex.toRequirement().forEach(removeResource);
     map[hex.toHash()] = hex;
     hex.owned = true;
     hex.visible = true;
+
     hex.allNeighbours().forEach((element) {
       var item = getOrCreate(element);
       item.visible = true;
     });
     addResource(hex.output);
+    save();
     return true;
+  }
+
+  void save() async {
+    await AppPreferences.instance.saveMap(this.toJson());
   }
 
   void putLast(Hex hex) {
@@ -138,53 +146,62 @@ class MapStorage {
   }
 
   static List<List<RESOURCE_TYPES>> resourcesByLevels() {
-    var first = [
+    var food = [
       RESOURCE_TYPES.GRAINS,
-      RESOURCE_TYPES.STONE,
-      RESOURCE_TYPES.WOOD
-    ];
-    var second = [
-
-      RESOURCE_TYPES.FISH,
       RESOURCE_TYPES.FOOD,
-      RESOURCE_TYPES.IRON_ORE
     ];
-    var third = [
-
-      RESOURCE_TYPES.FUR,
-      RESOURCE_TYPES.POWDER,
+    var resources = [
+      RESOURCE_TYPES.WOOD,
+      RESOURCE_TYPES.STONE,
+      RESOURCE_TYPES.FOOD,
+      RESOURCE_TYPES.IRON_ORE,
       RESOURCE_TYPES.CHARCOAL,
     ];
-    var fourth = [
-
+    var military = [
+      RESOURCE_TYPES.FIREARM,
+      RESOURCE_TYPES.MONEY,
+      RESOURCE_TYPES.POWDER,
+    ];
+    var moneyMakers = [
+      RESOURCE_TYPES.FISH,
+      RESOURCE_TYPES.FUR,
+    ];
+    var higherLevel = [
       RESOURCE_TYPES.MONEY,
       RESOURCE_TYPES.HORSE,
-      RESOURCE_TYPES.BOAT,
       RESOURCE_TYPES.PLANKS,
-    ];
-    var fifth = [
-
-      RESOURCE_TYPES.CART,
       RESOURCE_TYPES.METAL_PARTS,
-      RESOURCE_TYPES.FIREARM,
     ];
-    var sixth = [
 
+    var army = [
+      RESOURCE_TYPES.BOAT,
+      RESOURCE_TYPES.CART,
       RESOURCE_TYPES.CANNON,
       RESOURCE_TYPES.COSSACK,
     ];
     return [
       [],
-      first,
-      [...first, ...second],
-      third,
-      [...first, ...fourth],
-      [...second, ...fifth],
-      [...first, ...second, ...fourth, ...sixth],
-      [...third, ...sixth],
-      [...fifth, ...fifth],
-      [...sixth, ...sixth, ...first, ...second],
-      [...second, ...second, ...fourth, ...fifth],
+      [RESOURCE_TYPES.GRAINS],
+      [...food, ...resources],
+      [...food, ...moneyMakers],
+      [...food, ...resources],
+      [...moneyMakers, ...resources],
+      [...food, ...food, ...military, ...resources],
+      [...food, ...army, ...higherLevel],
+      [...army, ...higherLevel, ...food, ...military],
+      [...food, ...military, ...army],
+      [...resources, ...moneyMakers, ...food],
+      [...resources, ...food],
+      [...moneyMakers, ...food, ...military],
+      [...army, ...moneyMakers],
+      [...resources, ...higherLevel],
+      [...moneyMakers, ...higherLevel,],
+      [...resources, ...higherLevel, ...food],
+      military,
+      resources,
+      food,
+      higherLevel,
+      moneyMakers,
     ];
   }
 
@@ -194,6 +211,25 @@ class MapStorage {
       level = 4;
     }
     return levels[level];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "map": map.values.map((hex) => hex.toJson()).toList(),
+      "stock": stock.map((e) => e.toJson()).toList(),
+    };
+  }
+
+  static MapStorage fromJson(Map<String, dynamic> json) {
+    List hexJsons = json["map"] as List;
+    List stockJson = json["stock"] as List;
+    var hexes = hexJsons.map((e) => Hex.fromJson(e));
+    var map = MapStorage(map: {});
+    hexes.forEach((hex) {
+      map.addHex(hex);
+    });
+    map.stock = stockJson.map((e) => Resource.fromJson(e)).toList();
+    return map;
   }
 }
 
