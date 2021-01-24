@@ -56,18 +56,37 @@ class _MyHomePageState extends State<MyHomePage> {
   final double size = 120;
   final double dimension = 8000;
 
+  MapStorage map;
+
+  void initState() {
+    map = widget.map;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: HexSurface(
-            dimension: dimension,
-            size: size,
-            storage: widget.map,
-          ),
+        child: Stack(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: HexSurface(
+                dimension: dimension,
+                size: size,
+                storage: map,
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.refresh, size: 32,),
+              onPressed: () {
+                setState(() {
+                  map = MapStorage.generate();
+                });
+              },
+            )
+          ],
         ),
       ),
     );
