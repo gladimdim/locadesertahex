@@ -24,4 +24,5 @@ flutter:
   assets:
     - images/resources/
     - images/background/
+    - images/buildings/
     - assets/sounds/

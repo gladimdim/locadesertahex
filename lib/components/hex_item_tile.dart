@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
+import 'package:locadesertahex/components/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
@@ -97,15 +98,7 @@ class _HexItemTileState extends State<HexItemTile> {
               onPressOwn: processPressToOwn,
             );
     } else if (widget.hex.owned) {
-      return Container(
-          width: widget.size,
-          height: widget.size,
-          color: widget.hex.onRing
-              ? Colors.transparent
-              : Colors.grey[600].withAlpha(150),
-          child: Text(
-            distanceFromCenter(widget.hex).toString(),
-          ));
+      return OwnedHexTile(size: widget.size, hex: widget.hex);
     } else {
       return Container(
         width: widget.size,
