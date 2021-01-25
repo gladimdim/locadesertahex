@@ -10,6 +10,6 @@ class Food extends Resource {
   Food([value]) : super(value);
 
   List<Resource> toRequirement() {
-    return [Grains(value / 4)];
+    return [Grains(value / 5)];
   }
 }

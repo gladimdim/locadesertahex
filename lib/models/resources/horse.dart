@@ -10,6 +10,6 @@ class Horse extends Resource {
   Horse([value]) : super(value);
 
   List<Resource> toRequirement() {
-    return [Grains(value * 2)];
+    return [Grains(value / 2)];
   }
 }
