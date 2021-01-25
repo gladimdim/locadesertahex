@@ -98,7 +98,7 @@ class _HexSurfaceState extends State<HexSurface> {
   }
 
   double leftForHex(Hex hex) {
-    return Point(widget.dimension / 2, widget.dimension / 2).x.toDouble() -
+    return Point(widget.dimension / 2, widget.dimension / 2).x.toDouble() +
         widget.size * 3 / 4 * hex.x.toDouble() +
         selectedShift(hex);
   }

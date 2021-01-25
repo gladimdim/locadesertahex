@@ -14,7 +14,7 @@ class OwnedHexTile extends StatelessWidget {
     return Container(
       width: size,
       height: size * sqrt(3),
-      child: hex.toHash() == Hex(0, 0, 0).toHash() ? home() : null,
+      child: hex.toHash() == Hex(0, 0, 0).toHash() ? home() : Center(child: Text(hex.toString())),
     );
   }
 

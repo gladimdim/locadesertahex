@@ -16,6 +16,10 @@ class Hex {
     this.output,
   });
 
+  bool equalsTo(Hex another) {
+    return x == another.x && y == another.y && z == another.z;
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "x": x,

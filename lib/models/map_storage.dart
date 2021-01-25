@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:locadesertahex/models/app_preferences.dart';
+import 'package:locadesertahex/models/city_hex.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
@@ -11,6 +12,14 @@ import 'package:tuple/tuple.dart';
 class MapStorage {
   Map<String, Hex> map;
   List<Resource> stock = [];
+  List<CityHex> cities = [
+    CityHex.generateForDirection(0),
+    CityHex.generateForDirection(1),
+    CityHex.generateForDirection(2),
+    CityHex.generateForDirection(3),
+    CityHex.generateForDirection(4),
+    CityHex.generateForDirection(5),
+  ];
   BehaviorSubject _innerChanges = BehaviorSubject<MapStorage>();
   ValueStream<MapStorage> changes;
 
@@ -29,9 +38,20 @@ class MapStorage {
 
     // highlight rings
     processRings(distanceFromCenter(hex));
-
+    List<Hex> cityHexes = [];
+    cities.forEach((cityHex) {
+      cityHexes.addAll(cityHex.getCircle());
+    });
     hex.allNeighbours().forEach((element) {
       var item = getOrCreate(element);
+      // check for city circles
+      var foundInCity =
+          cityHexes.where((cityHex) => cityHex.equalsTo(item)).toList();
+
+      if (foundInCity.isNotEmpty) {
+        addHex(foundInCity[0]);
+      }
+
       item.visible = true;
     });
     addResource(hex.output);
