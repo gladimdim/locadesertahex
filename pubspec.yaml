@@ -14,6 +14,7 @@ dependencies:
   soundpool: ^1.1.1
   shared_preferences: ^0.5.11
   rxdart: 0.24.1
+  tuple: ^1.0.3
 
 dev_dependencies:
   flutter_test:

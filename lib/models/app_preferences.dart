@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:locadesertahex/models/map_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppPreferences {

@@ -6,6 +6,7 @@ import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tuple/tuple.dart';
 
 class MapStorage {
   Map<String, Hex> map;
@@ -26,6 +27,9 @@ class MapStorage {
     hex.owned = true;
     hex.visible = true;
 
+    // highlight rings
+    processRings(distanceFromCenter(hex));
+
     hex.allNeighbours().forEach((element) {
       var item = getOrCreate(element);
       item.visible = true;
@@ -34,6 +38,39 @@ class MapStorage {
     save();
     _innerChanges.add(this);
     return true;
+  }
+
+  void processRings(radius) {
+    Tuple2<bool, List<Hex>> result = ringClosedAt(radius);
+    if (result.item1) {
+      result.item2.forEach((element) {
+        element.onRing = true;
+      });
+    }
+  }
+
+  Tuple2<bool, List<Hex>> ringClosedAt(int radius) {
+    List<Hex> results = List.empty(growable: true);
+    var center = Hex(0, 0, 0);
+    var cube = center.toCube(center.allNeighbours()[4].scaleTo(radius));
+    for (var i = 0; i < 6; i++) {
+      for (var j = 0; j < radius; j++) {
+        if (!ownsHex(cube)) {
+          return Tuple2(false, []);
+        }
+        results.add(map[cube.toHash()]);
+        cube = cube.allNeighbours()[i];
+      }
+    }
+    return Tuple2(true, results);
+  }
+
+  bool hasHex(Hex hex) {
+    return map[hex.toHash()] != null;
+  }
+
+  bool ownsHex(Hex hex) {
+    return hasHex(hex) && map[hex.toHash()].owned;
   }
 
   void save() async {

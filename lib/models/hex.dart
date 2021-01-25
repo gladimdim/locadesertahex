@@ -7,6 +7,7 @@ class Hex {
   bool owned = false;
   bool visible = false;
   Resource output;
+  bool onRing = false;
 
   Hex(
     this.x,
@@ -23,12 +24,15 @@ class Hex {
       "owned": owned,
       "visible": visible,
       "output": output == null ? null : output.toJson(),
+      "onRing": onRing,
     };
   }
 
   static Hex fromJson(Map<String, dynamic> json) {
-    var output = json["output"] == null ? null : Resource.fromJson(json["output"]);
-    var hex = Hex(json["x"], json["y"], json["z"], output: output);
+    var output =
+        json["output"] == null ? null : Resource.fromJson(json["output"]);
+    var hex = Hex(json["x"], json["y"], json["z"], output: output,);
+    hex.onRing = json["onRing"];
     hex.visible = json["visible"];
     hex.owned = json["owned"];
     return hex;
@@ -86,6 +90,13 @@ class Hex {
 
   String toHash() {
     return "$x $y $z";
+  }
+
+  Hex scaleTo(int scale) {
+    int scaledX = x * scale;
+    int scaledY = y * scale;
+    int scaledZ = z * scale;
+    return Hex(scaledX, scaledY, scaledZ);
   }
 
   toString() {

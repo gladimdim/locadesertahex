@@ -97,7 +97,17 @@ class _HexItemTileState extends State<HexItemTile> {
               onPressOwn: processPressToOwn,
             );
     } else if (widget.hex.owned) {
-      return Container(child: Text(distanceFromCenter(widget.hex).toString()));
+      var style = widget.hex.onRing
+          ? TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.yellow,
+            )
+          : null;
+      return Container(
+          child: Text(
+        distanceFromCenter(widget.hex).toString(),
+        style: style,
+      ));
     } else {
       return Container(
         width: widget.size,
