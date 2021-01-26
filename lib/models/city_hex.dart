@@ -1,15 +1,16 @@
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/tower.dart';
+import 'package:locadesertahex/models/resources/wall.dart';
 
 class CityHex extends Hex {
-  int points = 10;
+  int points = 25;
   CityHex(int x, int y, int z) : super(x, y, z);
   Resource output;
   List<Hex> getCircle() {
     var walls = allNeighbours();
     walls.forEach((element) {
-      element.output = Tower(1.0);
+      element.output = Wall(1.0);
     });
     return [this, ...walls];
   }
