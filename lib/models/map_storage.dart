@@ -13,13 +13,15 @@ import 'package:tuple/tuple.dart';
 class MapStorage {
   Map<String, Hex> map;
   List<Resource> stock = [];
+  int totalPoints = 0;
   List<CityHex> cities = [
-    CityHex.generateForDirection(0),
-    CityHex.generateForDirection(1),
-    CityHex.generateForDirection(2),
-    CityHex.generateForDirection(3),
-    CityHex.generateForDirection(4),
-    CityHex.generateForDirection(5),
+    CityHex.generateForDirection(0, 10),
+    CityHex.generateForDirection(4, 10),
+    CityHex.generateForDirection(2, 10),
+    CityHex.generateForDirection(2, 25),
+    CityHex.generateForDirection(3, 23),
+    CityHex.generateForDirection(4, 30),
+    CityHex.generateForDirection(5, 13),
   ];
   BehaviorSubject _innerChanges = BehaviorSubject<MapStorage>();
   ValueStream<MapStorage> changes;
@@ -36,9 +38,9 @@ class MapStorage {
     map[hex.toHash()] = hex;
     hex.owned = true;
     hex.visible = true;
-
+    totalPoints += hex.points;
     // highlight rings
-    processRings(distanceFromCenter(hex));
+    // processRings(distanceFromCenter(hex));
     List<Hex> cityHexes = [];
     cities.forEach((cityHex) {
       cityHexes.addAll(cityHex.getCircle());
@@ -289,6 +291,7 @@ class MapStorage {
     return {
       "map": map.values.map((hex) => hex.toJson()).toList(),
       "stock": stock.map((e) => e.toJson()).toList(),
+      "totalPoints": totalPoints,
     };
   }
 
@@ -297,6 +300,7 @@ class MapStorage {
     List stockJson = json["stock"] as List;
     var hexes = hexJsons.map((e) => Hex.fromJson(e));
     var map = MapStorage(map: {});
+    map.totalPoints = json["totalPoints"] ?? 0;
     hexes.forEach((hex) {
       map.addHex(hex);
     });

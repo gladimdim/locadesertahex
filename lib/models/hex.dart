@@ -8,6 +8,7 @@ class Hex {
   bool visible = false;
   Resource output;
   bool onRing = false;
+  int points = 1;
 
   Hex(
     this.x,

@@ -20,9 +20,7 @@ class ResourceImageView extends StatelessWidget {
           resource.toImagePath(),
           width: size,
         ),
-        if (showAmount)
-          LabelText(resource.value.toString()),
-
+        if (showAmount) LabelText(resource.value.toString()),
       ],
     );
   }

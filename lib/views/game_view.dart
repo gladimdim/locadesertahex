@@ -14,7 +14,7 @@ class GameView extends StatefulWidget {
 
 class _GameViewState extends State<GameView> {
   final double size = 120;
-  final double dimension = 8000;
+  final double dimension = 6000;
 
   MapStorage map;
 
@@ -26,48 +26,50 @@ class _GameViewState extends State<GameView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: map.changes,
-        builder: (context, data) => Stack(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: HexSurface(
-                dimension: dimension,
-                size: size,
-                storage: map,
-              ),
-            ),
-            Positioned(
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  height: 32,
-                  color: Colors.white.withAlpha(155),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.refresh,
-                          size: 24,
-                          color: Colors.green[700],
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            map = MapStorage.generate();
-                          });
-                        },
-                      ),
-                      LabelText(
-                          "Tiles opened: ${map.map.values.where((element) => element.owned).length}"),
-                    ],
-                  ),
+      body: SafeArea(
+        child: StreamBuilder(
+          stream: map.changes,
+          builder: (context, data) => Stack(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: HexSurface(
+                  dimension: dimension,
+                  size: size,
+                  storage: map,
                 ),
               ),
-            )
-          ],
+              Positioned(
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
+                    height: 32,
+                    color: Colors.white.withAlpha(155),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.refresh,
+                            size: 24,
+                            color: Colors.green[700],
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              map = MapStorage.generate();
+                            });
+                          },
+                        ),
+                        LabelText(
+                            "Points: ${map.totalPoints}"),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

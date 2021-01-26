@@ -3,6 +3,7 @@ import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/tower.dart';
 
 class CityHex extends Hex {
+  int points = 10;
   CityHex(int x, int y, int z) : super(x, y, z);
   Resource output;
   List<Hex> getCircle() {
@@ -13,9 +14,9 @@ class CityHex extends Hex {
     return [this, ...walls];
   }
 
-  static CityHex generateForDirection(int i) {
+  static CityHex generateForDirection(int i, int distance) {
     Hex center = Hex(0, 0, 0);
-    Hex directed = center.toDirection(i).scaleTo(25);
+    Hex directed = center.toDirection(i).scaleTo(distance);
     var cityCenter = CityHex(directed.x, directed.y, directed.z);
     cityCenter.output = Tower(10.0);
     return cityCenter;
