@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/city_hex.dart';
 import 'package:locadesertahex/models/hex.dart';
@@ -304,6 +305,3 @@ class MapStorage {
   }
 }
 
-int distanceFromCenter(Hex hex) {
-  return ((hex.x.abs() + hex.y.abs() + hex.z.abs()) / 2).floor();
-}

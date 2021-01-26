@@ -12,3 +12,7 @@ double topForHex(Hex hex, double dimension, double size) {
       size * sin(pi * 60 / 180) * hex.y -
       size / 2.4 * hex.x.toDouble() * 1.04;
 }
+
+int distanceFromCenter(Hex hex) {
+  return ((hex.x.abs() + hex.y.abs() + hex.z.abs()) / 2).floor();
+}
