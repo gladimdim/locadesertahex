@@ -17,6 +17,7 @@ import 'package:locadesertahex/models/resources/powder.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:locadesertahex/models/resources/stone.dart';
 import 'package:locadesertahex/models/resources/tower.dart';
+import 'package:locadesertahex/models/resources/wall.dart';
 import 'package:locadesertahex/models/resources/wood.dart';
 
 abstract class Resource {
@@ -81,6 +82,8 @@ abstract class Resource {
         return Boat(value);
       case RESOURCE_TYPES.TOWER:
         return Tower(value);
+      case RESOURCE_TYPES.WALL:
+        return Wall(value);
     }
     throw "Resource Type $type is not recognized";
   }
@@ -125,6 +128,8 @@ abstract class Resource {
         return Boat(value);
       case 'tower':
         return Tower(value);
+      case 'wall':
+        return Wall(value);
     }
 
     throw "Resource localized Key $key was not recognized";

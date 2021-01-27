@@ -70,6 +70,9 @@ abstract class SoundManagerClass {
       case RESOURCE_TYPES.TOWER:
         action = SOUND_TYPE.CANNON_GATHERED;
         break;
+      case RESOURCE_TYPES.WALL:
+        action = SOUND_TYPE.CANNON_GATHERED;
+        break;
     }
     return action;
   }
