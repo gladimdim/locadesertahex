@@ -25,6 +25,7 @@ abstract class Resource {
   double value;
   double defaultValue = 10;
   RESOURCE_TYPES type;
+  int points = 1;
 
   String toImagePath() {
     return "images/resources/$localizedKey.png";

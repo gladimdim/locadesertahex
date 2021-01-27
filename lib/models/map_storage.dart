@@ -38,7 +38,7 @@ class MapStorage {
     map[hex.toHash()] = hex;
     hex.owned = true;
     hex.visible = true;
-    totalPoints += hex.points;
+    totalPoints += hex.output.points;
     // highlight rings
     // processRings(distanceFromCenter(hex));
     List<Hex> cityHexes = [];

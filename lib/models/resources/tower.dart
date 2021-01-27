@@ -10,7 +10,7 @@ class Tower extends Resource {
   String localizedDescriptionKey = 'towerDescription';
   RESOURCE_TYPES type = RESOURCE_TYPES.TOWER;
   double defaultValue = 1;
-
+  int points = 40;
   Tower([value]) : super(value) {
     value = value ?? defaultValue;
   }

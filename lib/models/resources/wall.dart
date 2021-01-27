@@ -6,10 +6,11 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 
 
 class Wall extends Resource {
-  String localizedKey = 'tower';
-  String localizedDescriptionKey = 'towerDescription';
+  String localizedKey = 'wall';
+  String localizedDescriptionKey = 'wallDescription';
   RESOURCE_TYPES type = RESOURCE_TYPES.WALL;
   double defaultValue = 1;
+  int points = 10;
   Wall([value]) : super(value)  {
     value = value ?? defaultValue;
   }
