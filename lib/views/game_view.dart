@@ -47,7 +47,8 @@ class _GameViewState extends State<GameView> {
                     height: 32,
                     color: Colors.white.withAlpha(155),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         IconButton(
                           icon: Icon(
@@ -63,6 +64,18 @@ class _GameViewState extends State<GameView> {
                         ),
                         LabelText(
                             "Points: ${map.totalPoints}"),
+                        IconButton(
+                          icon: Icon(
+                            Icons.shuffle,
+                            size: 24,
+                            color: Colors.green[700],
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              map.shuffle();
+                            });
+                          },
+                        ),
                       ],
                     ),
                   ),

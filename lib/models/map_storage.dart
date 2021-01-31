@@ -307,5 +307,16 @@ class MapStorage {
     map.stock = stockJson.map((e) => Resource.fromJson(e)).toList();
     return map;
   }
+
+  void shuffle() {
+    var allVisible = asList().where((element) => element.visible && !isHome(element));
+    for (var hex in allVisible) {
+      var distance = distanceFromCenter(hex);
+      var newHex = hex.clone();
+      newHex.output = getRandomResourceForLevel(distance);
+      addHex(newHex);
+    }
+    totalPoints -= 50;
+  }
 }
 

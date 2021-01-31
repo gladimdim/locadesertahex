@@ -16,3 +16,7 @@ double topForHex(Hex hex, double dimension, double size) {
 int distanceFromCenter(Hex hex) {
   return ((hex.x.abs() + hex.y.abs() + hex.z.abs()) / 2).floor();
 }
+
+bool isHome(Hex hex) {
+  return hex.toHash() != "0 0 0";
+}

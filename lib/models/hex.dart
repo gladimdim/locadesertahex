@@ -106,4 +106,12 @@ class Hex {
   toString() {
     return "$x $y $z";
   }
+
+  Hex clone() {
+    var hex = Hex(x, y, z, output: output);
+    hex.visible = visible;
+    hex.owned = owned;
+    hex.onRing = onRing;
+    return hex;
+  }
 }
