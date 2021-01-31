@@ -26,23 +26,24 @@ class _GameViewState extends State<GameView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: StreamBuilder(
-          stream: map.changes,
-          builder: (context, data) => Stack(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: HexSurface(
-                  dimension: dimension,
-                  size: size,
-                  storage: map,
-                ),
+      body: StreamBuilder(
+        stream: map.changes,
+        builder: (context, data) => Stack(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: HexSurface(
+                dimension: dimension,
+                size: size,
+                storage: map,
               ),
-              Positioned(
-                child: Align(
-                  alignment: Alignment.bottomLeft,
+            ),
+            Positioned(
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
                   child: Container(
                     height: 32,
                     color: Colors.white.withAlpha(155),
@@ -62,8 +63,7 @@ class _GameViewState extends State<GameView> {
                             });
                           },
                         ),
-                        LabelText(
-                            "Points: ${map.totalPoints}"),
+                        LabelText("Points: ${map.totalPoints}"),
                         IconButton(
                           icon: Icon(
                             Icons.shuffle,
@@ -80,9 +80,9 @@ class _GameViewState extends State<GameView> {
                     ),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

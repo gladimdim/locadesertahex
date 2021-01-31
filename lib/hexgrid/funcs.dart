@@ -18,5 +18,5 @@ int distanceFromCenter(Hex hex) {
 }
 
 bool isHome(Hex hex) {
-  return hex.toHash() != "0 0 0";
+  return hex.toHash() == "0 0 0";
 }
