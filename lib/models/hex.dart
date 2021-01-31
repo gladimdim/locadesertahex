@@ -104,6 +104,6 @@ class Hex {
   }
 
   toString() {
-    return "Cube($x $y $z)";
+    return "$x $y $z";
   }
 }
