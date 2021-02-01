@@ -39,7 +39,7 @@ class _HexSurfaceState extends State<HexSurface> {
     return InteractiveViewer(
       transformationController: _controller,
       constrained: false,
-      minScale: 0.05,
+      minScale: 0.1,
       maxScale: 10,
       child: StreamBuilder(
         stream: widget.storage.changes
