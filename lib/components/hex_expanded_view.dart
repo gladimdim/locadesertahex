@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/label_text.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/loaders/sound_manager.dart';
+import 'package:locadesertahex/models/abstract/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
@@ -153,6 +154,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
       SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
     } else {
       setState(() {
+        SoundManager.instance.playSound(SOUND_TYPE.REJECT);
         missingResources = result.item2;
       });
     }
