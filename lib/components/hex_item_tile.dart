@@ -32,6 +32,7 @@ class HexItemTile extends StatefulWidget {
 
 class _HexItemTileState extends State<HexItemTile> {
   final double scaleFactor = 3;
+
   @override
   Widget build(BuildContext context) {
     var hex = widget.hex;
@@ -81,7 +82,6 @@ class _HexItemTileState extends State<HexItemTile> {
     );
   }
 
-
   double leftForHex(Hex hex) {
     return Point(widget.dimension / 2, widget.dimension / 2).x.toDouble() +
         widget.size * 3 / 4 * hex.x.toDouble() +
@@ -129,7 +129,7 @@ class _HexItemTileState extends State<HexItemTile> {
     if (widget.hex.selected) {
       return widget.hex.owned
           ? HexSettlementExpandedView(
-              size: widget.size,
+              size: getSizeForHex(widget.hex),
               storage: widget.storage,
             )
           : HexExpandedView(
@@ -152,15 +152,18 @@ class _HexItemTileState extends State<HexItemTile> {
 
   void processPress(BuildContext context) {
     setState(() {
-      widget.hex.selected = !widget.hex.selected;
+      widget.storage.selectHex(widget.hex);
     });
     widget.onPress(widget.hex.selected);
   }
 
   void processPressToOwn() {
     var success = widget.storage.ownHex(widget.hex);
-
-    widget.onPress(!success);
+    if (success) {
+      setState(() {
+        widget.hex.selected = false;
+      });
+    }
     if (success) {
       SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
     }

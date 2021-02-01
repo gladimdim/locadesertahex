@@ -40,43 +40,46 @@ class _HexSurfaceState extends State<HexSurface> {
       constrained: false,
       minScale: 0.05,
       maxScale: 10,
-      child: Stack(
-        children: <Widget>[
-          SizedBox(
-            width: dimension,
-            height: dimension,
-            child: Container(
-              child: Image.asset(
-                "images/background/map_squared.png",
-                width: widget.dimension,
-                fit: BoxFit.contain,
+      child: StreamBuilder(
+        stream: widget.storage.changes,
+        builder: (context, event) => Stack(
+          children: <Widget>[
+            SizedBox(
+              width: dimension,
+              height: dimension,
+              child: Container(
+                child: Image.asset(
+                  "images/background/map_squared.png",
+                  width: widget.dimension,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            width: widget.dimension,
-            height: widget.dimension,
-            child: getFogOfWar(),
-          ),
-          ...widget.storage.asList().map(
-            (hex) {
-              return HexItemTile(
-                hex: hex,
-                size: widget.size,
-                storage: widget.storage,
-                center: Point(dimension / 2, dimension / 2),
-                dimension: widget.dimension,
-                onPress: (expanded) {
-                  setState(() {
+            SizedBox(
+              width: widget.dimension,
+              height: widget.dimension,
+              child: getFogOfWar(),
+            ),
+            ...widget.storage.asList().map(
+              (hex) {
+                return HexItemTile(
+                  hex: hex,
+                  size: widget.size,
+                  storage: widget.storage,
+                  center: Point(dimension / 2, dimension / 2),
+                  dimension: widget.dimension,
+                  onPress: (expanded) {
                     if (expanded) {
-                      widget.storage.putLast(hex);
+                      setState(() {
+                        widget.storage.putLast(hex);
+                      });
                     }
-                  });
-                },
-              );
-            },
-          ).toList(),
-        ],
+                  },
+                );
+              },
+            ).toList(),
+          ],
+        ),
       ),
     );
   }
@@ -107,18 +110,23 @@ class _HexSurfaceState extends State<HexSurface> {
   }
 
   Widget getFogOfWar() {
-    var hexes = widget.storage.map.values.where((element) => element.owned);
-    var holes = hexes.map((hex) => toFogCirclePoint(hex)).toList();
-    return ClipPath(
-      clipper: FogOfWarClipper(
-        holes: holes,
-      ),
-      child: Image.asset(
-        "images/background/map_bw.png",
-        width: widget.dimension,
-        fit: BoxFit.contain,
-      ),
-    );
+
+    return StreamBuilder(
+        stream: widget.storage.changes,
+        builder: (context, data) {
+          var hexes = widget.storage.map.values.where((element) => element.owned);
+          var holes = hexes.map((hex) => toFogCirclePoint(hex)).toList();
+          return ClipPath(
+            clipper: FogOfWarClipper(
+              holes: holes,
+            ),
+            child: Image.asset(
+              "images/background/map_bw.png",
+              width: widget.dimension,
+              fit: BoxFit.contain,
+            ),
+          );
+        });
   }
 
   FogCirclePoint toFogCirclePoint(Hex hex) {

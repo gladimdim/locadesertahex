@@ -26,9 +26,7 @@ class _GameViewState extends State<GameView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: map.changes,
-        builder: (context, data) => Stack(
+      body:  Stack(
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -63,7 +61,11 @@ class _GameViewState extends State<GameView> {
                             });
                           },
                         ),
-                        LabelText("Points: ${map.totalPoints}"),
+                        StreamBuilder(
+                          stream: map.changes,
+                          builder: (context, data) =>
+                              LabelText("Points: ${map.totalPoints}"),
+                        ),
                         IconButton(
                           icon: Icon(
                             Icons.shuffle,
@@ -84,7 +86,6 @@ class _GameViewState extends State<GameView> {
             )
           ],
         ),
-      ),
     );
   }
 }
