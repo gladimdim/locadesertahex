@@ -8,6 +8,7 @@ import 'package:locadesertahex/components/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
+import 'package:locadesertahex/models/hex_cacher.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 
 class HexItemTile extends StatefulWidget {
@@ -16,6 +17,7 @@ class HexItemTile extends StatefulWidget {
   final double size;
   final MapStorage storage;
   final Function(bool) onPress;
+  final double dimension;
   final bool expanded;
 
   HexItemTile(
@@ -24,47 +26,95 @@ class HexItemTile extends StatefulWidget {
       this.size,
       @required this.storage,
       @required this.onPress,
-      @required this.expanded});
+      @required this.expanded,
+      this.dimension});
 
   @override
   _HexItemTileState createState() => _HexItemTileState();
 }
 
 class _HexItemTileState extends State<HexItemTile> {
+  final double scaleFactor = 3;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ClipPath(
-        child: InkWell(
-          hoverColor: Colors.white.withAlpha(0),
-          splashColor: Colors.white.withAlpha(0),
-          highlightColor: Colors.white.withAlpha(0),
-          child: Stack(
-            children: [
-              Container(
-                width: widget.size,
-                height: widget.size * sqrt(3),
-                color: backgroundColor(),
-                child: CustomPaint(
-                  // child: Container(color: Colors.blue),
-                  foregroundPainter: HexPainter(
-                    color: borderColor(),
+    var hex = widget.hex;
+    return Positioned(
+      left: leftForHex(hex),
+      top: topForHex(hex),
+      // duration: Duration(milliseconds: 150),
+      // curve: Curves.ease,
+      child: Container(
+        width: getSizeForHex(hex),
+        height: getSizeForHex(hex),
+        child: ClipPath(
+          child: InkWell(
+            hoverColor: Colors.white.withAlpha(0),
+            splashColor: Colors.white.withAlpha(0),
+            highlightColor: Colors.white.withAlpha(0),
+            child: Stack(
+              children: [
+                Container(
+                  width: getSizeForHex(hex),
+                  height: getSizeForHex(hex) * sqrt(3),
+                  color: backgroundColor(),
+                  child: CustomPaint(
+                    // child: Container(color: Colors.blue),
+                    foregroundPainter: HexPainter(
+                      color: borderColor(),
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: buildChild(context),
+                Positioned(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: buildChild(context),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
+            onTap: () => processPress(context),
           ),
-          onTap: () => processPress(context),
+          clipper: const HexClipper(),
         ),
-        clipper: const HexClipper(),
       ),
     );
+  }
+
+  double leftForHex(Hex hex) {
+    var existing = HexCacher.instance.leftForHex[hex.toHash()];
+    if (existing == null) {
+      existing =
+          Point(widget.dimension / 2, widget.dimension / 2).x.toDouble() +
+              widget.size * 3 / 4 * hex.x.toDouble();
+
+      HexCacher.instance.leftForHex[hex.toHash()] = existing;
+    }
+    return existing + selectedShift(hex);
+  }
+
+  double topForHex(Hex hex) {
+    var existing = HexCacher.instance.topForHex[hex.toHash()];
+    if (existing == null) {
+      existing =
+          Point(widget.dimension / 2, widget.dimension / 2).y.toDouble() -
+              widget.size * sin(pi * 60 / 180) * hex.y -
+              widget.size / 2.4 * hex.x.toDouble() * 1.04;
+      HexCacher.instance.topForHex[hex.toHash()] = existing;
+    }
+    return existing + selectedShift(hex);
+  }
+
+  double selectedShift(Hex hex) {
+    if (widget.expanded) {
+      return -widget.size * (scaleFactor - 1) / 2;
+    } else {
+      return 0.0;
+    }
+  }
+
+  double getSizeForHex(Hex hex) {
+    return widget.expanded ? widget.size * scaleFactor : widget.size;
   }
 
   Color borderColor() {
@@ -89,11 +139,11 @@ class _HexItemTileState extends State<HexItemTile> {
     if (widget.expanded) {
       return widget.hex.owned
           ? HexSettlementExpandedView(
-              size: widget.size,
+              size: getSizeForHex(widget.hex),
               storage: widget.storage,
             )
           : HexExpandedView(
-              size: widget.size,
+              size: getSizeForHex(widget.hex),
               hex: widget.hex,
               onPressOwn: processPressToOwn,
             );
@@ -111,47 +161,47 @@ class _HexItemTileState extends State<HexItemTile> {
   }
 
   void processPress(BuildContext context) {
-    widget.onPress(!widget.expanded);
+    if (widget.expanded) {
+      widget.storage.clearSelectedHex();
+    } else {
+      widget.storage.selectHex(widget.hex);
+    }
   }
 
   void processPressToOwn() {
     var success = widget.storage.ownHex(widget.hex);
-
-    widget.onPress(!success);
+    if (success) {
+      widget.storage.clearSelectedHex();
+    }
     if (success) {
       SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
     }
   }
 
   get left {
-    return widget.center.x.toDouble() -
-        widget.size * 3 / 4 * widget.hex.x.toDouble() * 1.01;
+    var existing = HexCacher.instance.left[widget.hex.toHash()];
+    if (existing == null) {
+      existing = widget.center.x.toDouble() -
+          widget.size * 3 / 4 * widget.hex.x.toDouble() * 1.01;
+      HexCacher.instance.left[widget.hex.toHash()] = existing;
+    }
+    return existing;
   }
 
   get top {
-    return widget.center.y.toDouble() -
-        widget.size * sin(pi * 60 / 180) * widget.hex.y -
-        widget.size / 2.4 * widget.hex.x.toDouble() * 1.01;
+    var existing = HexCacher.instance.top[widget.hex.toHash()];
+    if (existing == null) {
+      existing = widget.center.y.toDouble() -
+          widget.size * sin(pi * 60 / 180) * widget.hex.y -
+          widget.size / 2.4 * widget.hex.x.toDouble() * 1.01;
+
+      HexCacher.instance.top[widget.hex.toHash()] = existing;
+    }
+    return existing;
   }
 
   double height() {
     return sin(60 * pi / 180) * widget.size;
   }
 
-  get offsetY {
-    return (widget.hex.x + widget.hex.z * 0.5 - widget.hex.z / 2) *
-        widget.size *
-        2.0;
-  }
-
-  Point cubeToAxial(Hex cube) {
-    return Point(cube.x, cube.z);
-  }
-
-  Hex axialToCube(Point hex) {
-    var x = hex.x;
-    var z = hex.y;
-    var y = -x - z;
-    return Hex(x, y, z);
-  }
 }

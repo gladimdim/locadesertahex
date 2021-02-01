@@ -26,9 +26,7 @@ class _GameViewState extends State<GameView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: map.changes,
-        builder: (context, data) => Stack(
+      body:  Stack(
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -42,11 +40,11 @@ class _GameViewState extends State<GameView> {
             Positioned(
               child: Align(
                 alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Container(
-                    height: 32,
-                    color: Colors.white.withAlpha(155),
+                child: Container(
+                  height: 32,
+                  color: Colors.white.withAlpha(155),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +61,11 @@ class _GameViewState extends State<GameView> {
                             });
                           },
                         ),
-                        LabelText("Points: ${map.totalPoints}"),
+                        StreamBuilder(
+                          stream: map.changes,
+                          builder: (context, data) =>
+                              LabelText("Points: ${map.totalPoints}"),
+                        ),
                         IconButton(
                           icon: Icon(
                             Icons.shuffle,
@@ -84,7 +86,6 @@ class _GameViewState extends State<GameView> {
             )
           ],
         ),
-      ),
     );
   }
 }

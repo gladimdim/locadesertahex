@@ -8,7 +8,7 @@ class ResourceImageView extends StatelessWidget {
   final double size;
 
   ResourceImageView(
-      {@required this.resource, this.showAmount = false, this.size = 32});
+      {@required this.resource, this.showAmount = false, this.size = 92});
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,8 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:tuple/tuple.dart';
 
+enum STORAGE_EVENTS { ADD, SELECTION_CHANGE }
+
 class MapStorage {
   Map<String, Hex> map;
   List<Resource> stock = [];
@@ -23,8 +25,9 @@ class MapStorage {
     CityHex.generateForDirection(4, 30),
     CityHex.generateForDirection(5, 13),
   ];
-  BehaviorSubject _innerChanges = BehaviorSubject<MapStorage>();
-  ValueStream<MapStorage> changes;
+  BehaviorSubject _innerChanges = BehaviorSubject<STORAGE_EVENTS>();
+  ValueStream<STORAGE_EVENTS> changes;
+  Hex selected;
 
   MapStorage({this.map}) {
     changes = _innerChanges.stream;
@@ -59,7 +62,7 @@ class MapStorage {
     });
     addResource(hex.output);
     save();
-    _innerChanges.add(this);
+    _innerChanges.add(STORAGE_EVENTS.ADD);
     return true;
   }
 
@@ -309,7 +312,8 @@ class MapStorage {
   }
 
   void shuffle() {
-    var allVisible = asList().where((element) => element.visible && !isHome(element));
+    var allVisible =
+        asList().where((element) => element.visible && !isHome(element));
     for (var hex in allVisible) {
       var distance = distanceFromCenter(hex);
       var newHex = hex.clone();
@@ -318,5 +322,18 @@ class MapStorage {
     }
     totalPoints -= 50;
   }
-}
 
+  void selectHex(Hex hex) {
+    selected = hex;
+    _innerChanges.add(STORAGE_EVENTS.SELECTION_CHANGE);
+  }
+
+  Hex selectedHex() {
+    return selected;
+  }
+
+  void clearSelectedHex() {
+    selected = null;
+    _innerChanges.add(STORAGE_EVENTS.SELECTION_CHANGE);
+  }
+}
