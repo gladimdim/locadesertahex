@@ -82,14 +82,14 @@ class _HexSurfaceState extends State<HexSurface> {
                 return widget.storage.selectedHex() == null
                     ? Container()
                     : HexItemTile(
-                        hex: widget.storage.selectedHex(),
-                        size: widget.size,
-                        storage: widget.storage,
-                        center: Point(dimension / 2, dimension / 2),
-                        dimension: widget.dimension,
-                        onPress: (expanded) {},
-                        expanded: true,
-                      );
+                      hex: widget.storage.selectedHex(),
+                      size: widget.size,
+                      storage: widget.storage,
+                      center: Point(dimension / 2, dimension / 2),
+                      dimension: widget.dimension,
+                      onPress: (expanded) {},
+                      expanded: true,
+                    );
               },
             ),
           ],
