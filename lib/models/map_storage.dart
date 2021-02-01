@@ -10,7 +10,7 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:tuple/tuple.dart';
 
-enum STORAGE_EVENTS { ADD }
+enum STORAGE_EVENTS { ADD, SELECTION_CHANGE }
 
 class MapStorage {
   Map<String, Hex> map;
@@ -27,6 +27,7 @@ class MapStorage {
   ];
   BehaviorSubject _innerChanges = BehaviorSubject<STORAGE_EVENTS>();
   ValueStream<STORAGE_EVENTS> changes;
+  Hex selected;
 
   MapStorage({this.map}) {
     changes = _innerChanges.stream;
@@ -323,10 +324,16 @@ class MapStorage {
   }
 
   void selectHex(Hex hex) {
-    asList().forEach((element) {
-      element.selected = false;
-    });
-    hex.selected = true;
-    putLast(hex);
+    selected = hex;
+    _innerChanges.add(STORAGE_EVENTS.SELECTION_CHANGE);
+  }
+
+  Hex selectedHex() {
+    return selected;
+  }
+
+  void clearSelectedHex() {
+    selected = null;
+    _innerChanges.add(STORAGE_EVENTS.SELECTION_CHANGE);
   }
 }

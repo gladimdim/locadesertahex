@@ -8,7 +8,6 @@ class Hex {
   bool visible = false;
   Resource output;
   bool onRing = false;
-  bool selected = false;
 
   Hex(
     this.x,
