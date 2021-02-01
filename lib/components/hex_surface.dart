@@ -21,7 +21,6 @@ class HexSurface extends StatefulWidget {
 
 class _HexSurfaceState extends State<HexSurface> {
   TransformationController _controller = TransformationController();
-  Hex selectedHex;
   final double scaleFactor = 3;
 
   @override
@@ -61,34 +60,19 @@ class _HexSurfaceState extends State<HexSurface> {
           ),
           ...widget.storage.asList().map(
             (hex) {
-              return Positioned(
-                left: leftForHex(hex),
-                top: topForHex(hex),
-                // duration: Duration(milliseconds: 150),
-                // curve: Curves.ease,
-                child: AnimatedContainer(
-                  width: getSizeForHex(hex),
-                  height: getSizeForHex(hex),
-                  duration: Duration(milliseconds: 250),
-                  curve: Curves.ease,
-                  child: HexItemTile(
-                    hex: hex,
-                    size: getSizeForHex(hex),
-                    storage: widget.storage,
-                    expanded: selectedHex == hex,
-                    center: Point(dimension / 2, dimension / 2),
-                    onPress: (expanded) {
-                      setState(() {
-                        if (expanded) {
-                          selectedHex = hex;
-                          widget.storage.putLast(hex);
-                        } else {
-                          selectedHex = null;
-                        }
-                      });
-                    },
-                  ),
-                ),
+              return HexItemTile(
+                hex: hex,
+                size: widget.size,
+                storage: widget.storage,
+                center: Point(dimension / 2, dimension / 2),
+                dimension: widget.dimension,
+                onPress: (expanded) {
+                  setState(() {
+                    if (expanded) {
+                      widget.storage.putLast(hex);
+                    }
+                  });
+                },
               );
             },
           ).toList(),
@@ -111,8 +95,7 @@ class _HexSurfaceState extends State<HexSurface> {
   }
 
   double selectedShift(Hex hex) {
-    var selected = selectedHex == hex;
-    if (selected) {
+    if (hex.selected) {
       return -widget.size * (scaleFactor - 1) / 2;
     } else {
       return 0.0;
@@ -120,7 +103,7 @@ class _HexSurfaceState extends State<HexSurface> {
   }
 
   double getSizeForHex(Hex hex) {
-    return hex == selectedHex ? widget.size * scaleFactor : widget.size;
+    return hex.selected ? widget.size * scaleFactor : widget.size;
   }
 
   Widget getFogOfWar() {
