@@ -6,7 +6,6 @@ import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/components/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
-import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
 import 'package:locadesertahex/models/map_storage.dart';
@@ -145,7 +144,7 @@ class _HexItemTileState extends State<HexItemTile> {
           : HexExpandedView(
               size: getSizeForHex(widget.hex),
               hex: widget.hex,
-              onPressOwn: processPressToOwn,
+              storage: widget.storage,
             );
     } else if (widget.hex.owned) {
       return OwnedHexTile(size: widget.size, hex: widget.hex);
@@ -165,16 +164,6 @@ class _HexItemTileState extends State<HexItemTile> {
       widget.storage.clearSelectedHex();
     } else {
       widget.storage.selectHex(widget.hex);
-    }
-  }
-
-  void processPressToOwn() {
-    var success = widget.storage.ownHex(widget.hex);
-    if (success) {
-      widget.storage.clearSelectedHex();
-    }
-    if (success) {
-      SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
     }
   }
 
@@ -203,5 +192,4 @@ class _HexItemTileState extends State<HexItemTile> {
   double height() {
     return sin(60 * pi / 180) * widget.size;
   }
-
 }
