@@ -33,9 +33,10 @@ class MapStorage {
     changes = _innerChanges.stream;
   }
 
-  bool ownHex(Hex hex) {
-    if (!satisfiesResourceRequirement(hex.toRequirement())) {
-      return false;
+  Tuple2<bool, List<Resource>> ownHex(Hex hex) {
+    var satisfaction = satisfiesResourceRequirement(hex.toRequirement());
+    if (!satisfaction.item1) {
+      return satisfaction;
     }
     hex.toRequirement().forEach(removeResource);
     map[hex.toHash()] = hex;
@@ -63,7 +64,7 @@ class MapStorage {
     addResource(hex.output);
     save();
     _innerChanges.add(STORAGE_EVENTS.ADD);
-    return true;
+    return Tuple2(true, null);
   }
 
   void processRings(radius) {
@@ -108,20 +109,21 @@ class MapStorage {
     addHex(hex);
   }
 
-  bool satisfiesResourceRequirement(List<Resource> requirements) {
+  Tuple2<bool, List<Resource>> satisfiesResourceRequirement(List<Resource> requirements) {
+    List<Resource> results = [];
     if (requirements.isEmpty) {
-      return true;
+      return Tuple2(true, []);
     }
     var result = true;
     for (var req in requirements) {
       var existing = stockForResource(req);
       if (existing == null || existing.value < req.value) {
         result = false;
-        break;
+        results.add(req);
       }
     }
 
-    return result;
+    return Tuple2(result, results);
   }
 
   Resource stockForResource(Resource resource) {
@@ -139,7 +141,7 @@ class MapStorage {
   }
 
   void removeResource(Resource resource) {
-    if (satisfiesResourceRequirement([resource])) {
+    if (satisfiesResourceRequirement([resource]).item1) {
       stockForResource(resource).value -= resource.value;
     }
   }

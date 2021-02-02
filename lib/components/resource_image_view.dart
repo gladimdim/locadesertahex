@@ -6,9 +6,9 @@ class ResourceImageView extends StatelessWidget {
   final Resource resource;
   final bool showAmount;
   final double size;
-
+  final Color color;
   ResourceImageView(
-      {@required this.resource, this.showAmount = false, this.size = 92});
+      {@required this.resource, this.showAmount = false, this.size = 92, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +19,7 @@ class ResourceImageView extends StatelessWidget {
         Image.asset(
           resource.toImagePath(),
           width: size,
+          color: color,
         ),
         if (showAmount) LabelText(resource.value.toString()),
       ],

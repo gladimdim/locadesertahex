@@ -3,28 +3,39 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/label_text.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
+import 'package:locadesertahex/loaders/sound_manager.dart';
+import 'package:locadesertahex/models/abstract/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
+import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:supercharged/supercharged.dart';
 
-class HexExpandedView extends StatelessWidget {
+class HexExpandedView extends StatefulWidget {
   final double size;
   final Hex hex;
-  final VoidCallback onPressOwn;
+  final MapStorage storage;
 
-  HexExpandedView({this.size, this.hex, this.onPressOwn});
+  HexExpandedView({this.size, this.hex, this.storage});
+
+  @override
+  _HexExpandedViewState createState() => _HexExpandedViewState();
+}
+
+class _HexExpandedViewState extends State<HexExpandedView> {
+  List<Resource> missingResources = [];
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: size / 2 * sqrt(3),
-        maxWidth: size,
+        maxHeight: widget.size / 2 * sqrt(3),
+        maxWidth: widget.size,
       ),
       child: PlayAnimation<double>(
-        tween: Tween(begin: 0.0, end: size),
+        tween: Tween(begin: 0.0, end: widget.size),
         duration: Duration(milliseconds: 250),
         builder: (context, child, value) {
-          print(value);
           return SizedBox(
             width: value,
             height: value,
@@ -38,10 +49,10 @@ class HexExpandedView extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
-                width: size,
+                width: widget.size,
                 child: Center(
                   child: LabelText(
-                    hex.output.localizedKey,
+                    widget.hex.output.localizedKey,
                   ),
                 ),
               ),
@@ -49,7 +60,7 @@ class HexExpandedView extends StatelessWidget {
             Expanded(
               flex: 5,
               child: ResourceImageView(
-                resource: hex.output,
+                resource: widget.hex.output,
                 size: 140,
                 showAmount: true,
               ),
@@ -57,7 +68,7 @@ class HexExpandedView extends StatelessWidget {
             Expanded(
               flex: 4,
               child: SizedBox(
-                width: size,
+                width: widget.size,
                 child: TextButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -83,21 +94,41 @@ class HexExpandedView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if (hex.toRequirement().isNotEmpty)
+                      if (widget.hex.toRequirement().isNotEmpty)
                         Expanded(
                           flex: 4,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: hex
-                                .toRequirement()
-                                .map(
-                                  (requirement) => ResourceImageView(
+                            children: widget.hex.toRequirement().map(
+                              (requirement) {
+                                var isMissing = missingResources
+                                    .where((element) =>
+                                        element.type == requirement.type)
+                                    .isNotEmpty;
+                                if (isMissing) {
+                                  return MirrorAnimation<double>(
+                                    tween: 0.2.tweenTo(0.8),
+                                    duration: Duration(milliseconds: 1000),
+                                    builder: (context, child, value) {
+                                      return Opacity(
+                                        opacity: value,
+                                        child: ResourceImageView(
+                                          resource: requirement,
+                                          showAmount: true,
+                                          size: 64.0,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return ResourceImageView(
                                     resource: requirement,
                                     showAmount: true,
-                                    size: 64,
-                                  ),
-                                )
-                                .toList(),
+                                    size: 64.0,
+                                  );
+                                }
+                              },
+                            ).toList(),
                           ),
                         ),
                       Expanded(
@@ -108,7 +139,7 @@ class HexExpandedView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  onPressed: onPressOwn,
+                  onPressed: onOwnPressed,
                 ),
               ),
             ),
@@ -116,5 +147,18 @@ class HexExpandedView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onOwnPressed() {
+    var result = widget.storage.ownHex(widget.hex);
+    if (result.item1) {
+      widget.storage.clearSelectedHex();
+      SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
+    } else {
+      setState(() {
+        SoundManager.instance.playSound(SOUND_TYPE.REJECT);
+        missingResources = result.item2;
+      });
+    }
   }
 }
