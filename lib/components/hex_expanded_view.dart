@@ -106,15 +106,17 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                                         element.type == requirement.type)
                                     .isNotEmpty;
                                 if (isMissing) {
-                                  return MirrorAnimation<Color>(
-                                    tween: Colors.pink[900].tweenTo(Colors.pink[700]),
+                                  return MirrorAnimation<double>(
+                                    tween: 0.2.tweenTo(0.8),
                                     duration: Duration(milliseconds: 1000),
                                     builder: (context, child, value) {
-                                      return ResourceImageView(
-                                        resource: requirement,
-                                        showAmount: true,
-                                        size: 64.0,
-                                        color: value,
+                                      return Opacity(
+                                        opacity: value,
+                                        child: ResourceImageView(
+                                          resource: requirement,
+                                          showAmount: true,
+                                          size: 64.0,
+                                        ),
                                       );
                                     },
                                   );
