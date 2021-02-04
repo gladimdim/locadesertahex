@@ -26,66 +26,67 @@ class _GameViewState extends State<GameView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Stack(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: HexSurface(
-                dimension: dimension,
-                size: size,
-                storage: map,
-              ),
+      body: Stack(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: HexSurface(
+              dimension: dimension,
+              size: size,
+              storage: map,
             ),
-            Positioned(
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  height: 44,
-                  color: Colors.white.withAlpha(155),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.refresh,
-                            size: 24,
-                            color: Colors.green[700],
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              map = MapStorage.generate();
-                            });
-                          },
+          ),
+          Positioned(
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                height: 44,
+                color: Colors.white.withAlpha(155),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.refresh,
+                          size: 24,
+                          color: Colors.green[700],
                         ),
-                        StreamBuilder(
-                          stream: map.changes,
-                          builder: (context, data) =>
-                              LabelText("Points: ${map.totalPoints}"),
+                        onPressed: () {
+                          setState(() {
+                            map = MapStorage.generate();
+                          });
+                        },
+                      ),
+                      StreamBuilder(
+                        stream: map.changes,
+                        builder: (context, data) =>
+                            LabelText("Points: ${map.totalPoints}"),
+                      ),
+                      if (map.isGameOver()) LabelText("Game Over"),
+                      IconButton(
+                        icon: Icon(
+                          Icons.shuffle,
+                          size: 24,
+                          color: Colors.green[700],
                         ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.shuffle,
-                            size: 24,
-                            color: Colors.green[700],
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              map.shuffle();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+                        onPressed: () {
+                          setState(() {
+                            map.shuffle();
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

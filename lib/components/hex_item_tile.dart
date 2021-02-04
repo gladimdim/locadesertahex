@@ -41,8 +41,6 @@ class _HexItemTileState extends State<HexItemTile> {
     return Positioned(
       left: leftForHex(hex),
       top: topForHex(hex),
-      // duration: Duration(milliseconds: 150),
-      // curve: Curves.ease,
       child: Container(
         width: getSizeForHex(hex),
         height: getSizeForHex(hex),
@@ -58,7 +56,6 @@ class _HexItemTileState extends State<HexItemTile> {
                   height: getSizeForHex(hex) * sqrt(3),
                   color: backgroundColor(),
                   child: CustomPaint(
-                    // child: Container(color: Colors.blue),
                     foregroundPainter: HexPainter(
                       color: borderColor(),
                     ),

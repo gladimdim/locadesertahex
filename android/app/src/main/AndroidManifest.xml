@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.locadesertahex">
+    package="com.gladimdim.locadesertahex">
    <application
         android:label="locadesertahex"
         android:icon="@mipmap/ic_launcher">

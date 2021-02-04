@@ -109,7 +109,8 @@ class MapStorage {
     addHex(hex);
   }
 
-  Tuple2<bool, List<Resource>> satisfiesResourceRequirement(List<Resource> requirements) {
+  Tuple2<bool, List<Resource>> satisfiesResourceRequirement(
+      List<Resource> requirements) {
     List<Resource> results = [];
     if (requirements.isEmpty) {
       return Tuple2(true, []);
@@ -337,5 +338,20 @@ class MapStorage {
   void clearSelectedHex() {
     selected = null;
     _innerChanges.add(STORAGE_EVENTS.SELECTION_CHANGE);
+  }
+
+  bool isGameOver() {
+    var allVisible =
+        asList().where((element) => element.visible && !element.owned);
+
+    var isGameOver = true;
+    for (var visible in allVisible) {
+      if (satisfiesResourceRequirement(visible.toRequirement()).item1) {
+        isGameOver = false;
+        break;
+      }
+    }
+
+    return isGameOver;
   }
 }
