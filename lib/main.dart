@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
@@ -35,9 +36,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (context) => HexLocalizations.of(context).labelTitle,
+      onGenerateTitle: (context) {
+        return HexLocalizations.of(context).labelTitle;
+      },
       localizationsDelegates: [
         const HexLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('uk', ''),
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,

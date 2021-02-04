@@ -16,6 +16,8 @@ dependencies:
   rxdart: 0.24.1
   tuple: ^1.0.3
   supercharged: ^1.12.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

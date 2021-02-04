@@ -36,6 +36,7 @@ class HexLocalizations {
       "labelPoints": "Points",
       "labelGameOver": "Game Over",
       "labelCapture": "Capture",
+      "labelSettings": "Settings",
     },
     "uk": {
       "stone": "Камінь",
@@ -62,6 +63,7 @@ class HexLocalizations {
       "labelPoints": "Бали",
       "labelGameOver": "Це кінець",
       "labelCapture": "Захопити",
+      "labelSettings": "Налаштування",
     }
   };
 
@@ -81,6 +83,10 @@ class HexLocalizations {
     return _localizedValues[locale.languageCode]["labelCapture"];
   }
 
+  String get labelSettings {
+    return _localizedValues[locale.languageCode]["labelSettings"];
+  }
+
   String operator [](String key) {
     return _localizedValues[locale.languageCode][key] ?? key;
   }
@@ -90,7 +96,8 @@ class HexLocalizationsDelegate extends LocalizationsDelegate<HexLocalizations> {
   const HexLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'uk'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      HexLocalizations.supportedLanguageCodes.contains(locale.languageCode);
 
   @override
   Future<HexLocalizations> load(Locale locale) {

@@ -3,6 +3,7 @@ import 'package:locadesertahex/components/hex_surface.dart';
 import 'package:locadesertahex/components/label_text.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/views/settings_view.dart';
 
 class GameView extends StatefulWidget {
   GameView({Key key, this.title, this.map}) : super(key: key);
@@ -79,6 +80,20 @@ class _GameViewState extends State<GameView> {
                           setState(() {
                             map.shuffle();
                           });
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.settings,
+                          size: 24,
+                          color: Colors.green[700],
+                        ),
+                        onPressed: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SettingsView()),
+                          );
                         },
                       ),
                     ],
