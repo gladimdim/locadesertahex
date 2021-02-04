@@ -224,7 +224,6 @@ class MapStorage {
     ];
     var resources = [
       RESOURCE_TYPES.WOOD,
-      RESOURCE_TYPES.STONE,
       RESOURCE_TYPES.FOOD,
       RESOURCE_TYPES.WOOD,
       RESOURCE_TYPES.IRON_ORE,
