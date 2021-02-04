@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/label_text.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/loaders/sound_manager.dart';
+import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/abstract/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/map_storage.dart';
@@ -52,7 +53,8 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                 width: widget.size,
                 child: Center(
                   child: LabelText(
-                    widget.hex.output.localizedKey,
+                    HexLocalizations.of(
+                        context)[widget.hex.output.localizedKey],
                   ),
                 ),
               ),
@@ -134,7 +136,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                       Expanded(
                         flex: 1,
                         child: LabelText(
-                          "Захопити",
+                          HexLocalizations.of(context).labelCapture,
                         ),
                       ),
                     ],

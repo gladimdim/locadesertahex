@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:locadesertahex/loaders/sound_manager.dart';
+import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 import 'package:locadesertahex/views/game_view.dart';
@@ -34,7 +35,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Loca Deserta: Hex',
+      onGenerateTitle: (context) => HexLocalizations.of(context).labelTitle,
+      localizationsDelegates: [
+        const HexLocalizationsDelegate(),
+      ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -42,4 +46,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
