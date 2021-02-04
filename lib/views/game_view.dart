@@ -41,10 +41,10 @@ class _GameViewState extends State<GameView> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Container(
-                  height: 32,
+                  height: 44,
                   color: Colors.white.withAlpha(155),
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
+                    padding: const EdgeInsets.only(bottom: 12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,

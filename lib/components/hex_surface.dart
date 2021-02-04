@@ -82,14 +82,14 @@ class _HexSurfaceState extends State<HexSurface> {
                 return widget.storage.selectedHex() == null
                     ? Container()
                     : HexItemTile(
-                      hex: widget.storage.selectedHex(),
-                      size: widget.size,
-                      storage: widget.storage,
-                      center: Point(dimension / 2, dimension / 2),
-                      dimension: widget.dimension,
-                      onPress: (expanded) {},
-                      expanded: true,
-                    );
+                        hex: widget.storage.selectedHex(),
+                        size: widget.size,
+                        storage: widget.storage,
+                        center: Point(dimension / 2, dimension / 2),
+                        dimension: widget.dimension,
+                        onPress: (expanded) {},
+                        expanded: true,
+                      );
               },
             ),
           ],
@@ -101,7 +101,6 @@ class _HexSurfaceState extends State<HexSurface> {
   double leftForHex(Hex hex) {
     var existing = HexCacher.instance.leftForHex[hex.toHash()];
     if (existing == null) {
-      print("did not hit the cache: ${hex.toHash()}");
       existing =
           Point(widget.dimension / 2, widget.dimension / 2).x.toDouble() +
               widget.size * 3 / 4 * hex.x.toDouble();
