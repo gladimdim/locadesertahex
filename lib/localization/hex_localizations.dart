@@ -37,6 +37,31 @@ class HexLocalizations {
       "labelGameOver": "Game Over",
       "labelCapture": "Capture",
       "labelSettings": "Settings",
+      "labelBack": "Back",
+      "textHowToPlay": """
+      The main goal of the game is to get as many points as possible.
+      Points are earned by capturing Hexes. Each regular Hex gives you 1 point.
+
+      To capture a Hex you you need resources. There are primitive resource Hex (wood, grains, etc) that do not require anything.
+      And there are more complex resource Hexes (firearms, horses, carts) that require primitive resources in return.
+
+      Map is divided by levels. First 15 levels contain a lot of resources and you can prepare your army.
+      Then comes Wall Hexes that you have to capture before you can expand into next levels.
+      To capture these walls you require an army (cossacka and cannons).
+      Each wall gives you much more points.
+
+      There are also four fortresses settled somewhere on the map. They give you the most amount of points.
+      But to capture such fortresses you now need also Carts and Boats.
+      
+
+      Carts and Boats are rare resource Hexes. You have to dig through the map to find them in order to destroy fortresses.
+      They start appearing only after you break the second wall level.
+
+      There is no end in game. You can continue expanding your Sloboda as far a you wish.
+
+      Good luck and have fun!
+  
+      """,
     },
     "uk": {
       "stone": "Камінь",
@@ -64,6 +89,27 @@ class HexLocalizations {
       "labelGameOver": "Це кінець",
       "labelCapture": "Захопити",
       "labelSettings": "Налаштування",
+      "labelBack": "Назад",
+      "textHowToPlay": """
+        Головна мета гри - отримати як умога більше очок. Кожний захоплений ґекс дає одне очко.
+
+        Щоб захопити ґекси вам треба ресурси. Деякі примітивні ресурси (їжа, дерево, тощо) не вимагають нічого.
+        Інші ж, більш складні, такі як рушниця, кінь, козак, потребують наявності інших ресурсів у вас в Слободі.
+        
+        Ігрове поле поділено на сектори, перші 15 рівнів дають вам змогу зібрати військо і тоді ви зможете пробити шлях на наступні рівні.
+        Рівні обмежені стіною. Щоб пробити отвір в стіні необхідні козаки та гармати.
+        
+        Також на мапі є чотири укріплених райони. Це великі вежі оточені стінами. За них дається максимальна кількість очок.
+        Але і для свого захоплення вони вимагають доволі велике військо і додатково - вози й човни.
+
+        Вози і човни - це дуже рідкістний тип ґекса. Вам треба постійно розширювати територію, щоб знаходити їх.
+        Вони з'являються лише за другою стіною, яка оточує Слободу.
+
+        В грі немає якогось конкретного кінця. Розширюйте Слободу скільки вам заманеться.
+
+        Щасливої гри!
+
+      """,
     }
   };
 
@@ -85,6 +131,14 @@ class HexLocalizations {
 
   String get labelSettings {
     return _localizedValues[locale.languageCode]["labelSettings"];
+  }
+
+  String get labelBack {
+    return _localizedValues[locale.languageCode]["labelBack"];
+  }
+
+  String get textHowToPlay {
+    return _localizedValues[locale.languageCode]["textHowToPlay"];
   }
 
   String operator [](String key) {

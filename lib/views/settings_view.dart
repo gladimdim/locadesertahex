@@ -17,24 +17,30 @@ class _SettingsViewState extends State<SettingsView> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 3,
-                child: LabelText(HexLocalizations.of(context).labelSettings),
-              ),
-              LocaleSelection(
-                onLocaleChanged: widget.onLocaleChange,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: LabelText("Back"),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LabelText(HexLocalizations.of(context).labelSettings),
+                Expanded(
+                  flex: 4,
+                  child: SingleChildScrollView(
+                      child: LabelText(
+                          HexLocalizations.of(context).textHowToPlay)),
+                ),
+                LocaleSelection(
+                  onLocaleChanged: widget.onLocaleChange,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: LabelText(HexLocalizations.of(context).labelBack),
+                ),
+              ],
+            ),
           ),
         ),
       ),
