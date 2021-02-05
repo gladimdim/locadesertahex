@@ -54,4 +54,8 @@ class AppPreferences {
   Future setUILanguage(String languageCode) async {
     return await _preferences.setString(_languageCode, languageCode);
   }
+
+  Future removeUILanguage() async {
+    return await _preferences.remove(_languageCode);
+  }
 }

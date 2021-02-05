@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SoundManager.instance.initSounds();
   await AppPreferences.instance.init();
-  // await AppPreferences.instance.removeMap();
+  // await AppPreferences.instance.removeUILanguage();
   MapStorage map = loadMap();
   runApp(MyApp(map));
 }
@@ -36,35 +36,43 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale = Locale('en');
+  Locale _locale;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      locale: _locale,
-      onGenerateTitle: (context) {
-        return HexLocalizations.of(context).labelTitle;
-      },
-      localizationsDelegates: [
-        const HexLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale('en', ''),
-        const Locale('uk', ''),
-      ],
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: GameView(
-        title: "Hex",
-        map: widget.map,
-        onLocaleChange: (locale) {
-          setState(() {
+    return Builder(
+      builder: (context) => MaterialApp(
+        locale: _locale,
+        localeResolutionCallback: (locale, list) {
+          if (HexLocalizations.supportedLanguageCodes.contains(locale.languageCode)) {
             _locale = locale;
-          });
+            return locale;
+          } else {
+            _locale = Locale("en");
+            return Locale("en");
+          }
         },
+        onGenerateTitle: (context) {
+          return HexLocalizations.of(context).labelTitle;
+        },
+        localizationsDelegates: [
+          const HexLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: HexLocalizations.supportedLanguageCodes.map((sLocale) => Locale(sLocale)),
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: GameView(
+          title: "Hex",
+          map: widget.map,
+          onLocaleChange: (locale) {
+            setState(() {
+              _locale = locale;
+            });
+          },
+        ),
       ),
     );
   }
