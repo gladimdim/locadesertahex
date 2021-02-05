@@ -6,9 +6,10 @@ import 'package:locadesertahex/models/map_storage.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
 class GameView extends StatefulWidget {
-  GameView({Key key, this.title, this.map}) : super(key: key);
   final MapStorage map;
   final String title;
+  final Function(Locale) onLocaleChange;
+  GameView({Key key, this.title, this.map, this.onLocaleChange});
 
   @override
   _GameViewState createState() => _GameViewState();
@@ -17,7 +18,6 @@ class GameView extends StatefulWidget {
 class _GameViewState extends State<GameView> {
   final double size = 120;
   final double dimension = 6000;
-
   MapStorage map;
 
   void initState() {
@@ -92,7 +92,10 @@ class _GameViewState extends State<GameView> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SettingsView()),
+                              builder: (context) => SettingsView(
+                                onLocaleChange: widget.onLocaleChange,
+                              ),
+                            ),
                           );
                         },
                       ),

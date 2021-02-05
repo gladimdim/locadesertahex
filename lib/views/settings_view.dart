@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/label_text.dart';
+import 'package:locadesertahex/components/locale_selection.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 
 class SettingsView extends StatefulWidget {
+  final Function(Locale locale) onLocaleChange;
+
+  SettingsView({this.onLocaleChange});
   @override
   _SettingsViewState createState() => _SettingsViewState();
 }
@@ -20,6 +24,9 @@ class _SettingsViewState extends State<SettingsView> {
               Expanded(
                 flex: 3,
                 child: LabelText(HexLocalizations.of(context).labelSettings),
+              ),
+              LocaleSelection(
+                onLocaleChanged: widget.onLocaleChange,
               ),
               ElevatedButton(
                 onPressed: () {

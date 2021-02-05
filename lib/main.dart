@@ -27,15 +27,21 @@ MapStorage loadMap() {
   return map;
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final MapStorage map;
-
   MyApp(this.map);
 
-  // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = Locale('en');
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: _locale,
       onGenerateTitle: (context) {
         return HexLocalizations.of(context).labelTitle;
       },
@@ -51,7 +57,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: GameView(title: "Hex", map: map),
+      home: GameView(
+        title: "Hex",
+        map: widget.map,
+        onLocaleChange: (locale) {
+          setState(() {
+            _locale = locale;
+          });
+        },
+      ),
     );
   }
 }
