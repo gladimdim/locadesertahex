@@ -34,11 +34,17 @@ class _SettingsViewState extends State<SettingsView> {
                 LocaleSelection(
                   onLocaleChanged: widget.onLocaleChange,
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(HexLocalizations.of(context).labelBack),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(HexLocalizations.of(context).labelBack),
+                    ),
+                  ),
                 ),
               ],
             ),

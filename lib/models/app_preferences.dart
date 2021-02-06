@@ -9,6 +9,7 @@ class AppPreferences {
   SharedPreferences _preferences;
   String _languageCode = "languageCode";
   String _savedGame = "saved_game";
+  String _soundEnabled = "soundEnabled";
 
   Future init() async {
     try {
@@ -57,5 +58,13 @@ class AppPreferences {
 
   Future removeUILanguage() async {
     return await _preferences.remove(_languageCode);
+  }
+
+  Future setSoundEnabled(bool value) async {
+    return await _preferences.setBool(_soundEnabled, value);
+  }
+
+  bool getSoundEnabled() {
+    return _preferences.getBool(_soundEnabled) ?? true;
   }
 }

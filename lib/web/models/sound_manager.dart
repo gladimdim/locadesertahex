@@ -39,7 +39,6 @@ class SoundManager extends SoundManagerClass {
     }
   }
   playSound(SOUND_TYPE action) async {
-    print("playing web sound");
     playWebAudio(actionMapping[action]);
   }
 }

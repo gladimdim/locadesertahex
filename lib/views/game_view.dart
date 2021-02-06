@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_surface.dart';
 import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
+import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
@@ -9,6 +10,7 @@ class GameView extends StatefulWidget {
   final MapStorage map;
   final String title;
   final Function(Locale) onLocaleChange;
+
   GameView({Key key, this.title, this.map, this.onLocaleChange});
 
   @override
@@ -27,6 +29,7 @@ class _GameViewState extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
+    var soundOn = AppPreferences.instance.getSoundEnabled();
     return Scaffold(
       body: Stack(
         children: [
@@ -80,6 +83,20 @@ class _GameViewState extends State<GameView> {
                           setState(() {
                             map.shuffle();
                           });
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          soundOn ? Icons.music_note : Icons.music_off,
+                          size: 24,
+                          color: Colors.green[700],
+                        ),
+                        onPressed: () async {
+                          var current =
+                              AppPreferences.instance.getSoundEnabled();
+                          await AppPreferences.instance
+                              .setSoundEnabled(!current);
+                          setState(() {});
                         },
                       ),
                       IconButton(
