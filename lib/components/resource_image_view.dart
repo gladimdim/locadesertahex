@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/label_text.dart';
+import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 
 class ResourceImageView extends StatelessWidget {
@@ -21,7 +21,7 @@ class ResourceImageView extends StatelessWidget {
           width: size,
           color: color,
         ),
-        if (showAmount) LabelText(resource.value.toString()),
+        if (showAmount) Text(resource.value.toString()),
       ],
     );
   }

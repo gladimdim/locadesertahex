@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_surface.dart';
-import 'package:locadesertahex/components/label_text.dart';
+import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 import 'package:locadesertahex/views/settings_view.dart';
@@ -65,11 +65,11 @@ class _GameViewState extends State<GameView> {
                       ),
                       StreamBuilder(
                         stream: map.changes,
-                        builder: (context, data) => LabelText(
+                        builder: (context, data) => TitleText(
                             "${HexLocalizations.of(context).labelPoints}: ${map.totalPoints}"),
                       ),
                       if (map.isGameOver())
-                        LabelText(HexLocalizations.of(context).labelGameOver),
+                        TitleText(HexLocalizations.of(context).labelGameOver),
                       IconButton(
                         icon: Icon(
                           Icons.shuffle,

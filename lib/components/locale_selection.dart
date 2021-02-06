@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 
-import 'label_text.dart';
+import 'title_text.dart';
 
 class LocaleSelection extends StatefulWidget {
   final Function(Locale locale) onLocaleChanged;
@@ -24,13 +24,13 @@ class _LocaleSelectionState extends State<LocaleSelection> {
           groupValue: locale.languageCode,
           onChanged: _setNewLocale,
         ),
-        LabelText('Українська'),
+        TitleText('Українська'),
         Radio(
           value: 'en',
           groupValue: locale.languageCode,
           onChanged: _setNewLocale,
         ),
-        LabelText('English'),
+        TitleText('English'),
       ],
     );
   }
