@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   simple_animations: ^2.4.2
-  soundpool: ^1.1.1
+  soundpool: ^1.1.3
   shared_preferences: ^0.5.11
   rxdart: 0.24.1
   tuple: ^1.0.3
@@ -19,6 +19,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   google_fonts: ^1.1.2
+  soundpool_macos: ^0.2.7
 
 dev_dependencies:
   flutter_test:

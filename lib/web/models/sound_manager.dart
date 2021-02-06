@@ -6,7 +6,7 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:soundpool/soundpool.dart';
 
 void playWebAudio(String path) {
-  js.context.callMethod('playAudio', [path]);
+  js.context.callMethod('playAudio', ["assets/$path"]);
 }
 
 class SoundManager extends SoundManagerClass {
