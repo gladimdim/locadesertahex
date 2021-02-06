@@ -46,11 +46,10 @@ class _MyAppState extends State<MyApp> {
         localeResolutionCallback: (locale, list) {
           if (HexLocalizations.supportedLanguageCodes.contains(locale.languageCode)) {
             _locale = locale;
-            return locale;
           } else {
             _locale = Locale("en");
-            return Locale("en");
           }
+          return _locale;
         },
         onGenerateTitle: (context) {
           return HexLocalizations.of(context).labelTitle;
