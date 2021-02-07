@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 
 class ResourceImageView extends StatelessWidget {

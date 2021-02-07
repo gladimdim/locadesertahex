@@ -117,7 +117,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                         flex: 1,
                         child: Center(
                           child: Text(
-                            HexLocalizations.of(context).labelCapture,
+                            HexLocalizations.of(context).labelCapture.toUpperCase(),
                           ),
                         ),
                       ),

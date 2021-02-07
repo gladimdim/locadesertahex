@@ -81,11 +81,10 @@ var mainTheme = ThemeData(
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       textStyle: MaterialStateProperty.resolveWith((states) {
-        return GoogleFonts.rubik(
+        return GoogleFonts.montserrat(
           textStyle: TextStyle(
-            fontSize: 20.0,
-            color: Colors.green[800],
-            fontWeight: FontWeight.bold,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
           ),
         );
       }),
@@ -106,7 +105,7 @@ var mainTheme = ThemeData(
         } else if (states.contains(MaterialState.pressed)) {
           return Colors.blue[500];
         }
-        return Colors.green[800];
+        return Colors.black;
       }),
     ),
   ),
