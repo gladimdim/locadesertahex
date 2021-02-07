@@ -24,19 +24,19 @@ class _LocaleSelectionState extends State<LocaleSelection> {
           groupValue: locale.languageCode,
           onChanged: _setNewLocale,
         ),
-        TitleText('Українська'),
+        TitleText("🇺🇦"),
         Radio(
           value: 'en',
           groupValue: locale.languageCode,
           onChanged: _setNewLocale,
         ),
-        TitleText('English'),
+        TitleText("🇺🇸"),
         Radio(
           value: 'ru',
           groupValue: locale.languageCode,
           onChanged: _setNewLocale,
         ),
-        TitleText('Російcька'),
+        TitleText('Рус'),
       ],
     );
   }
