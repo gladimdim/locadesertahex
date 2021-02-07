@@ -31,6 +31,12 @@ class _LocaleSelectionState extends State<LocaleSelection> {
           onChanged: _setNewLocale,
         ),
         TitleText('English'),
+        Radio(
+          value: 'ru',
+          groupValue: locale.languageCode,
+          onChanged: _setNewLocale,
+        ),
+        TitleText('Російcька'),
       ],
     );
   }
