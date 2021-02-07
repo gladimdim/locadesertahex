@@ -24,7 +24,7 @@ class _SettingsViewState extends State<SettingsView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TitleText(HexLocalizations.of(context).labelSettings),
+                TitleText(HexLocalizations.of(context).labelAbout),
                 Expanded(
                   flex: 4,
                   child: SingleChildScrollView(

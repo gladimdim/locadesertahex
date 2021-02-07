@@ -49,72 +49,96 @@ class _GameViewState extends State<GameView> {
                 height: 44,
                 color: Colors.white.withAlpha(155),
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
+                  padding:
+                      const EdgeInsets.only(bottom: 12.0, left: 8, right: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.refresh,
-                          size: 24,
-                          color: Colors.green[700],
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            map = MapStorage.generate();
-                          });
-                        },
-                      ),
-                      StreamBuilder(
-                        stream: map.changes,
-                        builder: (context, data) => TitleText(
-                            "${HexLocalizations.of(context).labelPoints}: ${map.totalPoints}"),
-                      ),
-                      if (map.isGameOver())
-                        TitleText(HexLocalizations.of(context).labelGameOver),
-                      IconButton(
-                        icon: Icon(
-                          Icons.shuffle,
-                          size: 24,
-                          color: Colors.green[700],
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            map.shuffle();
-                          });
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          soundOn ? Icons.music_note : Icons.music_off,
-                          size: 24,
-                          color: Colors.green[700],
-                        ),
-                        onPressed: () async {
-                          var current =
-                              AppPreferences.instance.getSoundEnabled();
-                          await AppPreferences.instance
-                              .setSoundEnabled(!current);
-                          setState(() {});
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.settings,
-                          size: 24,
-                          color: Colors.green[700],
-                        ),
-                        onPressed: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SettingsView(
-                                onLocaleChange: widget.onLocaleChange,
-                              ),
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          children: [
+                            StreamBuilder(
+                              stream: map.changes,
+                              builder: (context, data) => TitleText(
+                                  "${HexLocalizations.of(context).labelPoints}: ${map.totalPoints}"),
                             ),
-                          );
-                        },
+                            if (map.isGameOver())
+                              TitleText(
+                                  HexLocalizations.of(context).labelGameOver),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.refresh_outlined,
+                                color: Colors.green[700],
+                              ),
+                              tooltip: HexLocalizations.of(context).tooltipNewGame,
+                              onPressed: () {
+                                setState(() {
+                                  map = MapStorage.generate();
+                                });
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.shuffle,
+                                size: 24,
+                                color: Colors.green[700],
+                              ),
+                              tooltip: HexLocalizations.of(context).tooltipShuffle,
+
+                              onPressed: () {
+                                setState(() {
+                                  map.shuffle();
+                                });
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                soundOn ? Icons.music_note : Icons.music_off,
+                                size: 24,
+                                color: Colors.green[700],
+                              ),
+                              tooltip: HexLocalizations.of(context).tooltipSounds,
+
+                              onPressed: () async {
+                                var current =
+                                    AppPreferences.instance.getSoundEnabled();
+                                await AppPreferences.instance
+                                    .setSoundEnabled(!current);
+                                setState(() {});
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.help,
+                                size: 24,
+                                color: Colors.green[700],
+                              ),
+                              tooltip: HexLocalizations.of(context).tooltipSettings,
+
+                              onPressed: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SettingsView(
+                                      onLocaleChange: widget.onLocaleChange,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

@@ -36,8 +36,13 @@ class HexLocalizations {
       "labelPoints": "Points",
       "labelGameOver": "Game Over",
       "labelCapture": "Capture",
-      "labelSettings": "Settings",
+      "labelAbout": "About Game",
       "labelBack": "Back",
+
+      "tooltipSettings": "Help",
+      "tooltipSounds": "Sound",
+      "tooltipNewGame": "New Game",
+      "tooltipShuffle": "Shuffle",
       "textHowToPlay": """
       The main goal of the game is to get as many points as possible.
       Points are earned by capturing Hexes. Each regular Hex gives you 1 point.
@@ -88,8 +93,12 @@ class HexLocalizations {
       "labelPoints": "Бали",
       "labelGameOver": "Це кінець",
       "labelCapture": "Захопити",
-      "labelSettings": "Налаштування",
+      "labelAbout": "Про гру",
       "labelBack": "Назад",
+      "tooltipSettings": "Про гру",
+      "tooltipSounds": "Звук",
+      "tooltipNewGame": "Нова Гра",
+      "tooltipShuffle": "Перемішати",
       "textHowToPlay": """
         Головна мета гри - отримати як умога більше очок. Кожний захоплений ґекс дає одне очко.
 
@@ -128,8 +137,8 @@ class HexLocalizations {
     return _localizedValues[locale.languageCode]["labelCapture"];
   }
 
-  String get labelSettings {
-    return _localizedValues[locale.languageCode]["labelSettings"];
+  String get labelAbout {
+    return _localizedValues[locale.languageCode]["labelAbout"];
   }
 
   String get labelBack {
@@ -138,6 +147,21 @@ class HexLocalizations {
 
   String get textHowToPlay {
     return _localizedValues[locale.languageCode]["textHowToPlay"];
+  }
+
+  String get tooltipSettings {
+    return _localizedValues[locale.languageCode]["tooltipSettings"];
+  }
+
+  String get tooltipSounds {
+    return _localizedValues[locale.languageCode]["tooltipSounds"];
+  }
+  String get tooltipNewGame {
+    return _localizedValues[locale.languageCode]["tooltipNewGame"];
+  }
+
+  String get tooltipShuffle {
+    return _localizedValues[locale.languageCode]["tooltipShuffle"];
   }
 
   String operator [](String key) {
