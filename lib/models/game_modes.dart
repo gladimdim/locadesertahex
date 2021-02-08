@@ -4,6 +4,9 @@ enum GAME_MODES { CLASSIC, EASY }
 
 abstract class GameMode {
   final GAME_MODES mode;
+  String iconPath;
+  String localizedKeyTitle;
+  String localizedKeyDescription;
   String toGameModeString() {
     return gameModeToString(mode);
   }
@@ -62,6 +65,9 @@ abstract class GameMode {
 
 class GameModeEasy extends GameMode {
   final GAME_MODES mode = GAME_MODES.EASY;
+  final String iconPath = "images/resources/grains.png";
+  String localizedKeyTitle = "gameMode.titleEasy";
+  String localizedKeyDescription = "gameMode.descriptionEasy";
 
   GameModeEasy() : super(GAME_MODES.EASY);
 
@@ -99,6 +105,9 @@ class GameModeEasy extends GameMode {
 
 class GameModeClassic extends GameMode {
   final GAME_MODES mode = GAME_MODES.CLASSIC;
+  final String iconPath = "images/resources/wood.png";
+  String localizedKeyTitle = "gameMode.titleClassic";
+  String localizedKeyDescription = "gameMode.descriptionClassic";
 
   GameModeClassic() : super(GAME_MODES.CLASSIC);
 

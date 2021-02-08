@@ -45,6 +45,11 @@ class HexLocalizations {
       "tooltipSounds": "Sound",
       "tooltipNewGame": "New Game",
       "tooltipShuffle": "Shuffle",
+      "gameMode.titleEasy": "Easy",
+      "gameMode.descriptionEasy": "No Walls. Plenty of resources. Enjoy!",
+      "gameMode.titleClassic": "Classic",
+      "gameMode.descriptionClassic":
+          "Sloboda is surrounded by 3 wall levels. Plenty of resources.",
       "textHowToPlay": """
       The main goal of the game is to get as many points as possible.
       Points are earned by capturing Hexes. Each regular Hex gives you 1 point.
@@ -101,6 +106,12 @@ class HexLocalizations {
       "tooltipSounds": "Звук",
       "tooltipNewGame": "Нова Гра",
       "tooltipShuffle": "Перемішати",
+      "gameMode.titleEasy": "Легко",
+      "gameMode.descriptionEasy":
+          "Немає стін, досталь ресурсів. Насолоджуйтесь!",
+      "gameMode.titleClassic": "Класика",
+      "gameMode.descriptionClassic":
+          "Слободу оточують стіни, вам треба через них пробиватися. Ресурсів вдосталь.",
       "textHowToPlay": """
         Головна мета гри - отримати як умога більше очок. Кожний захоплений ґекс дає одне очко.
 
@@ -152,6 +163,12 @@ class HexLocalizations {
       "tooltipSounds": "Звук",
       "tooltipNewGame": "Новая Игра",
       "tooltipShuffle": "Перемешать",
+      "gameMode.titleEasy": "Легко",
+      "gameMode.descriptionEasy":
+          "Нету стен. Множество ресурсов. Наслаждайтесь!",
+      "gameMode.titleClassic": "Классика",
+      "gameMode.descriptionClassic":
+          "Слободу окружают три стены. Надо через них пробиваться. Ресурсов много.",
       "textHowToPlay": """
         Основная цель игры - получить как можна больше очков. Каждый захваченый гекс дает одно очко.
 

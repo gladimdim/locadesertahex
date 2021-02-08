@@ -88,7 +88,6 @@ class _GameViewState extends State<GameView> {
                                 var mode = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                                   return ModeSelectionView();
                                 }));
-                                print(mode);
                                 setState(() {
                                   map = MapStorage.generate(mode);
                                 });
