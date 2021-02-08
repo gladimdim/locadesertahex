@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/city_hex.dart';
+import 'package:locadesertahex/models/game_modes.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
@@ -28,9 +29,11 @@ class MapStorage {
   BehaviorSubject _innerChanges = BehaviorSubject<STORAGE_EVENTS>();
   ValueStream<STORAGE_EVENTS> changes;
   Hex selected;
+  GameMode gameMode;
 
-  MapStorage({this.map}) {
+  MapStorage({this.map, this.gameMode}) {
     changes = _innerChanges.stream;
+    gameMode = gameMode ?? GameModeClassic();
   }
 
   Tuple2<bool, List<Resource>> ownHex(Hex hex) {
@@ -165,8 +168,8 @@ class MapStorage {
     if (item == null) {
       addHex(hex);
       item = hex;
-      item.output =
-          MapStorage.getRandomResourceForLevel(distanceFromCenter(hex));
+      item.output = getRandomResourceForLevel(
+          distanceFromCenter(hex));
     }
     return item;
   }
@@ -175,11 +178,13 @@ class MapStorage {
     return map.values.toList();
   }
 
-  static MapStorage generate() {
-    return MapStorage(map: MapStorage.generateCubes(7));
+  static MapStorage generate(GAME_MODES mode) {
+    var map = MapStorage(gameMode: GameMode.createMode(mode));
+    map.map = map.generateCubes(7);
+    return map;
   }
 
-  static Map<String, Hex> generateCubes(int amount) {
+  Map<String, Hex> generateCubes(int amount) {
     var counter = 0;
     Map<String, Hex> map = {};
     var start = Hex(0, 0, 0);
@@ -194,8 +199,8 @@ class MapStorage {
       queue.addAll(neighbours);
       map[next.toHash()] = next;
       if (counter != 0) {
-        next.output =
-            MapStorage.getRandomResourceForLevel(distanceFromCenter(next));
+        next.output = getRandomResourceForLevel(
+            distanceFromCenter(next),);
       }
       counter++;
     }
@@ -211,81 +216,14 @@ class MapStorage {
     return map;
   }
 
-  static Resource getRandomResourceForLevel(int level) {
+  Resource getRandomResourceForLevel(int level) {
     var resourceTypes = resourcesForLevel(level);
     var i = Random().nextInt(resourceTypes.length);
     return Resource.fromType(resourceTypes[i]);
   }
 
-  static List<List<RESOURCE_TYPES>> resourcesByLevels() {
-    var food = [
-      RESOURCE_TYPES.GRAINS,
-      RESOURCE_TYPES.FOOD,
-    ];
-    var resources = [
-      RESOURCE_TYPES.WOOD,
-      RESOURCE_TYPES.FOOD,
-      RESOURCE_TYPES.WOOD,
-      RESOURCE_TYPES.IRON_ORE,
-      RESOURCE_TYPES.WOOD,
-      RESOURCE_TYPES.CHARCOAL,
-    ];
-    var military = [
-      RESOURCE_TYPES.FIREARM,
-      RESOURCE_TYPES.MONEY,
-      RESOURCE_TYPES.POWDER,
-    ];
-    var moneyMakers = [
-      RESOURCE_TYPES.FISH,
-      RESOURCE_TYPES.FUR,
-    ];
-    var higherLevel = [
-      RESOURCE_TYPES.MONEY,
-      RESOURCE_TYPES.HORSE,
-      RESOURCE_TYPES.PLANKS,
-      RESOURCE_TYPES.METAL_PARTS,
-    ];
-
-    var army = [
-      RESOURCE_TYPES.CANNON,
-      RESOURCE_TYPES.COSSACK,
-    ];
-
-    var highLevelArmy = [
-      RESOURCE_TYPES.BOAT,
-      RESOURCE_TYPES.CART,
-    ];
-    return [
-      [],
-      [RESOURCE_TYPES.GRAINS],
-      [...food, ...resources],
-      [...food, ...resources],
-      [...food, ...moneyMakers, ...military],
-      [...moneyMakers, ...resources],
-      [...food, ...resources, ...military],
-      [...army, ...higherLevel],
-      [...army, ...higherLevel, ...military],
-      [...military, ...higherLevel],
-      [RESOURCE_TYPES.WALL],
-      [...resources, ...moneyMakers, ...food],
-      [...resources],
-      [...moneyMakers, ...military],
-      [RESOURCE_TYPES.WALL],
-      [...army, ...moneyMakers],
-      [...resources, ...higherLevel],
-      [...moneyMakers, ...higherLevel],
-      [...resources, ...higherLevel, ...food],
-      [...highLevelArmy, ...higherLevel],
-      military,
-      resources,
-      food,
-      higherLevel,
-      moneyMakers,
-    ];
-  }
-
-  static List<RESOURCE_TYPES> resourcesForLevel(int level) {
-    var levels = MapStorage.resourcesByLevels();
+  List<RESOURCE_TYPES> resourcesForLevel(int level) {
+    var levels = gameMode.resources();
     if (level >= levels.length) {
       level = 4;
     }
@@ -297,6 +235,7 @@ class MapStorage {
       "map": map.values.map((hex) => hex.toJson()).toList(),
       "stock": stock.map((e) => e.toJson()).toList(),
       "totalPoints": totalPoints,
+      "gameMode": gameMode.toGameModeString(),
     };
   }
 
@@ -304,7 +243,8 @@ class MapStorage {
     List hexJsons = json["map"] as List;
     List stockJson = json["stock"] as List;
     var hexes = hexJsons.map((e) => Hex.fromJson(e));
-    var map = MapStorage(map: {});
+    var map =
+        MapStorage(map: {}, gameMode: GameMode.createMode(gameModeFromString(json["gameMode"])));
     map.totalPoints = json["totalPoints"] ?? 0;
     hexes.forEach((hex) {
       map.addHex(hex);

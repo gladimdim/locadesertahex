@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
+import 'package:locadesertahex/models/game_modes.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 import 'package:locadesertahex/views/game_view.dart';
 
@@ -21,7 +22,7 @@ MapStorage loadMap() {
   MapStorage map;
   var loadedJson = AppPreferences.instance.loadMap();
   if (loadedJson == null) {
-    map = MapStorage.generate();
+    map = MapStorage.generate(GAME_MODES.CLASSIC);
   } else {
     map = MapStorage.fromJson(loadedJson);
   }

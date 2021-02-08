@@ -4,6 +4,7 @@ import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
 class GameView extends StatefulWidget {
@@ -56,8 +57,9 @@ class _GameViewState extends State<GameView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             StreamBuilder(
                               stream: map.changes,
@@ -82,9 +84,13 @@ class _GameViewState extends State<GameView> {
                                 color: Colors.green[700],
                               ),
                               tooltip: HexLocalizations.of(context).tooltipNewGame,
-                              onPressed: () {
+                              onPressed: () async {
+                                var mode = await Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                  return ModeSelectionView();
+                                }));
+                                print(mode);
                                 setState(() {
-                                  map = MapStorage.generate();
+                                  map = MapStorage.generate(mode);
                                 });
                               },
                             ),
