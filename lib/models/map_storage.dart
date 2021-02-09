@@ -17,15 +17,7 @@ class MapStorage {
   Map<String, Hex> map;
   List<Resource> stock = [];
   int totalPoints = 0;
-  List<CityHex> cities = [
-    CityHex.generateForDirection(0, 10),
-    CityHex.generateForDirection(4, 10),
-    CityHex.generateForDirection(2, 10),
-    CityHex.generateForDirection(2, 25),
-    CityHex.generateForDirection(3, 23),
-    CityHex.generateForDirection(4, 30),
-    CityHex.generateForDirection(5, 13),
-  ];
+  List<CityHex> cities;
   BehaviorSubject _innerChanges = BehaviorSubject<STORAGE_EVENTS>();
   ValueStream<STORAGE_EVENTS> changes;
   Hex selected;
@@ -34,6 +26,7 @@ class MapStorage {
   MapStorage({this.map, this.gameMode}) {
     changes = _innerChanges.stream;
     gameMode = gameMode ?? GameModeClassic();
+    cities = gameMode.cities;
   }
 
   Tuple2<bool, List<Resource>> ownHex(Hex hex) {
@@ -46,8 +39,6 @@ class MapStorage {
     hex.owned = true;
     hex.visible = true;
     totalPoints += hex.output.points;
-    // highlight rings
-    // processRings(distanceFromCenter(hex));
     List<Hex> cityHexes = [];
     cities.forEach((cityHex) {
       cityHexes.addAll(cityHex.getCircle());

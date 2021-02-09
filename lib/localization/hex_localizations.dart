@@ -50,6 +50,9 @@ class HexLocalizations {
       "gameMode.titleClassic": "Classic",
       "gameMode.descriptionClassic":
           "Sloboda is surrounded by 3 wall levels. Plenty of resources.",
+      "gameMode.titleExpansion": "Expansion",
+      "gameMode.descriptionExpansion":
+      "A lot of hexes with enemies. Dozen of protected cities. Tough mode!",
       "textHowToPlay": """
       The main goal of the game is to get as many points as possible.
       Points are earned by capturing Hexes. Each regular Hex gives you 1 point.
@@ -112,6 +115,9 @@ class HexLocalizations {
       "gameMode.titleClassic": "Класика",
       "gameMode.descriptionClassic":
           "Слободу оточують стіни, вам треба через них пробиватися. Ресурсів вдосталь.",
+      "gameMode.titleExpansion": "Рубилово",
+      "gameMode.descriptionExpansion":
+      "Купа ворожих ґексів, багато стін та з десяток укріплених місць. Справжнє випробовування!",
       "textHowToPlay": """
         Головна мета гри - отримати як умога більше очок. Кожний захоплений ґекс дає одне очко.
 
@@ -169,6 +175,9 @@ class HexLocalizations {
       "gameMode.titleClassic": "Классика",
       "gameMode.descriptionClassic":
           "Слободу окружают три стены. Надо через них пробиваться. Ресурсов много.",
+      "gameMode.titleExpansion": "Рубилово",
+      "gameMode.descriptionExpansion":
+      "Много вражеских гексов. Больше уровней стен. Около десятка укрепленых городов. Настоящее испытание!",
       "textHowToPlay": """
         Основная цель игры - получить как можна больше очков. Каждый захваченый гекс дает одно очко.
 

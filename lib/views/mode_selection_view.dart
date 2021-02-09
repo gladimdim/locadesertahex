@@ -18,44 +18,46 @@ class _ModeSelectionViewState extends State<ModeSelectionView> {
           ImageFitterView(
             "images/background/map_bw.png",
           ),
-          Column(
-            children: [
-              Expanded(
-                flex: 10,
-                child: Wrap(
-                  children: GAME_MODES.values.map(
-                    (gameMode) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextButton(
-                          child: GameModeItemView(
-                            mode: GameMode.createMode(gameMode),
+          SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 10,
+                  child: Wrap(
+                    children: GAME_MODES.values.map(
+                      (gameMode) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextButton(
+                            child: GameModeItemView(
+                              mode: GameMode.createMode(gameMode),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context, gameMode);
+                            },
                           ),
-                          onPressed: () {
-                            Navigator.pop(context, gameMode);
-                          },
-                        ),
-                      );
-                    },
-                  ).toList(),
+                        );
+                      },
+                    ).toList(),
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(HexLocalizations.of(context).labelBack),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(HexLocalizations.of(context).labelBack),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

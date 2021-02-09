@@ -65,15 +65,18 @@ class _GameViewState extends State<GameView> {
                         Expanded(
                           flex: 2,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               StreamBuilder(
                                 stream: map.changes,
-                                builder: (context, data) => TitleText(
+                                builder: (context, data) => Text(
                                     "${HexLocalizations.of(context).labelPoints}: ${map.totalPoints}"),
                               ),
+                              Text(
+                                HexLocalizations.of(context)[map.gameMode.localizedKeyTitle],
+                              ),
                               if (map.isGameOver())
-                                TitleText(
+                                Text(
                                     HexLocalizations.of(context).labelGameOver),
                             ],
                           ),
