@@ -62,9 +62,9 @@ class _GameViewState extends State<GameView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 1,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               StreamBuilder(
                                 stream: map.changes,
@@ -81,7 +81,7 @@ class _GameViewState extends State<GameView> {
                           ),
                         ),
                         Expanded(
-                          flex: 3,
+                          flex: 1,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,

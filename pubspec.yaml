@@ -1,6 +1,6 @@
 name: locadesertahex
 description: Loca Deserta Hex Puzzle Game.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 version: 1.0.0
 
 environment:
