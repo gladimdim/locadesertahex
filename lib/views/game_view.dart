@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_surface.dart';
-import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/map_storage.dart';
@@ -99,9 +98,11 @@ class _GameViewState extends State<GameView> {
                                       MaterialPageRoute(builder: (context) {
                                     return ModeSelectionView();
                                   }));
-                                  setState(() {
-                                    map = MapStorage.generate(mode);
-                                  });
+                                  if (mode != null) {
+                                    setState(() {
+                                      map = MapStorage.generate(mode);
+                                    });
+                                  }
                                 },
                               ),
                               IconButton(
