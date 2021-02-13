@@ -64,7 +64,7 @@ class _GameViewState extends State<GameView> {
                         Expanded(
                           flex: 1,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               StreamBuilder(
                                 stream: map.changes,

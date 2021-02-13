@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-const APP_VERSION = "1.0.0";
+const APP_VERSION = "1.0.2";
 
 class HexLocalizations {
   HexLocalizations(this.locale);
