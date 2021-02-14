@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:flutter/foundation.dart' show debugDefaultTargetPlatformOverride, kIsWeb;
 
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
@@ -9,11 +14,25 @@ import 'package:locadesertahex/models/game_modes.dart';
 import 'package:locadesertahex/models/map_storage.dart';
 import 'package:locadesertahex/views/game_view.dart';
 
+void _setTargetPlatformForDesktop() {
+  // No need to handle macOS, as it has now been added to TargetPlatform.
+  if (Platform.isLinux || Platform.isWindows) {
+    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (!kIsWeb) {
+    _setTargetPlatformForDesktop();
+    await SystemChrome.setEnabledSystemUIOverlays([]);
+  }
+
   await SoundManager.instance.initSounds();
   await AppPreferences.instance.init();
   // await AppPreferences.instance.removeUILanguage();
+
   MapStorage map = loadMap();
   runApp(MyApp(map));
 }
@@ -44,6 +63,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: mainTheme,
       locale: _locale,
       localeResolutionCallback: (locale, list) {
@@ -90,14 +110,11 @@ var mainTheme = ThemeData(
         );
       }),
       backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.hovered))
-            return Colors.green[900];
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.hovered)) return Colors.green[900];
           if (states.contains(MaterialState.focused) ||
-              states.contains(MaterialState.pressed))
-            return Colors.green[600];
-          return Colors
-              .green[400]; // Defer to the widget's default.
+              states.contains(MaterialState.pressed)) return Colors.green[600];
+          return Colors.green[400]; // Defer to the widget's default.
         },
       ),
       foregroundColor: MaterialStateProperty.resolveWith((states) {
