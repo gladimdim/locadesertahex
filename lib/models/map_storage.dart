@@ -159,8 +159,7 @@ class MapStorage {
     if (item == null) {
       addHex(hex);
       item = hex;
-      item.output = getRandomResourceForLevel(
-          distanceFromCenter(hex));
+      item.output = getRandomResourceForLevel(distanceFromCenter(hex));
     }
     return item;
   }
@@ -191,7 +190,8 @@ class MapStorage {
       map[next.toHash()] = next;
       if (counter != 0) {
         next.output = getRandomResourceForLevel(
-            distanceFromCenter(next),);
+          distanceFromCenter(next),
+        );
       }
       counter++;
     }
@@ -234,8 +234,9 @@ class MapStorage {
     List hexJsons = json["map"] as List;
     List stockJson = json["stock"] as List;
     var hexes = hexJsons.map((e) => Hex.fromJson(e));
-    var map =
-        MapStorage(map: {}, gameMode: GameMode.createMode(gameModeFromString(json["gameMode"])));
+    var map = MapStorage(
+        map: {},
+        gameMode: GameMode.createMode(gameModeFromString(json["gameMode"])));
     map.totalPoints = json["totalPoints"] ?? 0;
     hexes.forEach((hex) {
       map.addHex(hex);

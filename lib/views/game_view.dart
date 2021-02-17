@@ -71,9 +71,11 @@ class _GameViewState extends State<GameView> {
                                 builder: (context, data) => Text(
                                     "${HexLocalizations.of(context).labelPoints}: ${map.totalPoints}"),
                               ),
-                              Text(
-                                HexLocalizations.of(context)[map.gameMode.localizedKeyTitle],
+                              if (!map.isGameOver()) Text(
+                                HexLocalizations.of(context)[map.gameMode
+                                    .localizedKeyTitle],
                               ),
+
                               if (map.isGameOver())
                                 Text(
                                     HexLocalizations.of(context).labelGameOver),
