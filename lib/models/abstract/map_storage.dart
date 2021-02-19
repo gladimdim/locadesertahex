@@ -24,7 +24,37 @@ abstract class MapStorage {
     cities = gameMode.cities;
   }
 
-  Tuple2<bool, List<Resource>> ownHex(Hex hex);
+  Tuple2<bool, List<Resource>> ownHex(Hex hex) {
+    var satisfaction = satisfiesResourceRequirement(hex.toRequirement());
+    if (!satisfaction.item1) {
+      return satisfaction;
+    }
+    hex.toRequirement().forEach(removeResource);
+    map[hex.toHash()] = hex;
+    hex.owned = true;
+    hex.visible = true;
+    totalPoints += hex.output.points;
+    List<Hex> cityHexes = [];
+    cities.forEach((cityHex) {
+      cityHexes.addAll(cityHex.getCircle());
+    });
+    hex.allNeighbours().forEach((element) {
+      var item = getOrCreate(element);
+      // check for city circles
+      var foundInCity =
+      cityHexes.where((cityHex) => cityHex.equalsTo(item)).toList();
+
+      if (foundInCity.isNotEmpty) {
+        addHex(foundInCity[0]);
+      }
+
+      item.visible = true;
+    });
+    addResource(hex.output);
+    save();
+    _innerChanges.add(STORAGE_EVENTS.ADD);
+    return Tuple2(true, null);
+  }
 
   void processRings(radius) {}
 
@@ -81,9 +111,6 @@ abstract class MapStorage {
   List<Hex> asList() {
     return map.values.toList();
   }
-
-
-  List<RESOURCE_TYPES> resourcesForLevel(int level);
 
   Map<String, dynamic> toJson();
 
