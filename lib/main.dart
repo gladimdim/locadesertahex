@@ -11,7 +11,7 @@ import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/game_modes.dart';
-import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/models/map_storage_expand.dart';
 import 'package:locadesertahex/views/game_view.dart';
 
 void _setTargetPlatformForDesktop() {
@@ -33,23 +33,23 @@ void main() async {
   await AppPreferences.instance.init();
   // await AppPreferences.instance.removeUILanguage();
 
-  MapStorage map = loadMap();
+  MapStorageExpand map = loadMap();
   runApp(MyApp(map));
 }
 
-MapStorage loadMap() {
-  MapStorage map;
+MapStorageExpand loadMap() {
+  MapStorageExpand map;
   var loadedJson = AppPreferences.instance.loadMap();
   if (loadedJson == null) {
-    map = MapStorage.generate(GAME_MODES.CLASSIC);
+    map = MapStorageExpand.generate(GAME_MODES.CLASSIC);
   } else {
-    map = MapStorage.fromJson(loadedJson);
+    map = MapStorageExpand.fromJson(loadedJson);
   }
   return map;
 }
 
 class MyApp extends StatefulWidget {
-  final MapStorage map;
+  final MapStorageExpand map;
 
   MyApp(this.map);
 

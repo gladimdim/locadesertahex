@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
-import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/models/map_storage_expand.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 
 class HexSettlementExpandedView extends StatefulWidget {
   final double size;
-  final MapStorage storage;
+  final MapStorageExpand storage;
 
   HexSettlementExpandedView({this.size, this.storage});
 

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_surface.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
-import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/models/map_storage_expand.dart';
 import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
 class GameView extends StatefulWidget {
-  final MapStorage map;
+  final MapStorageExpand map;
   final String title;
   final Function(Locale) onLocaleChange;
 
@@ -20,7 +20,7 @@ class GameView extends StatefulWidget {
 class _GameViewState extends State<GameView> {
   final double size = 120;
   final double dimension = 6000;
-  MapStorage map;
+  MapStorageExpand map;
 
   void initState() {
     map = widget.map;
@@ -102,7 +102,7 @@ class _GameViewState extends State<GameView> {
                                   }));
                                   if (mode != null) {
                                     setState(() {
-                                      map = MapStorage.generate(mode);
+                                      map = MapStorageExpand.generate(mode);
                                     });
                                   }
                                 },

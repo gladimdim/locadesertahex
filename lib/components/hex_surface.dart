@@ -3,16 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:locadesertahex/components/hex_item_tile.dart';
+import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
-import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/models/map_storage_expand.dart';
 
 import 'hex_clipper.dart';
 
 class HexSurface extends StatefulWidget {
   final double dimension;
   final double size;
-  final MapStorage storage;
+  final MapStorageExpand storage;
 
   HexSurface({this.dimension, this.size, this.storage});
 

@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:locadesertahex/hexgrid/funcs.dart';
+import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/city_hex.dart';
 import 'package:locadesertahex/models/game_modes.dart';
@@ -11,9 +12,7 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:tuple/tuple.dart';
 
-enum STORAGE_EVENTS { ADD, SELECTION_CHANGE }
-
-class MapStorage {
+class MapStorageExpand extends MapStorage {
   Map<String, Hex> map;
   List<Resource> stock = [];
   int totalPoints = 0;
@@ -23,7 +22,7 @@ class MapStorage {
   Hex selected;
   GameMode gameMode;
 
-  MapStorage({this.map, this.gameMode}) {
+  MapStorageExpand({this.map, this.gameMode}) {
     changes = _innerChanges.stream;
     gameMode = gameMode ?? GameModeClassic();
     cities = gameMode.cities;
@@ -70,6 +69,16 @@ class MapStorage {
     }
   }
 
+  Hex getOrCreate(Hex hex) {
+    var item = map[hex.toHash()];
+    if (item == null) {
+      addHex(hex);
+      item = hex;
+      item.output = getRandomResourceForLevel(distanceFromCenter(hex));
+    }
+    return item;
+  }
+
   Tuple2<bool, List<Hex>> ringClosedAt(int radius) {
     List<Hex> results = List.empty(growable: true);
     var center = Hex(0, 0, 0);
@@ -98,11 +107,6 @@ class MapStorage {
     await AppPreferences.instance.saveMap(this.toJson());
   }
 
-  void putLast(Hex hex) {
-    map.removeWhere((key, value) => key == hex.toHash());
-    addHex(hex);
-  }
-
   Tuple2<bool, List<Resource>> satisfiesResourceRequirement(
       List<Resource> requirements) {
     List<Resource> results = [];
@@ -121,26 +125,6 @@ class MapStorage {
     return Tuple2(result, results);
   }
 
-  Resource stockForResource(Resource resource) {
-    try {
-      var existing =
-          stock.firstWhere((element) => element.type == resource.type);
-      return existing;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Resource stockForResourceType(RESOURCE_TYPES type) {
-    return stockForResource(Resource.fromType(type));
-  }
-
-  void removeResource(Resource resource) {
-    if (satisfiesResourceRequirement([resource]).item1) {
-      stockForResource(resource).value -= resource.value;
-    }
-  }
-
   void addResource(Resource resource) {
     var existing = stockForResource(resource);
     if (existing == null) {
@@ -154,22 +138,8 @@ class MapStorage {
     map[hex.toHash()] = hex;
   }
 
-  Hex getOrCreate(Hex hex) {
-    var item = map[hex.toHash()];
-    if (item == null) {
-      addHex(hex);
-      item = hex;
-      item.output = getRandomResourceForLevel(distanceFromCenter(hex));
-    }
-    return item;
-  }
-
-  List<Hex> asList() {
-    return map.values.toList();
-  }
-
-  static MapStorage generate(GAME_MODES mode) {
-    var map = MapStorage(gameMode: GameMode.createMode(mode));
+  static MapStorageExpand generate(GAME_MODES mode) {
+    var map = MapStorageExpand(gameMode: GameMode.createMode(mode));
     map.map = map.generateCubes(7);
     return map;
   }
@@ -230,11 +200,11 @@ class MapStorage {
     };
   }
 
-  static MapStorage fromJson(Map<String, dynamic> json) {
+  static MapStorageExpand fromJson(Map<String, dynamic> json) {
     List hexJsons = json["map"] as List;
     List stockJson = json["stock"] as List;
     var hexes = hexJsons.map((e) => Hex.fromJson(e));
-    var map = MapStorage(
+    var map = MapStorageExpand(
         map: {},
         gameMode: GameMode.createMode(gameModeFromString(json["gameMode"])));
     map.totalPoints = json["totalPoints"] ?? 0;

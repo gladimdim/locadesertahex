@@ -8,13 +8,13 @@ import 'package:locadesertahex/components/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
-import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/models/map_storage_expand.dart';
 
 class HexItemTile extends StatefulWidget {
   final Hex hex;
   final Point center;
   final double size;
-  final MapStorage storage;
+  final MapStorageExpand storage;
   final Function(bool) onPress;
   final double dimension;
   final bool expanded;
