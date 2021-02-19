@@ -17,10 +17,10 @@ class Tower extends Resource {
 
   List<Resource> toRequirement() {
     return [
-      Cannon(value * 10),
-      Cossack(value * 40),
-      Cart(value * 5),
-      Boat(value * 2)
+      Cannon(value * 4),
+      Cossack(value * 3),
+      Cart(value * 2),
+      Boat(value * 1)
     ];
   }
 }

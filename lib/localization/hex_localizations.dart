@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-const APP_VERSION = "1.0.4";
+const APP_VERSION = "1.0.5";
 
 class HexLocalizations {
   HexLocalizations(this.locale);
@@ -41,6 +41,9 @@ class HexLocalizations {
       "labelCapture": "Capture",
       "labelAbout": "About Game",
       "labelBack": "Back",
+      "labelSloboda": "Sloboda",
+      "labelLocaDeserta": "Loca Deserta",
+      "labelOtherGames": "My other games",
       "tooltipSettings": "Help",
       "tooltipSounds": "Sound",
       "tooltipNewGame": "New Game",
@@ -57,12 +60,12 @@ class HexLocalizations {
       The main goal of the game is to get as many points as possible.
       Points are earned by capturing Hexes. Each regular Hex gives you 1 point.
 
-      To capture a Hex you you need resources. There are primitive resource Hex (wood, grains, etc) that do not require anything.
-      And there are more complex resource Hexes (firearms, horses, carts) that require primitive resources in return.
+      To capture a Hex you need resources. There are primitive resource Hex (wood, grains, etc) that do not require anything.
+      And there are composite resource Hexes (firearms, horses, carts). They require primitive resources.
 
       Map is divided by levels. First 15 levels contain a lot of resources and you can prepare your army.
       Then comes Wall Hexes that you have to capture before you can expand into next levels.
-      To capture these walls you require an army (cossacka and cannons).
+      To capture these walls you require an army (cossacks and cannons).
       Each wall gives you much more points.
 
       There are also four fortresses settled somewhere on the map. They give you the most amount of points.
@@ -105,6 +108,9 @@ class HexLocalizations {
       "labelCapture": "Захопити",
       "labelAbout": "Про гру",
       "labelBack": "Назад",
+      "labelSloboda": "Слобода",
+      "labelLocaDeserta": "Дике Поле",
+      "labelOtherGames": "Мої інші ігри",
       "tooltipSettings": "Про гру",
       "tooltipSounds": "Звук",
       "tooltipNewGame": "Нова Гра",
@@ -165,6 +171,9 @@ class HexLocalizations {
       "labelCapture": "Забрать",
       "labelAbout": "Про игру",
       "labelBack": "Назад",
+      "labelSloboda": "Слобода",
+      "labelLocaDeserta": "Дикое Поле",
+      "labelOtherGames": "Мои другие игры",
       "tooltipSettings": "Про игру",
       "tooltipSounds": "Звук",
       "tooltipNewGame": "Новая Игра",
@@ -243,6 +252,10 @@ class HexLocalizations {
 
   String get tooltipShuffle {
     return _localizedValues[locale.languageCode]["tooltipShuffle"];
+  }
+
+  String get labelOtherGames {
+    return _localizedValues[locale.languageCode]["labelOtherGames"];
   }
 
   String operator [](String key) {
