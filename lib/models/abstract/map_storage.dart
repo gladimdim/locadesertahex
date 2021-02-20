@@ -129,4 +129,8 @@ abstract class MapStorage {
     selected = null;
     _innerChanges.add(STORAGE_EVENTS.SELECTION_CHANGE);
   }
+
+  void dispose() {
+    _innerChanges.close();
+  }
 }

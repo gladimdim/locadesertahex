@@ -14,19 +14,9 @@ import 'package:tuple/tuple.dart';
 
 class MapStorageExpand extends MapStorage {
   Map<String, Hex> map;
-  List<Resource> stock = [];
-  int totalPoints = 0;
-  List<CityHex> cities;
-  BehaviorSubject _innerChanges = BehaviorSubject<STORAGE_EVENTS>();
-  ValueStream<STORAGE_EVENTS> changes;
-  Hex selected;
   GameMode gameMode;
 
-  MapStorageExpand({this.map, this.gameMode}) {
-    changes = _innerChanges.stream;
-    gameMode = gameMode ?? GameModeClassic();
-    cities = gameMode.cities;
-  }
+  MapStorageExpand({this.map, this.gameMode}): super(map: map, gameMode: gameMode);
 
   void processRings(radius) {
     Tuple2<bool, List<Hex>> result = ringClosedAt(radius);
@@ -196,5 +186,9 @@ class MapStorageExpand extends MapStorage {
     }
 
     return isGameOver;
+  }
+
+  void dispose() {
+    super.dispose();
   }
 }
