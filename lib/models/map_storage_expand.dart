@@ -16,7 +16,10 @@ class MapStorageExpand extends MapStorage {
   Map<String, Hex> map;
   GameMode gameMode;
 
-  MapStorageExpand({this.map, this.gameMode}): super(map: map, gameMode: gameMode);
+  MapStorageExpand({this.map, this.gameMode}):super(map: map, gameMode: gameMode) {
+    gameMode = gameMode ?? GameModeClassic();
+    cities = gameMode.cities;
+  }
 
   void processRings(radius) {
     Tuple2<bool, List<Hex>> result = ringClosedAt(radius);

@@ -20,8 +20,6 @@ abstract class MapStorage {
 
   MapStorage({this.map, this.gameMode}) {
     changes = _innerChanges.stream;
-    gameMode = gameMode ?? GameModeClassic();
-    cities = gameMode.cities;
   }
 
   Tuple2<bool, List<Resource>> ownHex(Hex hex) {
