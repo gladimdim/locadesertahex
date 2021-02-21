@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/builder/hex_builder_on_surface.dart';
 
 import 'package:locadesertahex/components/hex_item_tile.dart';
 import 'package:locadesertahex/components/expansion/hex_on_surface.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
+import 'package:locadesertahex/models/map_storage_expansion.dart';
 
 import '../hex_clipper.dart';
 
@@ -73,12 +75,19 @@ class _HexSurfaceState extends State<HexSurface> {
                   dimension: widget.dimension,
                   onPress: (expanded) {},
                   expanded: false,
-                  hexOnSurface: HexOnSurface(
-                    size: widget.size,
-                    storage: widget.storage,
-                    expanded: false,
-                    hex: hex,
-                  ),
+                  hexOnSurface: widget.storage is MapStorageExpansion
+                      ? HexOnSurface(
+                          size: widget.size,
+                          storage: widget.storage,
+                          expanded: false,
+                          hex: hex,
+                        )
+                      : HexBuilderOnSurface(
+                          size: widget.size,
+                          storage: widget.storage,
+                          expanded: false,
+                          hex: hex,
+                        ),
                 );
               },
             ).toList(),
@@ -96,12 +105,19 @@ class _HexSurfaceState extends State<HexSurface> {
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
-                        hexOnSurface: HexOnSurface(
-                          size: widget.size,
-                          hex: widget.storage.selectedHex(),
-                          expanded: true,
-                          storage: widget.storage,
-                        ),
+                        hexOnSurface: widget.storage is MapStorageExpansion
+                            ? HexOnSurface(
+                                size: widget.size,
+                                storage: widget.storage,
+                                expanded: true,
+                                hex: widget.storage.selectedHex(),
+                              )
+                            : HexBuilderOnSurface(
+                                size: widget.size,
+                                storage: widget.storage,
+                                expanded: true,
+                                hex: widget.storage.selectedHex(),
+                              ),
                       );
               },
             ),

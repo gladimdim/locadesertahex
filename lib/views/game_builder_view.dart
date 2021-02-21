@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/expansion/hex_surface.dart';
-import 'package:locadesertahex/components/builder/hex_surface_builder.dart';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
@@ -28,7 +27,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: HexSurfaceBuilder(
+            child: HexSurface(
               dimension: MAP_DIMENSION,
               size: HEX_SIZE,
               storage: map,
