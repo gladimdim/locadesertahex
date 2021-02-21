@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/hex_surface.dart';
-import 'package:locadesertahex/components/hex_surface_builder.dart';
+import 'package:locadesertahex/components/expansion/hex_surface.dart';
+import 'package:locadesertahex/components/builder/hex_surface_builder.dart';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';

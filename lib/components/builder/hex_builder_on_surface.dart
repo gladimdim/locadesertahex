@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/builder/owned_hex_builder_tile.dart';
 import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
@@ -31,13 +32,7 @@ class HexBuilderOnSurface extends StatelessWidget {
               storage: storage,
             );
     } else if (hex.owned) {
-      return Container(
-        width: size,
-        height: size * sqrt(3),
-        child: ResourceImageView(
-          resource: hex.output,
-        ),
-      );
+      return OwnedHexBuilderTile(size: size, hex: hex);
     } else {
       return Container();
     }
