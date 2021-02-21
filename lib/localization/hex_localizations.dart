@@ -41,6 +41,7 @@ class HexLocalizations {
       "labelCapture": "Capture",
       "labelAbout": "About Game",
       "labelBack": "Back",
+      "labelToMainMenu": "Main Menu",
       "labelSloboda": "Sloboda",
       "labelLocaDeserta": "Loca Deserta",
       "labelOtherGames": "My other games",
@@ -55,7 +56,7 @@ class HexLocalizations {
           "Sloboda is surrounded by 3 wall levels. Plenty of resources.",
       "gameMode.titleExpansion": "Expansion",
       "gameMode.descriptionExpansion":
-      "A lot of hexes with enemies. Dozen of protected cities. Tough mode!",
+          "A lot of hexes with enemies. Dozen of protected cities. Tough mode!",
       "textHowToPlay": """
       The main goal of the game is to get as many points as possible.
       Points are earned by capturing Hexes. Each regular Hex gives you 1 point.
@@ -108,6 +109,7 @@ class HexLocalizations {
       "labelCapture": "Захопити",
       "labelAbout": "Про гру",
       "labelBack": "Назад",
+      "labelToMainMenu": "Головне Меню",
       "labelSloboda": "Слобода",
       "labelLocaDeserta": "Дике Поле",
       "labelOtherGames": "Мої інші ігри",
@@ -123,7 +125,7 @@ class HexLocalizations {
           "Слободу оточують стіни, вам треба через них пробиватися. Ресурсів вдосталь.",
       "gameMode.titleExpansion": "Рубилово",
       "gameMode.descriptionExpansion":
-      "Купа ворожих ґексів, багато стін та з десяток укріплених місць. Справжнє випробовування!",
+          "Купа ворожих ґексів, багато стін та з десяток укріплених місць. Справжнє випробовування!",
       "textHowToPlay": """
         Головна мета гри - отримати як умога більше очок. Кожний захоплений ґекс дає одне очко.
 
@@ -171,6 +173,7 @@ class HexLocalizations {
       "labelCapture": "Забрать",
       "labelAbout": "Про игру",
       "labelBack": "Назад",
+      "labelToMainMenu": "Главное Меню",
       "labelSloboda": "Слобода",
       "labelLocaDeserta": "Дикое Поле",
       "labelOtherGames": "Мои другие игры",
@@ -186,7 +189,7 @@ class HexLocalizations {
           "Слободу окружают три стены. Надо через них пробиваться. Ресурсов много.",
       "gameMode.titleExpansion": "Рубилово",
       "gameMode.descriptionExpansion":
-      "Много вражеских гексов. Больше уровней стен. Около десятка укрепленых городов. Настоящее испытание!",
+          "Много вражеских гексов. Больше уровней стен. Около десятка укрепленых городов. Настоящее испытание!",
       "textHowToPlay": """
         Основная цель игры - получить как можна больше очков. Каждый захваченый гекс дает одно очко.
 
@@ -232,6 +235,10 @@ class HexLocalizations {
 
   String get labelBack {
     return _localizedValues[locale.languageCode]["labelBack"];
+  }
+
+  String get labelToMaiMenu {
+    return _localizedValues[locale.languageCode]["labelToMainMenu"];
   }
 
   String get textHowToPlay {

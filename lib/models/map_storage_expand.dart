@@ -4,12 +4,10 @@ import 'dart:math';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
-import 'package:locadesertahex/models/city_hex.dart';
 import 'package:locadesertahex/models/game_modes.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:tuple/tuple.dart';
 
 class MapStorageExpand extends MapStorage {
