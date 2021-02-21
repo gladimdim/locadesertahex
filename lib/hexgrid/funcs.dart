@@ -20,3 +20,6 @@ int distanceFromCenter(Hex hex) {
 bool isHome(Hex hex) {
   return hex.toHash() == "0 0 0";
 }
+
+const double HEX_SIZE = 120;
+const double MAP_DIMENSION = 6000;

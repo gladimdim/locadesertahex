@@ -1,34 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_surface.dart';
+import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/map_storage_expand.dart';
 import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
-class GameView extends StatefulWidget {
+class GameExpansionView extends StatefulWidget {
   final MapStorageExpand map;
   final String title;
   final Function(Locale) onLocaleChange;
 
-  GameView({Key key, this.title, this.map, this.onLocaleChange});
+  GameExpansionView({Key key, this.title, this.map, this.onLocaleChange});
 
   @override
-  _GameViewState createState() => _GameViewState();
+  _GameExpansionViewState createState() => _GameExpansionViewState();
 }
 
-class _GameViewState extends State<GameView> {
-  final double size = 120;
-  final double dimension = 6000;
-  MapStorageExpand map;
-
-  void initState() {
-    map = widget.map;
-    super.initState();
-  }
-
+class _GameExpansionViewState extends State<GameExpansionView> {
   @override
   Widget build(BuildContext context) {
+    var map = widget.map;
     var soundOn = AppPreferences.instance.getSoundEnabled();
     return Scaffold(
       body: Stack(
@@ -37,8 +30,8 @@ class _GameViewState extends State<GameView> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: HexSurface(
-              dimension: dimension,
-              size: size,
+              dimension: MAP_DIMENSION,
+              size: HEX_SIZE,
               storage: map,
             ),
           ),

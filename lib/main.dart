@@ -5,15 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:flutter/foundation.dart' show debugDefaultTargetPlatformOverride, kIsWeb;
+import 'package:flutter/foundation.dart'
+    show debugDefaultTargetPlatformOverride, kIsWeb;
 
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
-import 'package:locadesertahex/models/game_modes.dart';
-import 'package:locadesertahex/models/map_storage_expand.dart';
 import 'package:locadesertahex/views/game_type_selection_view.dart';
-import 'package:locadesertahex/views/game_view.dart';
 
 void _setTargetPlatformForDesktop() {
   // No need to handle macOS, as it has now been added to TargetPlatform.
@@ -37,7 +35,6 @@ void main() async {
   runApp(MyApp());
 }
 
-
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -49,35 +46,33 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: mainTheme,
-      locale: _locale,
-      localeResolutionCallback: (locale, list) {
-        if (HexLocalizations.supportedLanguageCodes
-            .contains(locale.languageCode)) {
-          _locale = locale;
-        } else {
-          _locale = Locale("en");
-        }
-        return _locale;
-      },
-      onGenerateTitle: (context) {
-        return HexLocalizations.of(context).labelTitle;
-      },
-      localizationsDelegates: [
-        const HexLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: HexLocalizations.supportedLanguageCodes
-          .map((sLocale) => Locale(sLocale)),
-      home: GameTypeSelectionView(onLocaleChange: (newLocale) {
-        setState(() {
-          _locale = newLocale;
-        });
-      })
-    );
-
+        debugShowCheckedModeBanner: false,
+        theme: mainTheme,
+        locale: _locale,
+        localeResolutionCallback: (locale, list) {
+          if (HexLocalizations.supportedLanguageCodes
+              .contains(locale.languageCode)) {
+            _locale = locale;
+          } else {
+            _locale = Locale("en");
+          }
+          return _locale;
+        },
+        onGenerateTitle: (context) {
+          return HexLocalizations.of(context).labelTitle;
+        },
+        localizationsDelegates: [
+          const HexLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: HexLocalizations.supportedLanguageCodes
+            .map((sLocale) => Locale(sLocale)),
+        home: GameTypeSelectionView(onLocaleChange: (newLocale) {
+          setState(() {
+            _locale = newLocale;
+          });
+        }));
   }
 }
 

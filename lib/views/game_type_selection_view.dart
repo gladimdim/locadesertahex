@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/with_map_background_view.dart';
-import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/game_modes.dart';
 import 'package:locadesertahex/models/map_storage_expand.dart';
-import 'package:locadesertahex/views/game_view.dart';
+import 'package:locadesertahex/views/game_expansion_view.dart';
 
 class GameTypeSelectionView extends StatelessWidget {
   Function(Locale locale) onLocaleChange;
@@ -13,7 +12,6 @@ class GameTypeSelectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(HexLocalizations.of(context).locale);
     return ScaffoldWithMapBackground(
       child: Center(
         child: Column(
@@ -37,7 +35,7 @@ class GameTypeSelectionView extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return GameView(
+          return GameExpansionView(
             map: map,
             onLocaleChange: onLocaleChange,
           );
