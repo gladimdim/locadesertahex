@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/with_map_background_view.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/game_modes.dart';
-import 'package:locadesertahex/models/map_storage_expand.dart';
+import 'package:locadesertahex/models/map_storage_builder.dart';
+import 'package:locadesertahex/models/map_storage_expansion.dart';
+import 'package:locadesertahex/views/game_builder_view.dart';
 import 'package:locadesertahex/views/game_expansion_view.dart';
 
 class GameTypeSelectionView extends StatelessWidget {
@@ -22,7 +24,7 @@ class GameTypeSelectionView extends StatelessWidget {
               child: Text("Expansion"),
               onPressed: () => loadExpansionGame(context),
             ),
-            TextButton(onPressed: () {}, child: Text("Builder"))
+            TextButton(onPressed: () => loadBuilderGame(context), child: Text("Builder"))
           ],
         ),
       ),
@@ -44,13 +46,27 @@ class GameTypeSelectionView extends StatelessWidget {
     );
   }
 
-  MapStorageExpand loadMap() {
-    MapStorageExpand map;
+  loadBuilderGame(BuildContext context) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return GameBuilderView(
+            storage: MapStorageBuilder(),
+            onLocaleChange: onLocaleChange,
+          );
+        },
+      ),
+    );
+  }
+
+  MapStorageExpansion loadMap() {
+    MapStorageExpansion map;
     var loadedJson = AppPreferences.instance.loadMap();
     if (loadedJson == null) {
-      map = MapStorageExpand.generate(GAME_MODES.CLASSIC);
+      map = MapStorageExpansion.generate(GAME_MODES.CLASSIC);
     } else {
-      map = MapStorageExpand.fromJson(loadedJson);
+      map = MapStorageExpansion.fromJson(loadedJson);
     }
     return map;
   }

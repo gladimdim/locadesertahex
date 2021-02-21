@@ -5,10 +5,22 @@ import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:tuple/tuple.dart';
 
 class MapStorageBuilder extends MapStorage {
-  @override
+  MapStorageBuilder() : super() {
+    map = {};
+    var start = Hex(0, 0, 0);
+    start.visible = true;
+    start.owned = true;
+    addHex(start);
+    var neighbours = start.allNeighbours();
+    neighbours.forEach((element) {
+      element.visible = true;
+      addHex(element);
+    });
+  }
+
   Hex getOrCreate(Hex hex) {
-    // TODO: implement getOrCreate
-    throw UnimplementedError();
+    var item = map[hex.toHash()];
+    return item;
   }
 
   @override
@@ -30,7 +42,8 @@ class MapStorageBuilder extends MapStorage {
   }
 
   @override
-  Tuple2<bool, List<Resource>> satisfiesResourceRequirement(List<Resource> requirements) {
+  Tuple2<bool, List<Resource>> satisfiesResourceRequirement(
+      List<Resource> requirements) {
     // TODO: implement satisfiesResourceRequirement
     throw UnimplementedError();
   }
@@ -40,5 +53,18 @@ class MapStorageBuilder extends MapStorage {
     // TODO: implement toJson
     throw UnimplementedError();
   }
-  
+
+  // TODO: FIX THIS
+  bool isGameOver() {
+    return false;
+  }
+
+  void shuffle() {
+    throw UnimplementedError();
+  }
+
+  static MapStorageBuilder generate() {
+    var map = MapStorageBuilder();
+    return map;
+  }
 }

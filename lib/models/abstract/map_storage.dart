@@ -9,7 +9,7 @@ import 'package:tuple/tuple.dart';
 enum STORAGE_EVENTS { ADD, SELECTION_CHANGE }
 
 abstract class MapStorage {
-  Map<String, Hex> map;
+  Map<String, Hex> map = {};
   List<Resource> stock = [];
   int totalPoints = 0;
   List<CityHex> cities;
@@ -40,7 +40,7 @@ abstract class MapStorage {
       var item = getOrCreate(element);
       // check for city circles
       var foundInCity =
-      cityHexes.where((cityHex) => cityHex.equalsTo(item)).toList();
+          cityHexes.where((cityHex) => cityHex.equalsTo(item)).toList();
 
       if (foundInCity.isNotEmpty) {
         addHex(foundInCity[0]);
@@ -127,6 +127,10 @@ abstract class MapStorage {
     selected = null;
     _innerChanges.add(STORAGE_EVENTS.SELECTION_CHANGE);
   }
+
+  void shuffle();
+
+  bool isGameOver();
 
   void dispose() {
     _innerChanges.close();

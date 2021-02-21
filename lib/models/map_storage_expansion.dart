@@ -10,11 +10,11 @@ import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:tuple/tuple.dart';
 
-class MapStorageExpand extends MapStorage {
+class MapStorageExpansion extends MapStorage {
   Map<String, Hex> map;
   GameMode gameMode;
 
-  MapStorageExpand({this.map, this.gameMode}):super(map: map, gameMode: gameMode) {
+  MapStorageExpansion({this.map, this.gameMode}):super(map: map, gameMode: gameMode) {
     gameMode = gameMode ?? GameModeClassic();
     cities = gameMode.cities;
   }
@@ -85,8 +85,8 @@ class MapStorageExpand extends MapStorage {
     }
   }
 
-  static MapStorageExpand generate(GAME_MODES mode) {
-    var map = MapStorageExpand(gameMode: GameMode.createMode(mode));
+  static MapStorageExpansion generate(GAME_MODES mode) {
+    var map = MapStorageExpansion(gameMode: GameMode.createMode(mode));
     map.map = map.generateCubes(7);
     return map;
   }
@@ -147,11 +147,11 @@ class MapStorageExpand extends MapStorage {
     };
   }
 
-  static MapStorageExpand fromJson(Map<String, dynamic> json) {
+  static MapStorageExpansion fromJson(Map<String, dynamic> json) {
     List hexJsons = json["map"] as List;
     List stockJson = json["stock"] as List;
     var hexes = hexJsons.map((e) => Hex.fromJson(e));
-    var map = MapStorageExpand(
+    var map = MapStorageExpansion(
         map: {},
         gameMode: GameMode.createMode(gameModeFromString(json["gameMode"])));
     map.totalPoints = json["totalPoints"] ?? 0;

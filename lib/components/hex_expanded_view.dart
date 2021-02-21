@@ -8,7 +8,7 @@ import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/abstract/sound_manager.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/hex.dart';
-import 'package:locadesertahex/models/map_storage_expand.dart';
+import 'package:locadesertahex/models/map_storage_expansion.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
@@ -16,7 +16,7 @@ import 'package:supercharged/supercharged.dart';
 class HexExpandedView extends StatefulWidget {
   final double size;
   final Hex hex;
-  final MapStorageExpand storage;
+  final MapStorageExpansion storage;
 
   HexExpandedView({this.size, this.hex, this.storage});
 

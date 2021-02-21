@@ -3,12 +3,12 @@ import 'package:locadesertahex/components/hex_surface.dart';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
-import 'package:locadesertahex/models/map_storage_expand.dart';
+import 'package:locadesertahex/models/map_storage_expansion.dart';
 import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
 class GameExpansionView extends StatefulWidget {
-  final MapStorageExpand map;
+  final MapStorageExpansion map;
   final String title;
   final Function(Locale) onLocaleChange;
 
@@ -95,7 +95,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                                   }));
                                   if (mode != null) {
                                     setState(() {
-                                      map = MapStorageExpand.generate(mode);
+                                      map = MapStorageExpansion.generate(mode);
                                     });
                                   }
                                 },
