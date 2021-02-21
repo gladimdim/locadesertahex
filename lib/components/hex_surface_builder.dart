@@ -1,27 +1,28 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
+import 'package:locadesertahex/components/hex_builder_on_surface.dart';
 import 'package:locadesertahex/components/hex_item_tile.dart';
-import 'package:locadesertahex/components/hex_on_surface.dart';
+
+import 'package:locadesertahex/components/hex_surface.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
 
 import 'hex_clipper.dart';
 
-class HexSurface extends StatefulWidget {
+class HexSurfaceBuilder extends StatefulWidget {
   final double dimension;
   final double size;
   final MapStorage storage;
 
-  HexSurface({this.dimension, this.size, this.storage});
+  HexSurfaceBuilder({this.dimension, this.size, this.storage});
 
   @override
-  _HexSurfaceState createState() => _HexSurfaceState();
+  _HexSurfaceBuilderState createState() => _HexSurfaceBuilderState();
 }
 
-class _HexSurfaceState extends State<HexSurface> {
+class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
   TransformationController _controller = TransformationController();
   final double scaleFactor = 3;
 
@@ -73,7 +74,7 @@ class _HexSurfaceState extends State<HexSurface> {
                   dimension: widget.dimension,
                   onPress: (expanded) {},
                   expanded: false,
-                  hexOnSurface: HexOnSurface(
+                  hexOnSurface: HexBuilderOnSurface(
                     size: widget.size,
                     storage: widget.storage,
                     expanded: false,
@@ -96,7 +97,7 @@ class _HexSurfaceState extends State<HexSurface> {
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
-                        hexOnSurface: HexOnSurface(
+                        hexOnSurface: HexBuilderOnSurface(
                           size: widget.size,
                           hex: widget.storage.selectedHex(),
                           expanded: true,
@@ -160,11 +161,4 @@ class _HexSurfaceState extends State<HexSurface> {
     var center = Point<double>(leftForHex(hex), topForHex(hex));
     return FogCirclePoint(coords: center, radius: widget.size / 2);
   }
-}
-
-class FogCirclePoint {
-  final Point coords;
-  final double radius;
-
-  FogCirclePoint({this.coords, this.radius});
 }

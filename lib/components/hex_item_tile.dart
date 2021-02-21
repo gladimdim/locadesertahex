@@ -19,6 +19,8 @@ class HexItemTile extends StatefulWidget {
   final double dimension;
   final bool expanded;
 
+  final Widget hexOnSurface;
+
   HexItemTile(
       {this.center,
       this.hex,
@@ -26,6 +28,7 @@ class HexItemTile extends StatefulWidget {
       @required this.storage,
       @required this.onPress,
       @required this.expanded,
+      @required this.hexOnSurface,
       this.dimension});
 
   @override
@@ -64,7 +67,7 @@ class _HexItemTileState extends State<HexItemTile> {
                 Positioned(
                   child: Align(
                     alignment: Alignment.center,
-                    child: buildChild(context),
+                    child: widget.hexOnSurface,
                   ),
                 ),
               ],
