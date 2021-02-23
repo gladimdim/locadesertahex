@@ -245,6 +245,17 @@ class MapStorageBuilder extends MapStorage {
     var map = MapStorageBuilder();
     return map;
   }
+
+  void consumeHandCard(Hex hex) {
+    if (selected == null) {
+      return;
+    }
+
+    selected.output = hex.output;
+
+    ownHex(selected);
+    clearSelectedHex();
+  }
 }
 
 class MapStorageExpansion extends MapStorage {
@@ -367,7 +378,7 @@ class MapStorageExpansion extends MapStorage {
 
   void shuffle() {
     var allVisible =
-    asList().where((element) => element.visible && !isHome(element));
+        asList().where((element) => element.visible && !isHome(element));
     for (var hex in allVisible) {
       var distance = distanceFromCenter(hex);
       var newHex = hex.clone();
@@ -379,7 +390,7 @@ class MapStorageExpansion extends MapStorage {
 
   bool isGameOver() {
     var allVisible =
-    asList().where((element) => element.visible && !element.owned);
+        asList().where((element) => element.visible && !element.owned);
 
     var isGameOver = true;
     for (var visible in allVisible) {

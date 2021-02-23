@@ -14,13 +14,9 @@ class OwnedHexBuilderTile extends StatelessWidget {
     var imagePath = hex.toHash() == Hex(0, 0, 0).toHash()
         ? "images/buildings/home.png"
         : hex.output.toImagePath();
-    return Container(
-      width: size,
-      height: size * sqrt(3),
-      child: Image.asset(
-        imagePath,
-        width: 32,
-      ),
+    return Image.asset(
+      imagePath,
+      width: size * 0.8,
     );
   }
 }
