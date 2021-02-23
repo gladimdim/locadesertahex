@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/builder/models/map_storage_builder.dart';
 import 'package:locadesertahex/builder/views/hex_builder_on_surface.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_item_tile.dart';

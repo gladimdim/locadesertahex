@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/expansion/hex_surface.dart';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
+import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
-import 'package:locadesertahex/models/map_storage_expansion.dart';
 import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
