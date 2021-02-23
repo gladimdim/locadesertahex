@@ -10,7 +10,7 @@ import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
 
-class HexItemTile extends StatefulWidget {
+class HexBuilderItemTile extends StatefulWidget {
   final Hex hex;
   final Point center;
   final double size;
@@ -18,26 +18,24 @@ class HexItemTile extends StatefulWidget {
   final Function(bool) onPress;
   final double dimension;
   final bool expanded;
-  final Function(Hex) onSelection;
 
   final Widget hexOnSurface;
 
-  HexItemTile(
+  HexBuilderItemTile(
       {this.center,
-      this.hex,
-      this.size,
-      @required this.storage,
-      @required this.onPress,
-      @required this.expanded,
-      @required this.hexOnSurface,
-      @required this.onSelection,
-      this.dimension});
+        this.hex,
+        this.size,
+        @required this.storage,
+        @required this.onPress,
+        @required this.expanded,
+        @required this.hexOnSurface,
+        this.dimension});
 
   @override
-  _HexItemTileState createState() => _HexItemTileState();
+  _HexBuilderItemTileState createState() => _HexBuilderItemTileState();
 }
 
-class _HexItemTileState extends State<HexItemTile> {
+class _HexBuilderItemTileState extends State<HexBuilderItemTile> {
   final double scaleFactor = 3;
 
   @override
@@ -74,7 +72,7 @@ class _HexItemTileState extends State<HexItemTile> {
                 ),
               ],
             ),
-            onTap: () => widget.onSelection(hex),
+            onTap: () => processPress(context),
           ),
           clipper: const HexClipper(),
         ),
@@ -140,14 +138,14 @@ class _HexItemTileState extends State<HexItemTile> {
     if (widget.expanded) {
       return widget.hex.owned
           ? HexSettlementExpandedView(
-              size: getSizeForHex(widget.hex),
-              storage: widget.storage,
-            )
+        size: getSizeForHex(widget.hex),
+        storage: widget.storage,
+      )
           : HexExpandedView(
-              size: getSizeForHex(widget.hex),
-              hex: widget.hex,
-              storage: widget.storage,
-            );
+        size: getSizeForHex(widget.hex),
+        hex: widget.hex,
+        storage: widget.storage,
+      );
     } else if (widget.hex.owned) {
       return OwnedHexTile(size: widget.size, hex: widget.hex);
     } else {
@@ -158,6 +156,14 @@ class _HexItemTileState extends State<HexItemTile> {
           resource: widget.hex.output,
         ),
       );
+    }
+  }
+
+  void processPress(BuildContext context) {
+    if (widget.expanded) {
+      widget.storage.clearSelectedHex();
+    } else {
+      widget.storage.selectHex(widget.hex);
     }
   }
 

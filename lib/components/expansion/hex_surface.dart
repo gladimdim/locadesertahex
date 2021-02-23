@@ -69,19 +69,23 @@ class _HexSurfaceState extends State<HexSurface> {
             ...widget.storage.asList().map(
               (hex) {
                 return HexItemTile(
-                    hex: hex,
+                  hex: hex,
+                  size: widget.size,
+                  storage: widget.storage,
+                  center: Point(dimension / 2, dimension / 2),
+                  dimension: widget.dimension,
+                  onPress: (expanded) {},
+                  expanded: false,
+                  hexOnSurface: HexOnSurface(
                     size: widget.size,
                     storage: widget.storage,
-                    center: Point(dimension / 2, dimension / 2),
-                    dimension: widget.dimension,
-                    onPress: (expanded) {},
                     expanded: false,
-                    hexOnSurface: HexOnSurface(
-                      size: widget.size,
-                      storage: widget.storage,
-                      expanded: false,
-                      hex: hex,
-                    ));
+                    hex: hex,
+                  ),
+                  onSelection: (hex) {
+                    widget.storage.selectHex(hex);
+                  },
+                );
               },
             ).toList(),
             StreamBuilder(
@@ -98,6 +102,9 @@ class _HexSurfaceState extends State<HexSurface> {
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
+                        onSelection: (hex) {
+                          widget.storage.clearSelectedHex();
+                        },
                         hexOnSurface: HexOnSurface(
                           size: widget.size,
                           storage: widget.storage,

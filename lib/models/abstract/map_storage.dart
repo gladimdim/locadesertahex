@@ -12,7 +12,7 @@ abstract class MapStorage {
   Map<String, Hex> map = {};
   List<Resource> stock = [];
   int totalPoints = 0;
-  List<CityHex> cities;
+  List<CityHex> cities = [];
   BehaviorSubject _innerChanges = BehaviorSubject<STORAGE_EVENTS>();
   ValueStream<STORAGE_EVENTS> changes;
   Hex selected;

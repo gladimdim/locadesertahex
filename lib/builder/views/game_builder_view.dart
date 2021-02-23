@@ -37,6 +37,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
               dimension: MAP_DIMENSION,
               size: HEX_SIZE,
               storage: storage,
+              onSelection: onHexSurfaceSelection,
             ),
           ),
           Positioned(
@@ -187,6 +188,17 @@ class _GameBuilderViewState extends State<GameBuilderView> {
         ],
       ),
     );
+  }
+
+  void onHexSurfaceSelection(Hex hex) {
+    if (hex.owned) {
+      widget.storage.selectHex(hex);
+    } else {
+      if (selectedHandHex != null) {
+        hex.output = selectedHandHex.output;
+        widget.storage.ownHex(hex);
+      }
+    }
   }
 
   void onCardSelected(Hex card) {

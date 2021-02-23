@@ -32,6 +32,7 @@ class MapStorageBuilder extends MapStorage {
 
   void generateHandStack() {
     List<List<RESOURCE_TYPES>> list = [
+      [RESOURCE_TYPES.GRAINS],
       gameMode.food,
       gameMode.food,
       gameMode.simpleResources,
@@ -54,13 +55,12 @@ class MapStorageBuilder extends MapStorage {
 
   Hex getOrCreate(Hex hex) {
     var item = map[hex.toHash()];
+    if (item == null) {
+      addHex(hex);
+      item = hex;
+      item.output = null;
+    }
     return item;
-  }
-
-  @override
-  Tuple2<bool, List<Resource>> ownHex(Hex hex) {
-    // TODO: implement ownHex
-    throw UnimplementedError();
   }
 
   @override
