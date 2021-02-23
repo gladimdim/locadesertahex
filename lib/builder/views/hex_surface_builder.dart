@@ -1,15 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/builder/hex_builder_on_surface.dart';
+import 'package:locadesertahex/builder/views/hex_builder_on_surface.dart';
+import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_item_tile.dart';
 
 import 'package:locadesertahex/components/expansion/hex_surface.dart';
+import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
-
-import '../hex_clipper.dart';
 
 class HexSurfaceBuilder extends StatefulWidget {
   final double dimension;
@@ -97,10 +97,8 @@ class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
-                        hexOnSurface: HexBuilderOnSurface(
-                          size: widget.size,
-                          hex: widget.storage.selectedHex(),
-                          expanded: true,
+                        hexOnSurface: HexSettlementExpandedView(
+                          size: widget.size * scaleFactor,
                           storage: widget.storage,
                         ),
                       );

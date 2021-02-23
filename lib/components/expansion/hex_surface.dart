@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/builder/hex_builder_on_surface.dart';
+import 'package:locadesertahex/builder/views/hex_builder_on_surface.dart';
 
 import 'package:locadesertahex/components/hex_item_tile.dart';
 import 'package:locadesertahex/components/expansion/hex_on_surface.dart';
@@ -69,27 +69,19 @@ class _HexSurfaceState extends State<HexSurface> {
             ...widget.storage.asList().map(
               (hex) {
                 return HexItemTile(
-                  hex: hex,
-                  size: widget.size,
-                  storage: widget.storage,
-                  center: Point(dimension / 2, dimension / 2),
-                  dimension: widget.dimension,
-                  onPress: (expanded) {},
-                  expanded: false,
-                  hexOnSurface: widget.storage is MapStorageExpansion
-                      ? HexOnSurface(
-                          size: widget.size,
-                          storage: widget.storage,
-                          expanded: false,
-                          hex: hex,
-                        )
-                      : HexBuilderOnSurface(
-                          size: widget.size,
-                          storage: widget.storage,
-                          expanded: false,
-                          hex: hex,
-                        ),
-                );
+                    hex: hex,
+                    size: widget.size,
+                    storage: widget.storage,
+                    center: Point(dimension / 2, dimension / 2),
+                    dimension: widget.dimension,
+                    onPress: (expanded) {},
+                    expanded: false,
+                    hexOnSurface: HexOnSurface(
+                      size: widget.size,
+                      storage: widget.storage,
+                      expanded: false,
+                      hex: hex,
+                    ));
               },
             ).toList(),
             StreamBuilder(
@@ -106,19 +98,12 @@ class _HexSurfaceState extends State<HexSurface> {
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
-                        hexOnSurface: widget.storage is MapStorageExpansion
-                            ? HexOnSurface(
-                                size: widget.size,
-                                storage: widget.storage,
-                                expanded: true,
-                                hex: widget.storage.selectedHex(),
-                              )
-                            : HexBuilderOnSurface(
-                                size: widget.size,
-                                storage: widget.storage,
-                                expanded: true,
-                                hex: widget.storage.selectedHex(),
-                              ),
+                        hexOnSurface: HexOnSurface(
+                          size: widget.size,
+                          storage: widget.storage,
+                          expanded: true,
+                          hex: widget.storage.selectedHex(),
+                        ),
                       );
               },
             ),

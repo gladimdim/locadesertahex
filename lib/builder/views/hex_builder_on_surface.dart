@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/builder/owned_hex_builder_tile.dart';
+import 'package:locadesertahex/builder/views/hex_builder_expanded_view.dart';
+import 'package:locadesertahex/builder/views/owned_hex_builder_tile.dart';
 import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
@@ -24,7 +25,7 @@ class HexBuilderOnSurface extends StatelessWidget {
               size: getSizeForHex(hex),
               storage: storage,
             )
-          : HexExpandedView(
+          : HexBuilderExpandedView(
               size: getSizeForHex(hex),
               hex: hex,
               storage: storage,

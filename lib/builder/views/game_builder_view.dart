@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/builder/views/hex_surface_builder.dart';
 import 'package:locadesertahex/components/expansion/hex_surface.dart';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/hex.dart';
-import 'package:locadesertahex/models/map_storage_builder.dart';
+import 'package:locadesertahex/builder/models/map_storage_builder.dart';
 import 'package:locadesertahex/views/hand_stack_view.dart';
 import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
@@ -20,6 +21,7 @@ class GameBuilderView extends StatefulWidget {
 }
 
 class _GameBuilderViewState extends State<GameBuilderView> {
+  Hex selectedHandHex;
   @override
   Widget build(BuildContext context) {
 
@@ -31,7 +33,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: HexSurface(
+            child: HexSurfaceBuilder(
               dimension: MAP_DIMENSION,
               size: HEX_SIZE,
               storage: storage,
@@ -54,7 +56,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                 BorderSide(color: Colors.green[800], width: 2),
                           ),
                         ),
-                        child: HandStackView(stack: storage.handStack, selectedCard: storage.selectedHandCard, onCardSelected: onCardSelected,
+                        child: HandStackView(stack: storage.handStack, selectedCard: selectedHandHex, onCardSelected: onCardSelected,
                         ),
                       ),
                     ),
@@ -189,7 +191,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
 
   void onCardSelected(Hex card) {
     setState(() {
-      widget.storage.selectedHandCard = card;
+      selectedHandHex = card;
     });
   }
 }

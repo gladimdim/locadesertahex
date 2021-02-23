@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/with_map_background_view.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/game_modes.dart';
-import 'package:locadesertahex/models/map_storage_builder.dart';
+import 'package:locadesertahex/builder/models/map_storage_builder.dart';
 import 'package:locadesertahex/models/map_storage_expansion.dart';
-import 'package:locadesertahex/views/game_builder_view.dart';
+import 'package:locadesertahex/builder/views/game_builder_view.dart';
 import 'package:locadesertahex/views/game_expansion_view.dart';
 
 class GameTypeSelectionView extends StatelessWidget {
