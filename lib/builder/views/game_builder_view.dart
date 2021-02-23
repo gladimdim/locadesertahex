@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/builder/views/hex_surface_builder.dart';
-import 'package:locadesertahex/components/expansion/hex_surface.dart';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
@@ -22,9 +21,9 @@ class GameBuilderView extends StatefulWidget {
 
 class _GameBuilderViewState extends State<GameBuilderView> {
   Hex selectedHandHex;
+
   @override
   Widget build(BuildContext context) {
-
     var soundOn = AppPreferences.instance.getSoundEnabled();
     var storage = widget.storage;
     return Scaffold(
@@ -57,7 +56,10 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                 BorderSide(color: Colors.green[800], width: 2),
                           ),
                         ),
-                        child: HandStackView(stack: storage.handStack, selectedCard: selectedHandHex, onCardSelected: onCardSelected,
+                        child: HandStackView(
+                          stack: storage.handStack,
+                          selectedCard: selectedHandHex,
+                          onCardSelected: onCardSelected,
                         ),
                       ),
                     ),
@@ -191,14 +193,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
   }
 
   void onHexSurfaceSelection(Hex hex) {
-    if (hex.owned) {
-      widget.storage.selectHex(hex);
-    } else {
-      if (selectedHandHex != null) {
-        hex.output = selectedHandHex.output;
-        widget.storage.ownHex(hex);
-      }
-    }
+    widget.storage.selectHex(hex);
   }
 
   void onCardSelected(Hex card) {

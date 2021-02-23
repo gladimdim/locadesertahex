@@ -7,7 +7,6 @@ import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_item_tile.dart';
 
 import 'package:locadesertahex/components/expansion/hex_surface.dart';
-import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
@@ -99,9 +98,11 @@ class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
-                        hexOnSurface: HexSettlementExpandedView(
-                          size: widget.size * scaleFactor,
+                        hexOnSurface: HexBuilderOnSurface(
+                          size: widget.size,
                           storage: widget.storage,
+                          expanded: true,
+                          hex: widget.storage.selectedHex(),
                         ),
                         onSelection: (hex) {
                           widget.storage.clearSelectedHex();

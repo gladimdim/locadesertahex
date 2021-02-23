@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
-import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class HexBuilderExpandedView extends StatefulWidget {
+class HexBuilderExpandedView extends StatelessWidget {
   final double size;
   final Hex hex;
   final MapStorage storage;
@@ -15,21 +14,14 @@ class HexBuilderExpandedView extends StatefulWidget {
   HexBuilderExpandedView({this.size, this.hex, this.storage});
 
   @override
-  _HexBuilderExpandedViewState createState() => _HexBuilderExpandedViewState();
-}
-
-class _HexBuilderExpandedViewState extends State<HexBuilderExpandedView> {
-  List<Resource> missingResources = [];
-
-  @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: widget.size / 2 * sqrt(3),
-        maxWidth: widget.size,
+        maxHeight: size / 2 * sqrt(3),
+        maxWidth: size,
       ),
       child: PlayAnimation<double>(
-        tween: Tween(begin: 0.0, end: widget.size),
+        tween: Tween(begin: 0.0, end: size),
         duration: Duration(milliseconds: 250),
         builder: (context, child, value) {
           return SizedBox(
@@ -45,7 +37,7 @@ class _HexBuilderExpandedViewState extends State<HexBuilderExpandedView> {
             Expanded(
               flex: 1,
               child: Container(
-                width: widget.size,
+                width: size,
                 child: Center(
                   child: TitleText(
                     "EMPTY",

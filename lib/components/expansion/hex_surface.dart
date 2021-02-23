@@ -1,14 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/builder/views/hex_builder_on_surface.dart';
 
 import 'package:locadesertahex/components/hex_item_tile.dart';
 import 'package:locadesertahex/components/expansion/hex_on_surface.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
-import 'package:locadesertahex/models/map_storage_expansion.dart';
 
 import '../hex_clipper.dart';
 
