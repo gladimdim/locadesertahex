@@ -1,12 +1,21 @@
+import 'dart:math';
+
 import 'package:locadesertahex/models/abstract/map_storage.dart';
+import 'package:locadesertahex/models/game_modes.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:tuple/tuple.dart';
 
 class MapStorageBuilder extends MapStorage {
-  MapStorageBuilder() : super() {
+  List<Hex> handStack = [];
+  Map<String, Hex> map;
+  GameMode gameMode;
+  Hex selectedHandCard;
+
+  MapStorageBuilder({this.gameMode}) : super() {
     map = {};
+    gameMode = gameMode ?? GameModeClassic();
     var start = Hex(0, 0, 0);
     start.visible = true;
     start.owned = true;
@@ -16,6 +25,30 @@ class MapStorageBuilder extends MapStorage {
       element.visible = true;
       addHex(element);
     });
+
+    generateHandStack();
+  }
+
+  void generateHandStack() {
+    List<List<RESOURCE_TYPES>> list = [
+      gameMode.food,
+      gameMode.food,
+      gameMode.simpleResources,
+      [...gameMode.simpleResources, ...gameMode.food],
+      [...gameMode.simpleResources, ...gameMode.food],
+      gameMode.higherLevel,
+      gameMode.higherLevel,
+      gameMode.moneyMakers,
+      gameMode.military,
+      gameMode.military,
+      gameMode.army,
+      gameMode.highLevelArmy,
+    ];
+
+    handStack = list.map((resources) {
+      var random = Random().nextInt(resources.length);
+      return Hex(0, 0, 0)..output = Resource.fromType(resources[random]);
+    }).toList();
   }
 
   Hex getOrCreate(Hex hex) {
@@ -26,25 +59,6 @@ class MapStorageBuilder extends MapStorage {
   @override
   Tuple2<bool, List<Resource>> ownHex(Hex hex) {
     // TODO: implement ownHex
-    throw UnimplementedError();
-  }
-
-  @override
-  List<RESOURCE_TYPES> resourcesForLevel(int level) {
-    // TODO: implement resourcesForLevel
-    throw UnimplementedError();
-  }
-
-  @override
-  Tuple2<bool, List<Hex>> ringClosedAt(int radius) {
-    // TODO: implement ringClosedAt
-    throw UnimplementedError();
-  }
-
-  @override
-  Tuple2<bool, List<Resource>> satisfiesResourceRequirement(
-      List<Resource> requirements) {
-    // TODO: implement satisfiesResourceRequirement
     throw UnimplementedError();
   }
 

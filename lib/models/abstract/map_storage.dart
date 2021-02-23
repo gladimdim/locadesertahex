@@ -56,7 +56,21 @@ abstract class MapStorage {
 
   void processRings(radius) {}
 
-  Tuple2<bool, List<Hex>> ringClosedAt(int radius);
+  Tuple2<bool, List<Hex>> ringClosedAt(int radius) {
+    List<Hex> results = List.empty(growable: true);
+    var center = Hex(0, 0, 0);
+    var cube = center.toCube(center.allNeighbours()[4].scaleTo(radius));
+    for (var i = 0; i < 6; i++) {
+      for (var j = 0; j < radius; j++) {
+        if (!ownsHex(cube)) {
+          return Tuple2(false, []);
+        }
+        results.add(map[cube.toHash()]);
+        cube = cube.allNeighbours()[i];
+      }
+    }
+    return Tuple2(true, results);
+  }
 
   bool hasHex(Hex hex) {
     return map[hex.toHash()] != null;
@@ -69,7 +83,22 @@ abstract class MapStorage {
   void save() async {}
 
   Tuple2<bool, List<Resource>> satisfiesResourceRequirement(
-      List<Resource> requirements);
+      List<Resource> requirements) {
+    List<Resource> results = [];
+    if (requirements.isEmpty) {
+      return Tuple2(true, []);
+    }
+    var result = true;
+    for (var req in requirements) {
+      var existing = stockForResource(req);
+      if (existing == null || existing.value < req.value) {
+        result = false;
+        results.add(req);
+      }
+    }
+
+    return Tuple2(result, results);
+  }
 
   Resource stockForResource(Resource resource) {
     try {

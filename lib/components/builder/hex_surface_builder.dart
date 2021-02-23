@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/builder/hex_builder_on_surface.dart';
-import 'package:locadesertahex/components/expansion/hex_on_surface.dart';
 import 'package:locadesertahex/components/hex_item_tile.dart';
 
 import 'package:locadesertahex/components/expansion/hex_surface.dart';

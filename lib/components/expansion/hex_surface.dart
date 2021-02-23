@@ -16,8 +16,9 @@ class HexSurface extends StatefulWidget {
   final double dimension;
   final double size;
   final MapStorage storage;
+  final Function(Hex) onHexSelected;
 
-  HexSurface({this.dimension, this.size, this.storage});
+  HexSurface({this.dimension, this.size, this.storage, this.onHexSelected});
 
   @override
   _HexSurfaceState createState() => _HexSurfaceState();

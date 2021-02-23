@@ -8,7 +8,7 @@ import 'package:locadesertahex/views/game_builder_view.dart';
 import 'package:locadesertahex/views/game_expansion_view.dart';
 
 class GameTypeSelectionView extends StatelessWidget {
-  Function(Locale locale) onLocaleChange;
+  final Function(Locale locale) onLocaleChange;
 
   GameTypeSelectionView({this.onLocaleChange});
 
@@ -47,12 +47,13 @@ class GameTypeSelectionView extends StatelessWidget {
   }
 
   loadBuilderGame(BuildContext context) async {
+    var storage = MapStorageBuilder();
     await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
           return GameBuilderView(
-            storage: MapStorageBuilder(),
+            storage: storage,
             onLocaleChange: onLocaleChange,
           );
         },
