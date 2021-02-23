@@ -28,7 +28,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQgery.of(context).size.height,
+            height: MediaQuery.of(context).size.height,
             child: HexSurface(
               dimension: MAP_DIMENSION,
               size: HEX_SIZE,
