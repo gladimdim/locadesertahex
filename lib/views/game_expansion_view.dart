@@ -8,11 +8,11 @@ import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
 class GameExpansionView extends StatefulWidget {
-  final MapStorageExpansion map;
+  final MapStorageExpansion storage;
   final String title;
   final Function(Locale) onLocaleChange;
 
-  GameExpansionView({Key key, this.title, this.map, this.onLocaleChange});
+  GameExpansionView({Key key, this.title, this.storage, this.onLocaleChange});
 
   @override
   _GameExpansionViewState createState() => _GameExpansionViewState();
@@ -21,14 +21,14 @@ class GameExpansionView extends StatefulWidget {
 class _GameExpansionViewState extends State<GameExpansionView> {
   @override
   Widget build(BuildContext context) {
-    var map = widget.map;
+    var map = widget.storage;
     var soundOn = AppPreferences.instance.getSoundEnabled();
     return Scaffold(
       body: Stack(
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            height: MediaQgery.of(context).size.height,
             child: HexSurface(
               dimension: MAP_DIMENSION,
               size: HEX_SIZE,

@@ -5,7 +5,6 @@ import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/hex.dart';
-import 'package:locadesertahex/views/hand_stack_view.dart';
 import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
@@ -43,12 +42,13 @@ class _GameBuilderViewState extends State<GameBuilderView> {
             child: Align(
               alignment: Alignment.bottomLeft,
               child: Container(
-                height: 150,
+                height: 50,
                 color: Colors.white.withAlpha(155),
                 child: Column(
                   children: [
-                    Expanded(
-                      flex: 1,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 12.0, left: 8, right: 8),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border(
@@ -56,129 +56,108 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                 BorderSide(color: Colors.green[800], width: 2),
                           ),
                         ),
-                        child: HandStackView(
-                          stack: storage.handStack,
-                          selectedCard: selectedHandHex,
-                          onCardSelected: onCardSelected,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 12.0, left: 8, right: 8),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                  color: Colors.green[800], width: 2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  StreamBuilder(
+                                    stream: storage.changes,
+                                    builder: (context, data) => Text(
+                                        "${HexLocalizations.of(context).labelPoints}: ${storage.totalPoints}"),
+                                  ),
+                                  if (storage.isGameOver())
+                                    Text(HexLocalizations.of(context)
+                                        .labelGameOver),
+                                ],
+                              ),
                             ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    StreamBuilder(
-                                      stream: storage.changes,
-                                      builder: (context, data) => Text(
-                                          "${HexLocalizations.of(context).labelPoints}: ${storage.totalPoints}"),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.refresh_outlined,
+                                      color: Colors.green[700],
                                     ),
-                                    if (storage.isGameOver())
-                                      Text(HexLocalizations.of(context)
-                                          .labelGameOver),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.refresh_outlined,
-                                        color: Colors.green[700],
-                                      ),
-                                      tooltip: HexLocalizations.of(context)
-                                          .tooltipNewGame,
-                                      onPressed: () async {
-                                        var mode = await Navigator.push(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return ModeSelectionView();
-                                        }));
-                                        if (mode != null) {
-                                          setState(() {
-                                            storage = MapStorageBuilder();
-                                          });
-                                        }
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.shuffle,
-                                        size: 24,
-                                        color: Colors.green[700],
-                                      ),
-                                      tooltip: HexLocalizations.of(context)
-                                          .tooltipShuffle,
-                                      onPressed: () {
+                                    tooltip: HexLocalizations.of(context)
+                                        .tooltipNewGame,
+                                    onPressed: () async {
+                                      var mode = await Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return ModeSelectionView();
+                                      }));
+                                      if (mode != null) {
                                         setState(() {
-                                          storage.shuffle();
+                                          storage = MapStorageBuilder();
                                         });
-                                      },
+                                      }
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.shuffle,
+                                      size: 24,
+                                      color: Colors.green[700],
                                     ),
-                                    IconButton(
-                                      icon: Icon(
-                                        soundOn
-                                            ? Icons.music_note
-                                            : Icons.music_off,
-                                        // size: 24,
-                                        color: Colors.green[700],
-                                      ),
-                                      tooltip: HexLocalizations.of(context)
-                                          .tooltipSounds,
-                                      onPressed: () async {
-                                        var current = AppPreferences.instance
-                                            .getSoundEnabled();
-                                        await AppPreferences.instance
-                                            .setSoundEnabled(!current);
-                                        setState(() {});
-                                      },
+                                    tooltip: HexLocalizations.of(context)
+                                        .tooltipShuffle,
+                                    onPressed: () {
+                                      setState(() {
+                                        storage.shuffle();
+                                      });
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      soundOn
+                                          ? Icons.music_note
+                                          : Icons.music_off,
+                                      // size: 24,
+                                      color: Colors.green[700],
                                     ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.help,
-                                        // size: 24,
-                                        color: Colors.green[700],
-                                      ),
-                                      tooltip: HexLocalizations.of(context)
-                                          .tooltipSettings,
-                                      onPressed: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => SettingsView(
-                                              onLocaleChange:
-                                                  widget.onLocaleChange,
-                                            ),
+                                    tooltip: HexLocalizations.of(context)
+                                        .tooltipSounds,
+                                    onPressed: () async {
+                                      var current = AppPreferences.instance
+                                          .getSoundEnabled();
+                                      await AppPreferences.instance
+                                          .setSoundEnabled(!current);
+                                      setState(() {});
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.help,
+                                      // size: 24,
+                                      color: Colors.green[700],
+                                    ),
+                                    tooltip: HexLocalizations.of(context)
+                                        .tooltipSettings,
+                                    onPressed: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SettingsView(
+                                            onLocaleChange:
+                                                widget.onLocaleChange,
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -194,11 +173,5 @@ class _GameBuilderViewState extends State<GameBuilderView> {
 
   void onHexSurfaceSelection(Hex hex) {
     widget.storage.selectHex(hex);
-  }
-
-  void onCardSelected(Hex card) {
-    setState(() {
-      selectedHandHex = card;
-    });
   }
 }

@@ -37,7 +37,7 @@ class GameTypeSelectionView extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) {
           return GameExpansionView(
-            map: map,
+            storage: map,
             onLocaleChange: onLocaleChange,
           );
         },
