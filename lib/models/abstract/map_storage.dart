@@ -378,7 +378,7 @@ class MapStorageExpansion extends MapStorage {
 
   void shuffle() {
     var allVisible =
-        asList().where((element) => element.visible && !isHome(element));
+        asList().where((element) => element.visible && !element.isHome());
     for (var hex in allVisible) {
       var distance = distanceFromCenter(hex);
       var newHex = hex.clone();

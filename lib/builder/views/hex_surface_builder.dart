@@ -58,11 +58,6 @@ class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
                 ),
               ),
             ),
-            SizedBox(
-              width: widget.dimension,
-              height: widget.dimension,
-              child: getFogOfWar(),
-            ),
             ...widget.storage.asList().map(
               (hex) {
                 return HexItemTile(

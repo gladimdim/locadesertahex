@@ -20,6 +20,10 @@ class Hex {
     return x == another.x && y == another.y && z == another.z;
   }
 
+  bool isHome() {
+    return toHash() == "0 0 0";
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "x": x,
