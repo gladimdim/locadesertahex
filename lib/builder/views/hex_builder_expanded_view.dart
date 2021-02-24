@@ -53,7 +53,7 @@ class HexBuilderExpandedView extends StatelessWidget {
   Widget rowForRange(int start, int end) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: storage.handStack.getRange(start, end).map((hex) {
+        children: storage.stack.getRange(start, end).map((hex) {
           return InkWell(
             child: ResourceImageView(resource: hex.output, size: 80),
             onTap: () {

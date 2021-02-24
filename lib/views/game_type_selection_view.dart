@@ -31,7 +31,7 @@ class GameTypeSelectionView extends StatelessWidget {
   }
 
   loadExpansionGame(BuildContext context) async {
-    var map = loadMap();
+    var map = loadExpansionMap();
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -46,7 +46,7 @@ class GameTypeSelectionView extends StatelessWidget {
   }
 
   loadBuilderGame(BuildContext context) async {
-    var storage = MapStorageBuilder.generate(GAME_MODES.CLASSIC);
+    var storage = loadBuilderMap();
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -60,13 +60,24 @@ class GameTypeSelectionView extends StatelessWidget {
     );
   }
 
-  MapStorageExpansion loadMap() {
+  MapStorageExpansion loadExpansionMap() {
     MapStorageExpansion map;
-    var loadedJson = AppPreferences.instance.loadMap();
+    var loadedJson = AppPreferences.instance.loadExpansionMap();
     if (loadedJson == null) {
       map = MapStorageExpansion.generate(GAME_MODES.CLASSIC);
     } else {
       map = MapStorageExpansion.fromJson(loadedJson);
+    }
+    return map;
+  }
+
+  MapStorageBuilder loadBuilderMap() {
+    MapStorageBuilder map;
+    var loadedJson = AppPreferences.instance.loadBuilderMap();
+    if (loadedJson == null) {
+      map = MapStorageBuilder.generate(GAME_MODES.CLASSIC);
+    } else {
+      map = MapStorageBuilder.fromJson(loadedJson);
     }
     return map;
   }

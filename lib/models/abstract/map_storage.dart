@@ -191,11 +191,11 @@ abstract class MapStorage {
 }
 
 class MapStorageBuilder extends MapStorage {
-  List<Hex> handStack = [];
+  List<Hex> stack = [];
   Map<String, Hex> map;
   GameMode gameMode;
 
-  List<List<RESOURCE_TYPES>> _stack;
+  List<List<RESOURCE_TYPES>> _levels;
 
   MapStorageBuilder({this.gameMode, this.map}) {
     gameMode = gameMode ?? GameModeClassic();
@@ -212,7 +212,7 @@ class MapStorageBuilder extends MapStorage {
     generateRings();
     addCities();
 
-    _stack = [
+    _levels = [
       [RESOURCE_TYPES.GRAINS],
       gameMode.food,
       gameMode.food,
@@ -248,7 +248,7 @@ class MapStorageBuilder extends MapStorage {
   }
 
   void generateHandStack() {
-    handStack = _stack.map((resources) {
+    stack = _levels.map((resources) {
       var random = Random().nextInt(resources.length);
       return Hex(0, 0, 0)..output = Resource.fromType(resources[random]);
     }).toList();
@@ -288,11 +288,11 @@ class MapStorageBuilder extends MapStorage {
     var owned = ownHex(selected);
     if (owned.item1) {
       clearSelectedHex();
-      var index = handStack.indexOf(hex);
-      var level = _stack[index];
-      var nextType = _stack[index][Random().nextInt(level.length)];
+      var index = stack.indexOf(hex);
+      var level = _levels[index];
+      var nextType = _levels[index][Random().nextInt(level.length)];
       var newHex = Hex(0, 0, 0)..output = Resource.fromType(nextType);
-      handStack[index] = newHex;
+      stack[index] = newHex;
     }
   }
 
@@ -302,20 +302,28 @@ class MapStorageBuilder extends MapStorage {
       "stock": stock.map((e) => e.toJson()).toList(),
       "totalPoints": totalPoints,
       "gameMode": gameMode.toGameModeString(),
+      "stack": stack.map((hex) => hex.toJson()).toList(),
     };
+  }
+
+  void save() async {
+    await AppPreferences.instance.saveBuilderMap(this.toJson());
   }
 
   static MapStorageBuilder fromJson(Map<String, dynamic> json) {
     List hexJsons = json["map"] as List;
     List stockJson = json["stock"] as List;
+    List stackJson = json["stack"] as List;
     var hexes = hexJsons.map((e) => Hex.fromJson(e));
     var map = MapStorageBuilder(
+        map: {},
         gameMode: GameMode.createMode(gameModeFromString(json["gameMode"])));
     map.totalPoints = json["totalPoints"] ?? 0;
     hexes.forEach((hex) {
       map.addHex(hex);
     });
     map.stock = stockJson.map((e) => Resource.fromJson(e)).toList();
+    map.stack = stackJson.map((hexJson) => Hex.fromJson(hexJson)).toList();
     return map;
   }
 }
@@ -349,7 +357,7 @@ class MapStorageExpansion extends MapStorage {
   }
 
   void save() async {
-    await AppPreferences.instance.saveMap(this.toJson());
+    await AppPreferences.instance.saveExpansionMap(this.toJson());
   }
 
   void addResource(Resource resource) {
