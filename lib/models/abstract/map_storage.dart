@@ -89,8 +89,10 @@ abstract class MapStorage {
       }
     }
     results.forEach((hex) {
-      hex.visible = true;
-      addHex(hex);
+      if (!ownsHex(hex)) {
+        hex.visible = true;
+        addHex(hex);
+      }
     });
   }
 
@@ -192,10 +194,10 @@ class MapStorageBuilder extends MapStorage {
   List<Hex> handStack = [];
   Map<String, Hex> map;
   GameMode gameMode;
-  Hex selectedHandCard;
 
-  MapStorageBuilder({this.gameMode}) {
-    map = {};
+  List<List<RESOURCE_TYPES>> _stack;
+
+  MapStorageBuilder({this.gameMode, this.map}) {
     gameMode = gameMode ?? GameModeClassic();
     var start = Hex(0, 0, 0);
     start.visible = true;
@@ -208,17 +210,9 @@ class MapStorageBuilder extends MapStorage {
     });
 
     generateRings();
+    addCities();
 
-    generateHandStack();
-  }
-
-  void generateRings() {
-    generateRing(15, RESOURCE_TYPES.WALL);
-    generateRing(20, RESOURCE_TYPES.WALL);
-  }
-
-  void generateHandStack() {
-    List<List<RESOURCE_TYPES>> list = [
+    _stack = [
       [RESOURCE_TYPES.GRAINS],
       gameMode.food,
       gameMode.food,
@@ -233,8 +227,28 @@ class MapStorageBuilder extends MapStorage {
       gameMode.army,
       gameMode.highLevelArmy,
     ];
+    generateHandStack();
+  }
 
-    handStack = list.map((resources) {
+  addCities() {
+    gameMode.cities.forEach((cityHex) {
+      var hexes = cityHex.getCircle();
+      hexes.forEach((hex) {
+        if (!ownsHex(hex)) {
+          hex.visible = true;
+          addHex(hex);
+        }
+      });
+    });
+  }
+
+  void generateRings() {
+    generateRing(15, RESOURCE_TYPES.WALL);
+    generateRing(20, RESOURCE_TYPES.WALL);
+  }
+
+  void generateHandStack() {
+    handStack = _stack.map((resources) {
       var random = Random().nextInt(resources.length);
       return Hex(0, 0, 0)..output = Resource.fromType(resources[random]);
     }).toList();
@@ -250,12 +264,6 @@ class MapStorageBuilder extends MapStorage {
     return item;
   }
 
-  @override
-  Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError();
-  }
-
   // TODO: FIX THIS
   bool isGameOver() {
     return false;
@@ -265,8 +273,8 @@ class MapStorageBuilder extends MapStorage {
     throw UnimplementedError();
   }
 
-  static MapStorageBuilder generate() {
-    var map = MapStorageBuilder();
+  static MapStorageBuilder generate(GAME_MODES mode) {
+    var map = MapStorageBuilder(map: {}, gameMode: GameMode.createMode(mode));
     return map;
   }
 
@@ -277,8 +285,38 @@ class MapStorageBuilder extends MapStorage {
 
     selected.output = hex.output;
 
-    ownHex(selected);
-    clearSelectedHex();
+    var owned = ownHex(selected);
+    if (owned.item1) {
+      clearSelectedHex();
+      var index = handStack.indexOf(hex);
+      var level = _stack[index];
+      var nextType = _stack[index][Random().nextInt(level.length)];
+      var newHex = Hex(0, 0, 0)..output = Resource.fromType(nextType);
+      handStack[index] = newHex;
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "map": map.values.map((hex) => hex.toJson()).toList(),
+      "stock": stock.map((e) => e.toJson()).toList(),
+      "totalPoints": totalPoints,
+      "gameMode": gameMode.toGameModeString(),
+    };
+  }
+
+  static MapStorageBuilder fromJson(Map<String, dynamic> json) {
+    List hexJsons = json["map"] as List;
+    List stockJson = json["stock"] as List;
+    var hexes = hexJsons.map((e) => Hex.fromJson(e));
+    var map = MapStorageBuilder(
+        gameMode: GameMode.createMode(gameModeFromString(json["gameMode"])));
+    map.totalPoints = json["totalPoints"] ?? 0;
+    hexes.forEach((hex) {
+      map.addHex(hex);
+    });
+    map.stock = stockJson.map((e) => Resource.fromJson(e)).toList();
+    return map;
   }
 }
 

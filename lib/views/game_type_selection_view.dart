@@ -46,7 +46,7 @@ class GameTypeSelectionView extends StatelessWidget {
   }
 
   loadBuilderGame(BuildContext context) async {
-    var storage = MapStorageBuilder();
+    var storage = MapStorageBuilder.generate(GAME_MODES.CLASSIC);
     await Navigator.push(
       context,
       MaterialPageRoute(
