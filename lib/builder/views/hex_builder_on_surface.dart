@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/builder/views/hex_builder_expanded_view.dart';
 import 'package:locadesertahex/builder/views/owned_hex_builder_tile.dart';
@@ -29,10 +28,10 @@ class HexBuilderOnSurface extends StatelessWidget {
               hex: hex,
               storage: storage,
             );
-    } else if (hex.owned) {
-      return OwnedHexBuilderTile(size: size, hex: hex);
-    } else {
+    } else if (hex.output == null && !hex.isHome()) {
       return Container();
+    } else {
+      return OwnedHexBuilderTile(size: size, hex: hex);
     }
   }
 

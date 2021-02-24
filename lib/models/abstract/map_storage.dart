@@ -77,6 +77,23 @@ abstract class MapStorage {
     return Tuple2(true, results);
   }
 
+  void generateRing(int radius, RESOURCE_TYPES type) {
+    List<Hex> results = List.empty(growable: true);
+    var center = Hex(0, 0, 0);
+    var cube = center.toCube(center.allNeighbours()[4].scaleTo(radius));
+    for (var i = 0; i < 6; i++) {
+      for (var j = 0; j < radius; j++) {
+        cube.output = Resource.fromType(type);
+        results.add(cube);
+        cube = cube.allNeighbours()[i];
+      }
+    }
+    results.forEach((hex) {
+      hex.visible = true;
+      addHex(hex);
+    });
+  }
+
   bool hasHex(Hex hex) {
     return map[hex.toHash()] != null;
   }
@@ -190,7 +207,14 @@ class MapStorageBuilder extends MapStorage {
       addHex(element);
     });
 
+    generateRings();
+
     generateHandStack();
+  }
+
+  void generateRings() {
+    generateRing(15, RESOURCE_TYPES.WALL);
+    generateRing(20, RESOURCE_TYPES.WALL);
   }
 
   void generateHandStack() {
