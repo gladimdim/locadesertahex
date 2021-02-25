@@ -315,16 +315,16 @@ class MapStorageBuilder extends MapStorage {
     List stockJson = json["stock"] as List;
     List stackJson = json["stack"] as List;
     var hexes = hexJsons.map((e) => Hex.fromJson(e));
-    var map = MapStorageBuilder(
+    var storage = MapStorageBuilder(
         map: {},
         gameMode: GameMode.createMode(gameModeFromString(json["gameMode"])));
-    map.totalPoints = json["totalPoints"] ?? 0;
+    storage.totalPoints = json["totalPoints"] ?? 0;
     hexes.forEach((hex) {
-      map.addHex(hex);
+      storage.addHex(hex);
     });
-    map.stock = stockJson.map((e) => Resource.fromJson(e)).toList();
-    map.stack = stackJson.map((hexJson) => Hex.fromJson(hexJson)).toList();
-    return map;
+    storage.stock = stockJson.map((e) => Resource.fromJson(e)).toList();
+    storage.stack = stackJson.map((hexJson) => Hex.fromJson(hexJson)).toList();
+    return storage;
   }
 }
 

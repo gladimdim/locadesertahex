@@ -39,7 +39,6 @@ class AppPreferences {
     return saveMap(mapJson, _savedGameBuilder);
   }
 
-
   Map<String, dynamic> loadMap(sMapName) {
     try {
       var s = _preferences.getString(sMapName);
