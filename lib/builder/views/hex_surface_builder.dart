@@ -23,7 +23,6 @@ class HexSurfaceBuilder extends StatefulWidget {
 
 class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
   TransformationController _controller = TransformationController();
-  final double scaleFactor = 3;
 
   @override
   void initState() {

@@ -19,3 +19,5 @@ int distanceFromCenter(Hex hex) {
 
 const double HEX_SIZE = 120;
 const double MAP_DIMENSION = 6000;
+
+const double EXPANDED_HEX_SCALE_FACTOR = 3;

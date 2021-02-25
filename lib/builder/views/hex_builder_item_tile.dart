@@ -6,6 +6,7 @@ import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/components/expansion/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
+import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
@@ -36,7 +37,6 @@ class HexBuilderItemTile extends StatefulWidget {
 }
 
 class _HexBuilderItemTileState extends State<HexBuilderItemTile> {
-  final double scaleFactor = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -106,14 +106,18 @@ class _HexBuilderItemTileState extends State<HexBuilderItemTile> {
 
   double selectedShift(Hex hex) {
     if (widget.expanded) {
-      return -widget.size * (scaleFactor - 1) / 2;
+      return -widget.size * (EXPANDED_HEX_SCALE_FACTOR - 1) / 2;
     } else {
       return 0.0;
     }
   }
 
   double getSizeForHex(Hex hex) {
-    return widget.expanded ? widget.size * scaleFactor : widget.size;
+    if (widget.expanded) {
+      return widget.size * EXPANDED_HEX_SCALE_FACTOR;
+    } else {
+      return widget.size;
+    }
   }
 
   Color borderColor() {

@@ -5,11 +5,11 @@ import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
 import 'package:locadesertahex/components/expansion/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
+import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 
 class HexOnSurface extends StatelessWidget {
-  final double scaleFactor = 3.0;
   final double size;
   final Hex hex;
   final bool expanded;
@@ -44,6 +44,6 @@ class HexOnSurface extends StatelessWidget {
   }
 
   double getSizeForHex(Hex hex) {
-    return expanded ? size * scaleFactor : size;
+    return expanded ? size * EXPANDED_HEX_SCALE_FACTOR : size;
   }
 }

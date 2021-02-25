@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
-import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:simple_animations/simple_animations.dart';
