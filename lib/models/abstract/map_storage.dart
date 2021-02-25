@@ -214,16 +214,15 @@ class MapStorageBuilder extends MapStorage {
 
     _levels = [
       [RESOURCE_TYPES.GRAINS],
-      gameMode.food,
-      gameMode.food,
+      [RESOURCE_TYPES.FOOD],
       gameMode.simpleResources,
-      [...gameMode.simpleResources, ...gameMode.food],
-      [...gameMode.simpleResources, ...gameMode.food],
+      gameMode.simpleResources,
       gameMode.higherLevel,
       gameMode.higherLevel,
       gameMode.moneyMakers,
       gameMode.military,
       gameMode.military,
+      gameMode.army,
       gameMode.army,
       gameMode.highLevelArmy,
     ];

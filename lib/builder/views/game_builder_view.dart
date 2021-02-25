@@ -19,12 +19,19 @@ class GameBuilderView extends StatefulWidget {
 }
 
 class _GameBuilderViewState extends State<GameBuilderView> {
+  MapStorageBuilder storage;
+
+  @override
+  void initState() {
+    super.initState();
+    storage = widget.storage;
+  }
+
   Hex selectedHandHex;
 
   @override
   Widget build(BuildContext context) {
     var soundOn = AppPreferences.instance.getSoundEnabled();
-    var storage = widget.storage;
     return Scaffold(
       body: Stack(
         children: [
@@ -95,7 +102,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                   }));
                                   if (mode != null) {
                                     setState(() {
-                                      storage = MapStorageBuilder();
+                                      storage = MapStorageBuilder.generate(mode);
                                     });
                                   }
                                 },
@@ -168,6 +175,6 @@ class _GameBuilderViewState extends State<GameBuilderView> {
   }
 
   void onHexSurfaceSelection(Hex hex) {
-    widget.storage.selectHex(hex);
+    storage.selectHex(hex);
   }
 }

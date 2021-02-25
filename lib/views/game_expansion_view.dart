@@ -19,9 +19,15 @@ class GameExpansionView extends StatefulWidget {
 }
 
 class _GameExpansionViewState extends State<GameExpansionView> {
+  MapStorageExpansion storage;
+
+  @override
+  void initState() {
+    super.initState();
+    storage = widget.storage;
+  }
   @override
   Widget build(BuildContext context) {
-    var map = widget.storage;
     var soundOn = AppPreferences.instance.getSoundEnabled();
     return Scaffold(
       body: Stack(
@@ -32,7 +38,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
             child: HexSurface(
               dimension: MAP_DIMENSION,
               size: HEX_SIZE,
-              storage: map,
+              storage: storage,
             ),
           ),
           Positioned(
@@ -60,16 +66,16 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               StreamBuilder(
-                                stream: map.changes,
+                                stream: storage.changes,
                                 builder: (context, data) => Text(
-                                    "${HexLocalizations.of(context).labelPoints}: ${map.totalPoints}"),
+                                    "${HexLocalizations.of(context).labelPoints}: ${storage.totalPoints}"),
                               ),
-                              if (!map.isGameOver()) Text(
-                                HexLocalizations.of(context)[map.gameMode
+                              if (!storage.isGameOver()) Text(
+                                HexLocalizations.of(context)[storage.gameMode
                                     .localizedKeyTitle],
                               ),
 
-                              if (map.isGameOver())
+                              if (storage.isGameOver())
                                 Text(
                                     HexLocalizations.of(context).labelGameOver),
                             ],
@@ -95,7 +101,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                                   }));
                                   if (mode != null) {
                                     setState(() {
-                                      map = MapStorageExpansion.generate(mode);
+                                      storage = MapStorageExpansion.generate(mode);
                                     });
                                   }
                                 },
@@ -110,7 +116,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                                     HexLocalizations.of(context).tooltipShuffle,
                                 onPressed: () {
                                   setState(() {
-                                    map.shuffle();
+                                    storage.shuffle();
                                   });
                                 },
                               ),
