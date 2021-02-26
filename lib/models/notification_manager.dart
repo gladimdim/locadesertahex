@@ -4,7 +4,6 @@ import 'dart:collection';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
-import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 
 const NOTIFICATION_BAR_HEIGHT = 100.0 ;
