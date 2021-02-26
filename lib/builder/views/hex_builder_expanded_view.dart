@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
+import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
+import 'package:locadesertahex/models/abstract/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -56,7 +58,12 @@ class HexBuilderExpandedView extends StatelessWidget {
           return InkWell(
             child: ResourceImageView(resource: hex.output, size: 80),
             onTap: () {
-              storage.consumeHandCard(hex);
+              var result = storage.consumeHandCard(hex);
+              if (result.item1) {
+                SoundManager.instance.playSoundForResourceType(hex.output.type);
+              } else {
+                SoundManager.instance.playSound(SOUND_TYPE.REJECT);
+              }
             },
           );
         }).toList());

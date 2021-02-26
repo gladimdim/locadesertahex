@@ -277,9 +277,9 @@ class MapStorageBuilder extends MapStorage {
     return map;
   }
 
-  void consumeHandCard(Hex hex) {
+  Tuple2<bool, List<Resource>> consumeHandCard(Hex hex) {
     if (selected == null) {
-      return;
+      return Tuple2(false, []);
     }
 
     selected.output = hex.output;
@@ -293,6 +293,7 @@ class MapStorageBuilder extends MapStorage {
       var newHex = Hex(0, 0, 0)..output = Resource.fromType(nextType);
       stack[index] = newHex;
     }
+    return owned;
   }
 
   Map<String, dynamic> toJson() {
