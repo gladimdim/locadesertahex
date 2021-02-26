@@ -42,7 +42,6 @@ abstract class GameMode {
     RESOURCE_TYPES.FUR,
   ];
   var higherLevel = [
-    RESOURCE_TYPES.MONEY,
     RESOURCE_TYPES.HORSE,
     RESOURCE_TYPES.PLANKS,
     RESOURCE_TYPES.METAL_PARTS,
