@@ -6,6 +6,7 @@ import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/abstract/sound_manager.dart';
 import 'package:locadesertahex/models/hex.dart';
+import 'package:locadesertahex/models/notification_manager.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class HexBuilderExpandedView extends StatelessWidget {
@@ -63,6 +64,7 @@ class HexBuilderExpandedView extends StatelessWidget {
                 SoundManager.instance.playSoundForResourceType(hex.output.type);
               } else {
                 SoundManager.instance.playSound(SOUND_TYPE.REJECT);
+                NotificationManager.instance.processNotificationWithResource(result.item2);
               }
             },
           );
