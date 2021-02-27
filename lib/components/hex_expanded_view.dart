@@ -7,7 +7,6 @@ import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/abstract/sound_manager.dart';
-import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -117,7 +116,9 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                         flex: 1,
                         child: Center(
                           child: Text(
-                            HexLocalizations.of(context).labelCapture.toUpperCase(),
+                            HexLocalizations.of(context)
+                                .labelCapture
+                                .toUpperCase(),
                           ),
                         ),
                       ),
@@ -135,16 +136,11 @@ class _HexExpandedViewState extends State<HexExpandedView> {
 
   void onOwnPressed() {
     var result = widget.storage.ownHex(widget.hex);
-    var soundOn = AppPreferences.instance.getSoundEnabled();
     if (result.item1) {
       widget.storage.clearSelectedHex();
-      if (soundOn) {
-        SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
-      }
+      SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
     } else {
-      if (soundOn) {
-        SoundManager.instance.playSound(SOUND_TYPE.REJECT);
-      }
+      SoundManager.instance.playSound(SOUND_TYPE.REJECT);
       setState(() {
         missingResources = result.item2;
       });

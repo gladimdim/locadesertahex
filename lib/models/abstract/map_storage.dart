@@ -191,7 +191,10 @@ abstract class MapStorage {
 }
 
 class MapStorageBuilder extends MapStorage {
-  List<Hex> stack = [];
+  static List<RESOURCE_TYPES> hiddenResources = [RESOURCE_TYPES.WALL, RESOURCE_TYPES.TOWER, RESOURCE_TYPES.STONE];
+  List<Hex> stack = RESOURCE_TYPES.values.where((type) => !MapStorageBuilder.hiddenResources.contains(type))
+      .map((type) => Hex(0, 0, 0, output: Resource.fromType(type)))
+      .toList();
   Map<String, Hex> map;
   GameMode gameMode;
 
@@ -225,7 +228,6 @@ class MapStorageBuilder extends MapStorage {
       gameMode.army,
       gameMode.highLevelArmy,
     ];
-    generateHandStack();
   }
 
   adjustToGameMode() {
@@ -246,13 +248,6 @@ class MapStorageBuilder extends MapStorage {
         generateRing(i, RESOURCE_TYPES.WALL);
       }
     }
-  }
-
-  void generateHandStack() {
-    stack = _levels.map((resources) {
-      var random = Random().nextInt(resources.length);
-      return Hex(0, 0, 0)..output = Resource.fromType(resources[random]);
-    }).toList();
   }
 
   Hex getOrCreate(Hex hex) {
@@ -289,11 +284,6 @@ class MapStorageBuilder extends MapStorage {
     var owned = ownHex(selected);
     if (owned.item1) {
       clearSelectedHex();
-      var index = stack.indexOf(hex);
-      var level = _levels[index];
-      var nextType = _levels[index][Random().nextInt(level.length)];
-      var newHex = Hex(0, 0, 0)..output = Resource.fromType(nextType);
-      stack[index] = newHex;
     }
     return owned;
   }
@@ -304,7 +294,6 @@ class MapStorageBuilder extends MapStorage {
       "stock": stock.map((e) => e.toJson()).toList(),
       "totalPoints": totalPoints,
       "gameMode": gameMode.toGameModeString(),
-      "stack": stack.map((hex) => hex.toJson()).toList(),
     };
   }
 
@@ -315,7 +304,6 @@ class MapStorageBuilder extends MapStorage {
   static MapStorageBuilder fromJson(Map<String, dynamic> json) {
     List hexJsons = json["map"] as List;
     List stockJson = json["stock"] as List;
-    List stackJson = json["stack"] as List;
     var hexes = hexJsons.map((e) => Hex.fromJson(e));
     var storage = MapStorageBuilder(
         map: {},
@@ -325,7 +313,6 @@ class MapStorageBuilder extends MapStorage {
       storage.addHex(hex);
     });
     storage.stock = stockJson.map((e) => Resource.fromJson(e)).toList();
-    storage.stack = stackJson.map((hexJson) => Hex.fromJson(hexJson)).toList();
     return storage;
   }
 }

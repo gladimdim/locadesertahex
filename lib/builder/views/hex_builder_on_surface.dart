@@ -28,7 +28,7 @@ class HexBuilderOnSurface extends StatelessWidget {
       }
       if (enemyHex(hex)) {
         return HexExpandedView(
-          size: size * EXPANDED_HEX_SCALE_FACTOR,
+          size: getSizeForHex(hex),
           hex: hex,
           storage: storage,
         );

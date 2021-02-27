@@ -15,7 +15,9 @@ class HexSurfaceBuilder extends StatefulWidget {
   final double size;
   final MapStorageBuilder storage;
   final Function(Hex) onSelection;
-  HexSurfaceBuilder({this.dimension, this.size, this.storage, this.onSelection});
+
+  HexSurfaceBuilder(
+      {this.dimension, this.size, this.storage, this.onSelection});
 
   @override
   _HexSurfaceBuilderState createState() => _HexSurfaceBuilderState();
@@ -90,14 +92,14 @@ class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
                     ? Container()
                     : HexItemTile(
                         hex: widget.storage.selectedHex(),
-                        size: widget.size,
+                        size: increasedSize(widget.size, widget.storage.selectedHex()),
                         storage: widget.storage,
                         center: Point(dimension / 2, dimension / 2),
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
                         hexOnSurface: HexBuilderOnSurface(
-                          size: widget.size,
+                          size: increasedSize(widget.size, widget.storage.selectedHex()),
                           storage: widget.storage,
                           expanded: true,
                           hex: widget.storage.selectedHex(),
@@ -162,5 +164,13 @@ class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
   FogCirclePoint toFogCirclePoint(Hex hex) {
     var center = Point<double>(leftForHex(hex), topForHex(hex));
     return FogCirclePoint(coords: center, radius: widget.size / 2);
+  }
+
+  double increasedSize(double size, Hex hex) {
+    if (!hex.owned) {
+      return size * 1.1;
+    } else {
+      return size;
+    }
   }
 }

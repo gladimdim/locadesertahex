@@ -20,8 +20,8 @@ class HexBuilderExpandedView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: size / 2 * sqrt(3),
-        maxWidth: size,
+        minHeight: size / 2 * sqrt(3),
+        minWidth: size,
       ),
       child: PlayAnimation<double>(
         tween: Tween(begin: 0.0, end: size),
@@ -35,16 +35,17 @@ class HexBuilderExpandedView extends StatelessWidget {
         },
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: size / 2 * sqrt(3),
-            maxWidth: size,
+            maxHeight: size * 2 / 2 * sqrt(3),
+            maxWidth: size * 2,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               rowForRange(0, 2),
               rowForRange(2, 6),
-              rowForRange(6, 10),
-              rowForRange(10, 12),
+              rowForRange(6, 11),
+              rowForRange(11, 15),
+              rowForRange(15, 17),
             ],
           ),
         ),
@@ -56,17 +57,20 @@ class HexBuilderExpandedView extends StatelessWidget {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: storage.stack.getRange(start, end).map((hex) {
-          return InkWell(
-            child: ResourceImageView(resource: hex.output, size: 80),
-            onTap: () {
-              var result = storage.consumeHandCard(hex);
-              if (result.item1) {
-                SoundManager.instance.playSoundForResourceType(hex.output.type);
-              } else {
-                SoundManager.instance.playSound(SOUND_TYPE.REJECT);
-                NotificationManager.instance.processNotificationWithResource(result.item2);
-              }
-            },
+          return Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: InkWell(
+              child: ResourceImageView(resource: hex.output, size: 72),
+              onTap: () {
+                var result = storage.consumeHandCard(hex);
+                if (result.item1) {
+                  SoundManager.instance.playSoundForResourceType(hex.output.type);
+                } else {
+                  SoundManager.instance.playSound(SOUND_TYPE.REJECT);
+                  NotificationManager.instance.processNotificationWithResource(result.item2);
+                }
+              },
+            ),
           );
         }).toList());
   }
