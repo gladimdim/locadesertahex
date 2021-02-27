@@ -9,10 +9,9 @@ import 'package:locadesertahex/views/settings_view.dart';
 
 class GameExpansionView extends StatefulWidget {
   final MapStorageExpansion storage;
-  final String title;
   final Function(Locale) onLocaleChange;
 
-  GameExpansionView({Key key, this.title, this.storage, this.onLocaleChange});
+  GameExpansionView({this.storage, this.onLocaleChange});
 
   @override
   _GameExpansionViewState createState() => _GameExpansionViewState();

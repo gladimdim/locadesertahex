@@ -80,6 +80,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 var mainTheme = ThemeData(
+  primaryColor: Colors.green[700],
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       textStyle: MaterialStateProperty.resolveWith((states) {
@@ -102,7 +103,7 @@ var mainTheme = ThemeData(
         if (states.contains(MaterialState.hovered)) {
           return Colors.green[300];
         } else if (states.contains(MaterialState.pressed)) {
-          return Colors.blue[500];
+          return Colors.green[900];
         }
         return Colors.black;
       }),

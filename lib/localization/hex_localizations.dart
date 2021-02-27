@@ -50,7 +50,7 @@ class HexLocalizations {
       "tooltipSounds": "Sound",
       "tooltipNewGame": "New Game",
       "tooltipShuffle": "Shuffle",
-      "gameType.expansion": "Expansion",
+      "gameType.expansion": "Conqueror",
       "gameType.expansionDescription": "Capture territory on the pre-generated hex canvas.",
       "gameType.builder": "Builder",
       "gameType.builderDescription": "Freestyle game type. You can pick any hex from the list of available.",
@@ -132,7 +132,7 @@ class HexLocalizations {
       "gameMode.titleExpansion": "Рубилово",
       "gameMode.descriptionExpansion":
           "Купа ворожих ґексів, багато стін та з десяток укріплених місць. Справжнє випробовування!",
-      "gameType.expansion": "Захоплення",
+      "gameType.expansion": "Завойовник",
       "gameType.expansionDescription": "Захоплюйте територію на попередньо згенерованому тлі гри.",
       "gameType.builder": "Будівельник",
       "gameType.builderDescription": "Пазл з вільним вибором ґексів.",

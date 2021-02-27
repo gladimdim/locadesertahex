@@ -13,14 +13,11 @@ class GameTypeItemView extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 1,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset(
-              gameType.thumbnailImagePath,
-              width: 128,
-            ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            gameType.thumbnailImagePath,
+            width: 64,
           ),
         ),
         Expanded(

@@ -9,6 +9,7 @@ import 'package:locadesertahex/builder/views/game_builder_view.dart';
 import 'package:locadesertahex/models/game_type.dart';
 import 'package:locadesertahex/views/game_expansion_view.dart';
 import 'package:locadesertahex/views/game_type_item_view.dart';
+import 'package:locadesertahex/views/settings_view.dart';
 
 class GameTypeSelectionView extends StatelessWidget {
   final Function(Locale locale) onLocaleChange;
@@ -18,33 +19,77 @@ class GameTypeSelectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithMapBackground(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              color: Colors.green[400],
-              child: Center(
-                  child: TitleText(
-                      HexLocalizations.of(context).labelPickGameType)),
+      child: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  color: Theme.of(context).primaryColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                        child: TitleText(
+                            HexLocalizations.of(context).labelPickGameType)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                    child: GameTypeItemView(gameType: GameTypeExpansion()),
+                    onPressed: () => loadExpansionGame(context),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                    onPressed: () => loadBuilderGame(context),
+                    child: GameTypeItemView(gameType: GameTypeBuilder()),
+                  ),
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                child: GameTypeItemView(gameType: GameTypeExpansion()),
-                onPressed: () => loadExpansionGame(context),
+          ),
+          Positioned(
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                height: 50,
+                color: Colors.white.withAlpha(155),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 12.0, left: 8, right: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.help,
+                          // size: 24,
+                          color: Colors.green[700],
+                        ),
+                        tooltip: HexLocalizations.of(context).tooltipSettings,
+                        onPressed: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SettingsView(
+                                onLocaleChange: onLocaleChange,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                onPressed: () => loadBuilderGame(context),
-                child: GameTypeItemView(gameType: GameTypeBuilder()),
-              ),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
