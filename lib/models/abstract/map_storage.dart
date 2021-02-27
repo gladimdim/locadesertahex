@@ -197,7 +197,6 @@ class MapStorageBuilder extends MapStorage {
       .toList();
   Map<String, Hex> map;
   GameMode gameMode;
-
   List<List<RESOURCE_TYPES>> _levels;
 
   MapStorageBuilder({this.gameMode, this.map}) {
@@ -274,7 +273,7 @@ class MapStorageBuilder extends MapStorage {
     return map;
   }
 
-  Tuple2<bool, List<Resource>> consumeHandCard(Hex hex) {
+  Tuple2<bool, List<Resource>> tryToPlaceHex(Hex hex) {
     if (selected == null) {
       return Tuple2(false, []);
     }

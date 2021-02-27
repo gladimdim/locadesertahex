@@ -167,10 +167,10 @@ class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
   }
 
   double increasedSize(double size, Hex hex) {
-    if (!hex.owned) {
-      return size * 1.1;
-    } else {
+    if (hex.owned) {
       return size;
+    } else {
+      return size * 1.1;
     }
   }
 }
