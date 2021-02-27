@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/hex_surface.dart';
+import 'package:locadesertahex/components/expansion/hex_surface.dart';
 
 class HexClipper extends CustomClipper<Path> {
   final Color color;

@@ -1,7 +1,7 @@
 name: locadesertahex
 description: Loca Deserta Hex Puzzle Game.
 publish_to: 'none'
-version: 1.0.5+6
+version: 1.0.6+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -21,6 +21,7 @@ dependencies:
   google_fonts: ^1.1.2
   soundpool_macos: ^0.2.7
   url_launcher: ^5.7.10
+  bot_toast: ^3.0.5
 
 dev_dependencies:
   flutter_test:
@@ -34,3 +35,4 @@ flutter:
     - assets/sounds/
     - google_fonts/
     - images/other/
+    - images/thumbnails/

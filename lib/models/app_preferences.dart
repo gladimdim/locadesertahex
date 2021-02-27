@@ -8,7 +8,8 @@ class AppPreferences {
   static final AppPreferences instance = AppPreferences._internal();
   SharedPreferences _preferences;
   String _languageCode = "languageCode";
-  String _savedGame = "saved_game";
+  String _savedGameExpansion = "saved_game_expansion";
+  String _savedGameBuilder = "saved_game_builder";
   String _soundEnabled = "soundEnabled";
 
   Future init() async {
@@ -21,18 +22,26 @@ class AppPreferences {
     }
   }
 
-  Future saveMap(Map<String, dynamic> mapJson) async {
+  Future saveMap(Map<String, dynamic> mapJson, String mapKey) async {
     var string = jsonEncode(mapJson);
     try {
-      return await _preferences.setString(_savedGame, string);
+      return await _preferences.setString(mapKey, string);
     } catch (e) {
       return null;
     }
   }
 
-  Map<String, dynamic> loadMap() {
+  Future saveExpansionMap(Map<String, dynamic> mapJson) {
+    return saveMap(mapJson, _savedGameExpansion);
+  }
+
+  Future saveBuilderMap(Map<String, dynamic> mapJson) {
+    return saveMap(mapJson, _savedGameBuilder);
+  }
+
+  Map<String, dynamic> loadMap(sMapName) {
     try {
-      var s = _preferences.getString(_savedGame);
+      var s = _preferences.getString(sMapName);
       if (s != null) {
         var map = jsonDecode(s);
         return map;
@@ -44,8 +53,12 @@ class AppPreferences {
     }
   }
 
-  Future<bool> removeMap() async {
-    return await _preferences.remove(_savedGame);
+  Map<String, dynamic> loadExpansionMap() {
+    return loadMap(_savedGameExpansion);
+  }
+
+  Map<String, dynamic> loadBuilderMap() {
+    return loadMap(_savedGameBuilder);
   }
 
   String getUILanguage() {

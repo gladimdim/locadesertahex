@@ -42,7 +42,6 @@ abstract class GameMode {
     RESOURCE_TYPES.FUR,
   ];
   var higherLevel = [
-    RESOURCE_TYPES.MONEY,
     RESOURCE_TYPES.HORSE,
     RESOURCE_TYPES.PLANKS,
     RESOURCE_TYPES.METAL_PARTS,
@@ -89,6 +88,12 @@ class GameModeExpansion extends GameMode {
     CityHex.generateForDirection(0, 15),
     CityHex.generateForDirection(0, 30),
     CityHex.generateForDirection(5, 13),
+    CityHex.generateForDirection(3, 5),
+    CityHex.generateForDirection(5, 5),
+    CityHex.generateForDirection(1, 15),
+    CityHex.generateForDirection(1, 20),
+    CityHex.generateForDirection(3, 17),
+    CityHex.generateForDirection(3, 23),
   ];
 
   GameModeExpansion() : super(GAME_MODES.EXPANSION);
@@ -159,8 +164,6 @@ class GameModeEasy extends GameMode {
       [...moneyMakers, ...higherLevel],
       [...simpleResources, ...higherLevel, ...food],
       [...highLevelArmy, ...higherLevel],
-      [RESOURCE_TYPES.WALL],
-      [RESOURCE_TYPES.WALL],
       military,
       simpleResources,
       food,

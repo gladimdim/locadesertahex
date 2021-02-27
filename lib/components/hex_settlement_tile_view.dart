@@ -2,22 +2,16 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
-import 'package:locadesertahex/models/map_storage.dart';
+import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 
-class HexSettlementExpandedView extends StatefulWidget {
+class HexSettlementExpandedView extends StatelessWidget {
   final double size;
   final MapStorage storage;
 
   HexSettlementExpandedView({this.size, this.storage});
 
-  @override
-  _HexSettlementExpandedViewState createState() =>
-      _HexSettlementExpandedViewState();
-}
-
-class _HexSettlementExpandedViewState extends State<HexSettlementExpandedView> {
   final List<RESOURCE_TYPES> resources = [
     RESOURCE_TYPES.FOOD,
     RESOURCE_TYPES.GRAINS,
@@ -43,8 +37,8 @@ class _HexSettlementExpandedViewState extends State<HexSettlementExpandedView> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: widget.size / 2 * sqrt(3),
-        maxWidth: widget.size,
+        maxHeight: size / 2 * sqrt(3),
+        maxWidth: size,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -66,8 +60,8 @@ class _HexSettlementExpandedViewState extends State<HexSettlementExpandedView> {
   }
 
   Widget typeToWidget(RESOURCE_TYPES type) {
-    var resource = widget.storage.stockForResourceType(type) ??
-        Resource.fromType(type, 0.0);
+    var resource =
+        storage.stockForResourceType(type) ?? Resource.fromType(type, 0.0);
     return ResourceImageView(
       resource: resource,
       showAmount: true,

@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
-import 'package:locadesertahex/components/owned_hex_tile.dart';
+import 'package:locadesertahex/components/expansion/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
+import 'package:locadesertahex/hexgrid/funcs.dart';
+import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
-import 'package:locadesertahex/models/map_storage.dart';
 
 class HexItemTile extends StatefulWidget {
   final Hex hex;
@@ -18,6 +19,9 @@ class HexItemTile extends StatefulWidget {
   final Function(bool) onPress;
   final double dimension;
   final bool expanded;
+  final Function(Hex) onSelection;
+
+  final Widget hexOnSurface;
 
   HexItemTile(
       {this.center,
@@ -26,6 +30,8 @@ class HexItemTile extends StatefulWidget {
       @required this.storage,
       @required this.onPress,
       @required this.expanded,
+      @required this.hexOnSurface,
+      @required this.onSelection,
       this.dimension});
 
   @override
@@ -33,7 +39,6 @@ class HexItemTile extends StatefulWidget {
 }
 
 class _HexItemTileState extends State<HexItemTile> {
-  final double scaleFactor = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +69,12 @@ class _HexItemTileState extends State<HexItemTile> {
                 Positioned(
                   child: Align(
                     alignment: Alignment.center,
-                    child: buildChild(context),
+                    child: widget.hexOnSurface,
                   ),
                 ),
               ],
             ),
-            onTap: () => processPress(context),
+            onTap: () => widget.onSelection(hex),
           ),
           clipper: const HexClipper(),
         ),
@@ -103,14 +108,18 @@ class _HexItemTileState extends State<HexItemTile> {
 
   double selectedShift(Hex hex) {
     if (widget.expanded) {
-      return -widget.size * (scaleFactor - 1) / 2;
+      return -widget.size * (EXPANDED_HEX_SCALE_FACTOR - 1) / 2;
     } else {
       return 0.0;
     }
   }
 
   double getSizeForHex(Hex hex) {
-    return widget.expanded ? widget.size * scaleFactor : widget.size;
+    if (widget.expanded) {
+      return widget.size * EXPANDED_HEX_SCALE_FACTOR;
+    } else {
+      return widget.size;
+    }
   }
 
   Color borderColor() {
@@ -153,14 +162,6 @@ class _HexItemTileState extends State<HexItemTile> {
           resource: widget.hex.output,
         ),
       );
-    }
-  }
-
-  void processPress(BuildContext context) {
-    if (widget.expanded) {
-      widget.storage.clearSelectedHex();
-    } else {
-      widget.storage.selectHex(widget.hex);
     }
   }
 

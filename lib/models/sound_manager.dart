@@ -1,11 +1,13 @@
 import 'package:flutter/services.dart';
 import 'package:locadesertahex/models/abstract/sound_manager.dart';
+import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:soundpool/soundpool.dart';
 
 class SoundManager extends SoundManagerClass {
   // contains ids of loaded sounds
   Map<String, int> sounds = {};
+
   SoundManager._internal();
 
   Future initSounds() async {
@@ -24,15 +26,22 @@ class SoundManager extends SoundManagerClass {
   Soundpool pool = Soundpool(streamType: StreamType.music);
   static final SoundManager instance = SoundManager._internal();
 
-
   playSoundForResourceType(RESOURCE_TYPES type) async {
+    var soundOn = AppPreferences.instance.getSoundEnabled();
+    if (!soundOn) {
+      return;
+    }
     var action = resourceTypeToSoundType(type);
 
     if (action != null) {
       playSound(action);
     }
   }
+
   playSound(SOUND_TYPE action) async {
-    await pool.play(sounds[actionMapping[action]]);
+    var soundOn = AppPreferences.instance.getSoundEnabled();
+    if (soundOn) {
+      await pool.play(sounds[actionMapping[action]]);
+    }
   }
 }

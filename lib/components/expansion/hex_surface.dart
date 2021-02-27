@@ -3,18 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:locadesertahex/components/hex_item_tile.dart';
+import 'package:locadesertahex/components/expansion/hex_on_surface.dart';
+import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
-import 'package:locadesertahex/models/map_storage.dart';
 
-import 'hex_clipper.dart';
+import '../hex_clipper.dart';
 
 class HexSurface extends StatefulWidget {
   final double dimension;
   final double size;
   final MapStorage storage;
+  final Function(Hex) onHexSelected;
 
-  HexSurface({this.dimension, this.size, this.storage});
+  HexSurface({this.dimension, this.size, this.storage, this.onHexSelected});
 
   @override
   _HexSurfaceState createState() => _HexSurfaceState();
@@ -22,7 +24,6 @@ class HexSurface extends StatefulWidget {
 
 class _HexSurfaceState extends State<HexSurface> {
   TransformationController _controller = TransformationController();
-  final double scaleFactor = 3;
 
   @override
   void initState() {
@@ -72,6 +73,15 @@ class _HexSurfaceState extends State<HexSurface> {
                   dimension: widget.dimension,
                   onPress: (expanded) {},
                   expanded: false,
+                  hexOnSurface: HexOnSurface(
+                    size: widget.size,
+                    storage: widget.storage,
+                    expanded: false,
+                    hex: hex,
+                  ),
+                  onSelection: (hex) {
+                    widget.storage.selectHex(hex);
+                  },
                 );
               },
             ).toList(),
@@ -89,6 +99,15 @@ class _HexSurfaceState extends State<HexSurface> {
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
+                        onSelection: (hex) {
+                          widget.storage.clearSelectedHex();
+                        },
+                        hexOnSurface: HexOnSurface(
+                          size: widget.size,
+                          storage: widget.storage,
+                          expanded: true,
+                          hex: widget.storage.selectedHex(),
+                        ),
                       );
               },
             ),

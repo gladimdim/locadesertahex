@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-const APP_VERSION = "1.0.5";
+const APP_VERSION = "1.0.6";
 
 class HexLocalizations {
   HexLocalizations(this.locale);
@@ -41,21 +41,27 @@ class HexLocalizations {
       "labelCapture": "Capture",
       "labelAbout": "About Game",
       "labelBack": "Back",
+      "labelToMainMenu": "Main Menu",
       "labelSloboda": "Sloboda",
       "labelLocaDeserta": "Loca Deserta",
       "labelOtherGames": "My other games",
+      "labelPickGameType": "Pick game type",
       "tooltipSettings": "Help",
       "tooltipSounds": "Sound",
       "tooltipNewGame": "New Game",
       "tooltipShuffle": "Shuffle",
+      "gameType.expansion": "Conqueror",
+      "gameType.expansionDescription": "Capture territory on the pre-generated hex canvas.",
+      "gameType.builder": "Builder",
+      "gameType.builderDescription": "Freestyle game type. You can pick any hex from the list of available.",
       "gameMode.titleEasy": "Easy",
       "gameMode.descriptionEasy": "No Walls. Plenty of resources. Enjoy!",
       "gameMode.titleClassic": "Classic",
       "gameMode.descriptionClassic":
           "Sloboda is surrounded by 3 wall levels. Plenty of resources.",
-      "gameMode.titleExpansion": "Expansion",
+      "gameMode.titleExpansion": "Masacre",
       "gameMode.descriptionExpansion":
-      "A lot of hexes with enemies. Dozen of protected cities. Tough mode!",
+          "A lot of hexes with enemies. Dozen of protected cities. Tough mode!",
       "textHowToPlay": """
       The main goal of the game is to get as many points as possible.
       Points are earned by capturing Hexes. Each regular Hex gives you 1 point.
@@ -108,9 +114,11 @@ class HexLocalizations {
       "labelCapture": "Захопити",
       "labelAbout": "Про гру",
       "labelBack": "Назад",
+      "labelToMainMenu": "Головне Меню",
       "labelSloboda": "Слобода",
       "labelLocaDeserta": "Дике Поле",
       "labelOtherGames": "Мої інші ігри",
+      "labelPickGameType": "Виберіть тип гри",
       "tooltipSettings": "Про гру",
       "tooltipSounds": "Звук",
       "tooltipNewGame": "Нова Гра",
@@ -123,7 +131,11 @@ class HexLocalizations {
           "Слободу оточують стіни, вам треба через них пробиватися. Ресурсів вдосталь.",
       "gameMode.titleExpansion": "Рубилово",
       "gameMode.descriptionExpansion":
-      "Купа ворожих ґексів, багато стін та з десяток укріплених місць. Справжнє випробовування!",
+          "Купа ворожих ґексів, багато стін та з десяток укріплених місць. Справжнє випробовування!",
+      "gameType.expansion": "Завойовник",
+      "gameType.expansionDescription": "Захоплюйте територію на попередньо згенерованому тлі гри.",
+      "gameType.builder": "Будівельник",
+      "gameType.builderDescription": "Пазл з вільним вибором ґексів.",
       "textHowToPlay": """
         Головна мета гри - отримати як умога більше очок. Кожний захоплений ґекс дає одне очко.
 
@@ -171,9 +183,11 @@ class HexLocalizations {
       "labelCapture": "Забрать",
       "labelAbout": "Про игру",
       "labelBack": "Назад",
+      "labelToMainMenu": "Главное Меню",
       "labelSloboda": "Слобода",
       "labelLocaDeserta": "Дикое Поле",
       "labelOtherGames": "Мои другие игры",
+      "labelPickGameType": "Выберите тип игры",
       "tooltipSettings": "Про игру",
       "tooltipSounds": "Звук",
       "tooltipNewGame": "Новая Игра",
@@ -186,7 +200,11 @@ class HexLocalizations {
           "Слободу окружают три стены. Надо через них пробиваться. Ресурсов много.",
       "gameMode.titleExpansion": "Рубилово",
       "gameMode.descriptionExpansion":
-      "Много вражеских гексов. Больше уровней стен. Около десятка укрепленых городов. Настоящее испытание!",
+          "Много вражеских гексов. Больше уровней стен. Около десятка укрепленых городов. Настоящее испытание!",
+      "gameType.expansion": "Захватчик",
+      "gameType.expansionDescription": "Захватывайте территорию на сгенерированой игровой карте.",
+      "gameType.builder": "Строитель",
+      "gameType.builderDescription": "Пазл со свободным выбором гексом.",
       "textHowToPlay": """
         Основная цель игры - получить как можна больше очков. Каждый захваченый гекс дает одно очко.
 
@@ -232,6 +250,14 @@ class HexLocalizations {
 
   String get labelBack {
     return _localizedValues[locale.languageCode]["labelBack"];
+  }
+
+  String get labelToMaiMenu {
+    return _localizedValues[locale.languageCode]["labelToMainMenu"];
+  }
+
+  String get labelPickGameType {
+    return _localizedValues[locale.languageCode]["labelPickGameType"];
   }
 
   String get textHowToPlay {

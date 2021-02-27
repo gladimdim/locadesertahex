@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/hex_surface.dart';
+import 'package:locadesertahex/components/expansion/hex_surface.dart';
+import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
+import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
-import 'package:locadesertahex/models/map_storage.dart';
 import 'package:locadesertahex/views/mode_selection_view.dart';
 import 'package:locadesertahex/views/settings_view.dart';
 
-class GameView extends StatefulWidget {
-  final MapStorage map;
-  final String title;
+class GameExpansionView extends StatefulWidget {
+  final MapStorageExpansion storage;
   final Function(Locale) onLocaleChange;
 
-  GameView({Key key, this.title, this.map, this.onLocaleChange});
+  GameExpansionView({this.storage, this.onLocaleChange});
 
   @override
-  _GameViewState createState() => _GameViewState();
+  _GameExpansionViewState createState() => _GameExpansionViewState();
 }
 
-class _GameViewState extends State<GameView> {
-  final double size = 120;
-  final double dimension = 6000;
-  MapStorage map;
+class _GameExpansionViewState extends State<GameExpansionView> {
+  MapStorageExpansion storage;
 
+  @override
   void initState() {
-    map = widget.map;
     super.initState();
+    storage = widget.storage;
   }
-
   @override
   Widget build(BuildContext context) {
     var soundOn = AppPreferences.instance.getSoundEnabled();
@@ -37,9 +35,9 @@ class _GameViewState extends State<GameView> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: HexSurface(
-              dimension: dimension,
-              size: size,
-              storage: map,
+              dimension: MAP_DIMENSION,
+              size: HEX_SIZE,
+              storage: storage,
             ),
           ),
           Positioned(
@@ -67,16 +65,16 @@ class _GameViewState extends State<GameView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               StreamBuilder(
-                                stream: map.changes,
+                                stream: storage.changes,
                                 builder: (context, data) => Text(
-                                    "${HexLocalizations.of(context).labelPoints}: ${map.totalPoints}"),
+                                    "${HexLocalizations.of(context).labelPoints}: ${storage.totalPoints}"),
                               ),
-                              if (!map.isGameOver()) Text(
-                                HexLocalizations.of(context)[map.gameMode
+                              if (!storage.isGameOver()) Text(
+                                HexLocalizations.of(context)[storage.gameMode
                                     .localizedKeyTitle],
                               ),
 
-                              if (map.isGameOver())
+                              if (storage.isGameOver())
                                 Text(
                                     HexLocalizations.of(context).labelGameOver),
                             ],
@@ -102,7 +100,7 @@ class _GameViewState extends State<GameView> {
                                   }));
                                   if (mode != null) {
                                     setState(() {
-                                      map = MapStorage.generate(mode);
+                                      storage = MapStorageExpansion.generate(mode);
                                     });
                                   }
                                 },
@@ -117,7 +115,7 @@ class _GameViewState extends State<GameView> {
                                     HexLocalizations.of(context).tooltipShuffle,
                                 onPressed: () {
                                   setState(() {
-                                    map.shuffle();
+                                    storage.shuffle();
                                   });
                                 },
                               ),

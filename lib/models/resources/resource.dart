@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:locadesertahex/models/resources/boat/boat.dart';
 import 'package:locadesertahex/models/resources/cannon_resource.dart';
 import 'package:locadesertahex/models/resources/cart/cart.dart';
@@ -41,6 +42,51 @@ abstract class Resource {
 
   List<Resource> toRequirement() {
     return [];
+  }
+
+  Color toColor() {
+    switch (type) {
+      case RESOURCE_TYPES.FIREARM:
+        return Colors.deepPurple;
+      case RESOURCE_TYPES.FISH:
+        return Colors.lightBlueAccent;
+      case RESOURCE_TYPES.FOOD:
+        return Colors.yellow;
+      case RESOURCE_TYPES.FUR:
+        return Colors.black38;
+      case RESOURCE_TYPES.IRON_ORE:
+        return Colors.amber;
+      case RESOURCE_TYPES.STONE:
+        return Colors.grey;
+      case RESOURCE_TYPES.WOOD:
+        return Colors.brown;
+      case RESOURCE_TYPES.MONEY:
+        return Colors.yellow;
+      case RESOURCE_TYPES.HORSE:
+        return Colors.deepOrange;
+      case RESOURCE_TYPES.POWDER:
+        return Colors.black12;
+      case RESOURCE_TYPES.COSSACK:
+        return Colors.red;
+      case RESOURCE_TYPES.CANNON:
+        return Colors.black54;
+      case RESOURCE_TYPES.GRAINS:
+        return Colors.yellow[100];
+      case RESOURCE_TYPES.PLANKS:
+        return Colors.brown[200];
+      case RESOURCE_TYPES.CHARCOAL:
+        return Colors.black;
+      case RESOURCE_TYPES.METAL_PARTS:
+        return Colors.indigo[600];
+      case RESOURCE_TYPES.CART:
+        return Colors.brown[300];
+      case RESOURCE_TYPES.BOAT:
+        return Colors.blue[200];
+      case RESOURCE_TYPES.TOWER:
+        return Colors.teal;
+      case RESOURCE_TYPES.WALL:
+        return Colors.teal[300];
+    }
   }
 
   static Resource fromType(RESOURCE_TYPES type, [double value]) {

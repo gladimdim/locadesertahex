@@ -17,6 +17,7 @@ int distanceFromCenter(Hex hex) {
   return ((hex.x.abs() + hex.y.abs() + hex.z.abs()) / 2).floor();
 }
 
-bool isHome(Hex hex) {
-  return hex.toHash() == "0 0 0";
-}
+const double HEX_SIZE = 120;
+const double MAP_DIMENSION = 6000;
+
+const double EXPANDED_HEX_SCALE_FACTOR = 3;
