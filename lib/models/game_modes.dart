@@ -88,6 +88,12 @@ class GameModeExpansion extends GameMode {
     CityHex.generateForDirection(0, 15),
     CityHex.generateForDirection(0, 30),
     CityHex.generateForDirection(5, 13),
+    CityHex.generateForDirection(3, 5),
+    CityHex.generateForDirection(5, 5),
+    CityHex.generateForDirection(1, 15),
+    CityHex.generateForDirection(1, 20),
+    CityHex.generateForDirection(3, 17),
+    CityHex.generateForDirection(3, 23),
   ];
 
   GameModeExpansion() : super(GAME_MODES.EXPANSION);

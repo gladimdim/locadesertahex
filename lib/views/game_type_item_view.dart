@@ -17,7 +17,7 @@ class GameTypeItemView extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
           child: Image.asset(
             gameType.thumbnailImagePath,
-            width: 64,
+            width: 92,
           ),
         ),
         Expanded(

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-const APP_VERSION = "1.0.5";
+const APP_VERSION = "1.0.6";
 
 class HexLocalizations {
   HexLocalizations(this.locale);
@@ -59,7 +59,7 @@ class HexLocalizations {
       "gameMode.titleClassic": "Classic",
       "gameMode.descriptionClassic":
           "Sloboda is surrounded by 3 wall levels. Plenty of resources.",
-      "gameMode.titleExpansion": "Expansion",
+      "gameMode.titleExpansion": "Masacre",
       "gameMode.descriptionExpansion":
           "A lot of hexes with enemies. Dozen of protected cities. Tough mode!",
       "textHowToPlay": """
