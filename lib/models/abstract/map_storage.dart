@@ -209,8 +209,7 @@ class MapStorageBuilder extends MapStorage {
       addHex(element);
     });
 
-    generateRings();
-    addCities();
+    adjustToGameMode();
 
     _levels = [
       [RESOURCE_TYPES.GRAINS],
@@ -229,7 +228,7 @@ class MapStorageBuilder extends MapStorage {
     generateHandStack();
   }
 
-  addCities() {
+  adjustToGameMode() {
     gameMode.cities.forEach((cityHex) {
       var hexes = cityHex.getCircle();
       hexes.forEach((hex) {
@@ -239,11 +238,14 @@ class MapStorageBuilder extends MapStorage {
         }
       });
     });
-  }
 
-  void generateRings() {
-    generateRing(15, RESOURCE_TYPES.WALL);
-    generateRing(20, RESOURCE_TYPES.WALL);
+    var levels = gameMode.resources();
+    for (var i = 1; i < levels.length; i++) {
+      var level = levels[i];
+      if (level.isNotEmpty && level[0] == RESOURCE_TYPES.WALL) {
+        generateRing(i, RESOURCE_TYPES.WALL);
+      }
+    }
   }
 
   void generateHandStack() {
