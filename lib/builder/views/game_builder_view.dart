@@ -107,20 +107,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                   }
                                 },
                               ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.shuffle,
-                                  size: 24,
-                                  color: Colors.green[700],
-                                ),
-                                tooltip: HexLocalizations.of(context)
-                                    .tooltipShuffle,
-                                onPressed: () {
-                                  setState(() {
-                                    storage.shuffle();
-                                  });
-                                },
-                              ),
+
                               IconButton(
                                 icon: Icon(
                                   soundOn
