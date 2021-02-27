@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/components/with_map_background_view.dart';
+import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/game_modes.dart';
 import 'package:locadesertahex/builder/views/game_builder_view.dart';
+import 'package:locadesertahex/models/game_type.dart';
 import 'package:locadesertahex/views/game_expansion_view.dart';
+import 'package:locadesertahex/views/game_type_item_view.dart';
 
 class GameTypeSelectionView extends StatelessWidget {
   final Function(Locale locale) onLocaleChange;
@@ -19,11 +23,26 @@ class GameTypeSelectionView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextButton(
-              child: Text("Expansion"),
-              onPressed: () => loadExpansionGame(context),
+            Container(
+              color: Colors.green[400],
+              child: Center(
+                  child: TitleText(
+                      HexLocalizations.of(context).labelPickGameType)),
             ),
-            TextButton(onPressed: () => loadBuilderGame(context), child: Text("Builder"))
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                child: GameTypeItemView(gameType: GameTypeExpansion()),
+                onPressed: () => loadExpansionGame(context),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () => loadBuilderGame(context),
+                child: GameTypeItemView(gameType: GameTypeBuilder()),
+              ),
+            )
           ],
         ),
       ),

@@ -158,8 +158,6 @@ class GameModeEasy extends GameMode {
       [...moneyMakers, ...higherLevel],
       [...simpleResources, ...higherLevel, ...food],
       [...highLevelArmy, ...higherLevel],
-      [RESOURCE_TYPES.WALL],
-      [RESOURCE_TYPES.WALL],
       military,
       simpleResources,
       food,

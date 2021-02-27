@@ -45,10 +45,15 @@ class HexLocalizations {
       "labelSloboda": "Sloboda",
       "labelLocaDeserta": "Loca Deserta",
       "labelOtherGames": "My other games",
+      "labelPickGameType": "Pick game type",
       "tooltipSettings": "Help",
       "tooltipSounds": "Sound",
       "tooltipNewGame": "New Game",
       "tooltipShuffle": "Shuffle",
+      "gameType.expansion": "Expansion",
+      "gameType.expansionDescription": "Capture territory on the pre-generated hex canvas.",
+      "gameType.builder": "Builder",
+      "gameType.builderDescription": "Freestyle game type. You can pick any hex from the list of available.",
       "gameMode.titleEasy": "Easy",
       "gameMode.descriptionEasy": "No Walls. Plenty of resources. Enjoy!",
       "gameMode.titleClassic": "Classic",
@@ -113,6 +118,7 @@ class HexLocalizations {
       "labelSloboda": "Слобода",
       "labelLocaDeserta": "Дике Поле",
       "labelOtherGames": "Мої інші ігри",
+      "labelPickGameType": "Виберіть тип гри",
       "tooltipSettings": "Про гру",
       "tooltipSounds": "Звук",
       "tooltipNewGame": "Нова Гра",
@@ -126,6 +132,10 @@ class HexLocalizations {
       "gameMode.titleExpansion": "Рубилово",
       "gameMode.descriptionExpansion":
           "Купа ворожих ґексів, багато стін та з десяток укріплених місць. Справжнє випробовування!",
+      "gameType.expansion": "Захоплення",
+      "gameType.expansionDescription": "Захоплюйте територію на попередньо згенерованому тлі гри.",
+      "gameType.builder": "Будівельник",
+      "gameType.builderDescription": "Пазл з вільним вибором ґексів.",
       "textHowToPlay": """
         Головна мета гри - отримати як умога більше очок. Кожний захоплений ґекс дає одне очко.
 
@@ -177,6 +187,7 @@ class HexLocalizations {
       "labelSloboda": "Слобода",
       "labelLocaDeserta": "Дикое Поле",
       "labelOtherGames": "Мои другие игры",
+      "labelPickGameType": "Выберите тип игры",
       "tooltipSettings": "Про игру",
       "tooltipSounds": "Звук",
       "tooltipNewGame": "Новая Игра",
@@ -190,6 +201,10 @@ class HexLocalizations {
       "gameMode.titleExpansion": "Рубилово",
       "gameMode.descriptionExpansion":
           "Много вражеских гексов. Больше уровней стен. Около десятка укрепленых городов. Настоящее испытание!",
+      "gameType.expansion": "Захватчик",
+      "gameType.expansionDescription": "Захватывайте территорию на сгенерированой игровой карте.",
+      "gameType.builder": "Строитель",
+      "gameType.builderDescription": "Пазл со свободным выбором гексом.",
       "textHowToPlay": """
         Основная цель игры - получить как можна больше очков. Каждый захваченый гекс дает одно очко.
 
@@ -239,6 +254,10 @@ class HexLocalizations {
 
   String get labelToMaiMenu {
     return _localizedValues[locale.languageCode]["labelToMainMenu"];
+  }
+
+  String get labelPickGameType {
+    return _localizedValues[locale.languageCode]["labelPickGameType"];
   }
 
   String get textHowToPlay {

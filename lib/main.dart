@@ -112,7 +112,6 @@ var mainTheme = ThemeData(
     bodyText2: GoogleFonts.tenorSans(
       textStyle: TextStyle(
         fontSize: 18,
-        // color: Colors.green[800],
         fontWeight: FontWeight.w600,
       ),
     ),
