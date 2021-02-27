@@ -90,7 +90,8 @@ class _HexBuilderExpandedViewState extends State<HexBuilderExpandedView> {
       child: InkWell(
         child: ResourceImageView(resource: hex.output, size: 72),
         onTap: () {
-          var result = widget.storage.tryToPlaceHex(hex);
+          var candidate = widget.storage.selected.cloneWithOutput(hex.output);
+          var result = widget.storage.tryToPlaceHex(candidate);
           if (result.item1) {
             SoundManager.instance
                 .playSoundForResourceType(hex.output.type);

@@ -118,4 +118,10 @@ class Hex {
     hex.onRing = onRing;
     return hex;
   }
+
+  Hex cloneWithOutput(Resource output) {
+    var cloned = clone();
+    cloned.output = output;
+    return cloned;
+  }
 }

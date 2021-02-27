@@ -229,6 +229,26 @@ class MapStorageBuilder extends MapStorage {
     ];
   }
 
+  Tuple2<bool, List<Resource>> ownHex(Hex hex) {
+    var satisfaction = satisfiesResourceRequirement(hex.toRequirement());
+    if (!satisfaction.item1) {
+      return satisfaction;
+    }
+    hex.toRequirement().forEach(removeResource);
+    addHex(hex);
+    hex.owned = true;
+    hex.visible = true;
+    totalPoints += hex.output.points;
+    hex.allNeighbours().forEach((h) {
+      var onMap = getOrCreate(h);
+      onMap.visible = true;
+    });
+    addResource(hex.output);
+    save();
+    _innerChanges.add(STORAGE_EVENTS.ADD);
+    return Tuple2(true, null);
+  }
+
   adjustToGameMode() {
     gameMode.cities.forEach((cityHex) {
       var hexes = cityHex.getCircle();
@@ -278,9 +298,7 @@ class MapStorageBuilder extends MapStorage {
       return Tuple2(false, []);
     }
 
-    selected.output = hex.output;
-
-    var owned = ownHex(selected);
+    var owned = ownHex(hex);
     if (owned.item1) {
       clearSelectedHex();
     }
