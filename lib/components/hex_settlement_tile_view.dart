@@ -26,7 +26,6 @@ class HexSettlementExpandedView extends StatelessWidget {
     RESOURCE_TYPES.POWDER,
     RESOURCE_TYPES.COSSACK,
     RESOURCE_TYPES.FIREARM,
-    RESOURCE_TYPES.STONE,
     RESOURCE_TYPES.METAL_PARTS,
     RESOURCE_TYPES.PLANKS,
     RESOURCE_TYPES.CHARCOAL,
@@ -43,11 +42,11 @@ class HexSettlementExpandedView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          rowForRange(0, 3),
-          rowForRange(3, 7),
-          rowForRange(7, 13),
-          rowForRange(13, 17),
-          rowForRange(17, 18),
+          rowForRange(0, 2),
+          rowForRange(2, 6),
+          rowForRange(6, 11),
+          rowForRange(11, 15),
+          rowForRange(15, 17),
         ],
       ),
     );

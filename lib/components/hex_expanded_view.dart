@@ -135,7 +135,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
   }
 
   void onOwnPressed() {
-    var result = widget.storage.ownHex(widget.hex);
+    var result = widget.storage.ownHex(widget.hex.clone());
     if (result.item1) {
       widget.storage.clearSelectedHex();
       SoundManager.instance.playSoundForResourceType(widget.hex.output.type);

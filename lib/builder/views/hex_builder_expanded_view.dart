@@ -91,6 +91,7 @@ class _HexBuilderExpandedViewState extends State<HexBuilderExpandedView> {
         child: ResourceImageView(resource: hex.output, size: 72),
         onTap: () {
           var candidate = widget.storage.selected.cloneWithOutput(hex.output);
+
           var result = widget.storage.tryToPlaceHex(candidate);
           if (result.item1) {
             SoundManager.instance

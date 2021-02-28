@@ -121,7 +121,7 @@ class Hex {
 
   Hex cloneWithOutput(Resource output) {
     var cloned = clone();
-    cloned.output = output;
+    cloned.output = Resource.fromType(output.type, output.value);
     return cloned;
   }
 }

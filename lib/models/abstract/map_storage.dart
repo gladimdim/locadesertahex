@@ -33,7 +33,8 @@ abstract class MapStorage {
       return satisfaction;
     }
     hex.toRequirement().forEach(removeResource);
-    map[hex.toHash()] = hex;
+    addHex(hex);
+    // map[hex.toHash()] = hex;
     hex.owned = true;
     hex.visible = true;
     totalPoints += hex.output.points;
@@ -235,9 +236,9 @@ class MapStorageBuilder extends MapStorage {
       return satisfaction;
     }
     hex.toRequirement().forEach(removeResource);
-    addHex(hex);
     hex.owned = true;
     hex.visible = true;
+    addHex(hex);
     totalPoints += hex.output.points;
     hex.allNeighbours().forEach((h) {
       var onMap = getOrCreate(h);
