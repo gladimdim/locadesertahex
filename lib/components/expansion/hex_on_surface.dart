@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/expansion/owned_hex_tile.dart';
 import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
-import 'package:locadesertahex/components/expansion/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
@@ -15,7 +15,11 @@ class HexOnSurface extends StatelessWidget {
   final bool expanded;
   final MapStorage storage;
 
-  HexOnSurface({this.size, this.hex, this.expanded = false, this.storage});
+  HexOnSurface(
+      {required this.size,
+      required this.hex,
+      this.expanded = false,
+      required this.storage});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class HexOnSurface extends StatelessWidget {
         width: size,
         height: size * sqrt(3),
         child: ResourceImageView(
-          resource: hex.output,
+          resource: hex.output!,
         ),
       );
     }

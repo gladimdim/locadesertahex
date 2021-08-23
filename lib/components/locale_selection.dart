@@ -7,7 +7,7 @@ class LocaleSelection extends StatefulWidget {
   final Function(Locale locale) onLocaleChanged;
   final Locale locale;
 
-  LocaleSelection({this.locale, this.onLocaleChanged});
+  LocaleSelection({required this.locale, required this.onLocaleChanged});
   @override
   _LocaleSelectionState createState() => _LocaleSelectionState();
 }
@@ -41,14 +41,14 @@ class _LocaleSelectionState extends State<LocaleSelection> {
     );
   }
 
-  void _setNewLocale(String newValue) async {
+  void _setNewLocale(String? newValue) async {
     try {
-      await AppPreferences.instance.setUILanguage(newValue);
+      await AppPreferences.instance.setUILanguage(newValue ?? "en");
     } catch (e) {
       print('Error saving new ui language to app preferences.');
     }
     if (widget.onLocaleChanged != null) {
-      widget.onLocaleChanged(Locale(newValue));
+      widget.onLocaleChanged(Locale(newValue ?? "en"));
     }
   }
 }

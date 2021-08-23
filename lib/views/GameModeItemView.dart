@@ -5,14 +5,17 @@ import 'package:locadesertahex/models/game_modes.dart';
 
 class GameModeItemView extends StatelessWidget {
   final GameMode mode;
-  GameModeItemView({this.mode});
+  GameModeItemView({required this.mode});
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Image.asset(mode.iconPath, width: 32,),
+          child: Image.asset(
+            mode.iconPath,
+            width: 32,
+          ),
         ),
         Expanded(
           child: Column(
@@ -20,7 +23,7 @@ class GameModeItemView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TitleText(HexLocalizations.of(context)[mode.localizedKeyTitle]),
-                  Text(HexLocalizations.of(context)[mode.localizedKeyDescription]),
+              Text(HexLocalizations.of(context)[mode.localizedKeyDescription]),
             ],
           ),
         ),

@@ -6,7 +6,7 @@ import 'package:locadesertahex/models/resources/wall.dart';
 class CityHex extends Hex {
   int points = 25;
   CityHex(int x, int y, int z) : super(x, y, z);
-  Resource output;
+  Resource? output;
   List<Hex> getCircle() {
     var walls = allNeighbours();
     walls.forEach((element) {

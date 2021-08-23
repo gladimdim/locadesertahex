@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/expansion/owned_hex_tile.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_expanded_view.dart';
 import 'package:locadesertahex/components/hex_settlement_tile_view.dart';
-import 'package:locadesertahex/components/expansion/owned_hex_tile.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/hexgrid/funcs.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
@@ -24,22 +24,21 @@ class HexItemTile extends StatefulWidget {
   final Widget hexOnSurface;
 
   HexItemTile(
-      {this.center,
-      this.hex,
-      this.size,
-      @required this.storage,
-      @required this.onPress,
-      @required this.expanded,
-      @required this.hexOnSurface,
-      @required this.onSelection,
-      this.dimension});
+      {required this.center,
+      required this.hex,
+      required this.size,
+      required this.storage,
+      required this.onPress,
+      required this.expanded,
+      required this.hexOnSurface,
+      required this.onSelection,
+      required this.dimension});
 
   @override
   _HexItemTileState createState() => _HexItemTileState();
 }
 
 class _HexItemTileState extends State<HexItemTile> {
-
   @override
   Widget build(BuildContext context) {
     var hex = widget.hex;
@@ -132,11 +131,11 @@ class _HexItemTileState extends State<HexItemTile> {
 
   Color backgroundColor() {
     if (widget.expanded && widget.hex.owned) {
-      return Colors.green[400];
+      return Colors.green[400]!;
     } else if (widget.hex.owned) {
       return Colors.transparent;
     } else {
-      return Colors.green[200];
+      return Colors.green[200]!;
     }
   }
 
@@ -159,7 +158,7 @@ class _HexItemTileState extends State<HexItemTile> {
         width: widget.size,
         height: widget.size * sqrt(3),
         child: ResourceImageView(
-          resource: widget.hex.output,
+          resource: widget.hex.output!,
         ),
       );
     }

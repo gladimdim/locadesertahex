@@ -18,16 +18,17 @@ abstract class MapStorage {
   List<Resource> stock = [];
   int totalPoints = 0;
   List<CityHex> cities = [];
-  BehaviorSubject _innerChanges = BehaviorSubject<STORAGE_EVENTS>();
-  ValueStream<STORAGE_EVENTS> changes;
-  Hex selected;
+  BehaviorSubject<STORAGE_EVENTS> _innerChanges =
+      BehaviorSubject<STORAGE_EVENTS>();
+  late ValueStream<STORAGE_EVENTS> changes;
+  Hex? selected;
   GameMode gameMode;
 
-  MapStorage({this.map, this.gameMode}) {
+  MapStorage({required this.map, required this.gameMode}) {
     changes = _innerChanges.stream;
   }
 
-  Tuple2<bool, List<Resource>> ownHex(Hex hex) {
+  Tuple2<bool, List<Resource>?> ownHex(Hex hex) {
     var satisfaction = satisfiesResourceRequirement(hex.toRequirement());
     if (!satisfaction.item1) {
       return satisfaction;
@@ -37,7 +38,7 @@ abstract class MapStorage {
     // map[hex.toHash()] = hex;
     hex.owned = true;
     hex.visible = true;
-    totalPoints += hex.output.points;
+    totalPoints += hex.output!.points;
     List<Hex> cityHexes = [];
     cities.forEach((cityHex) {
       cityHexes.addAll(cityHex.getCircle());
@@ -54,7 +55,7 @@ abstract class MapStorage {
 
       item.visible = true;
     });
-    addResource(hex.output);
+    addResource(hex.output!);
     save();
     _innerChanges.add(STORAGE_EVENTS.ADD);
     return Tuple2(true, null);
@@ -102,7 +103,7 @@ abstract class MapStorage {
   }
 
   bool ownsHex(Hex hex) {
-    return hasHex(hex) && map[hex.toHash()].owned;
+    return hasHex(hex) && map[hex.toHash()]!.owned;
   }
 
   void save() async {}
@@ -125,7 +126,7 @@ abstract class MapStorage {
     return Tuple2(result, results);
   }
 
-  Resource stockForResource(Resource resource) {
+  Resource? stockForResource(Resource resource) {
     try {
       var existing =
           stock.firstWhere((element) => element.type == resource.type);
@@ -135,13 +136,13 @@ abstract class MapStorage {
     }
   }
 
-  Resource stockForResourceType(RESOURCE_TYPES type) {
+  Resource? stockForResourceType(RESOURCE_TYPES type) {
     return stockForResource(Resource.fromType(type));
   }
 
   void removeResource(Resource resource) {
     if (satisfiesResourceRequirement([resource]).item1) {
-      stockForResource(resource).value -= resource.value;
+      stockForResource(resource)!.value -= resource.value;
     }
   }
 
@@ -173,7 +174,7 @@ abstract class MapStorage {
     _innerChanges.add(STORAGE_EVENTS.SELECTION_CHANGE);
   }
 
-  Hex selectedHex() {
+  Hex? selectedHex() {
     return selected;
   }
 
@@ -192,16 +193,22 @@ abstract class MapStorage {
 }
 
 class MapStorageBuilder extends MapStorage {
-  static List<RESOURCE_TYPES> hiddenResources = [RESOURCE_TYPES.WALL, RESOURCE_TYPES.TOWER, RESOURCE_TYPES.STONE];
-  List<Hex> stack = RESOURCE_TYPES.values.where((type) => !MapStorageBuilder.hiddenResources.contains(type))
+  static List<RESOURCE_TYPES> hiddenResources = [
+    RESOURCE_TYPES.WALL,
+    RESOURCE_TYPES.TOWER,
+    RESOURCE_TYPES.STONE
+  ];
+  late List<List<RESOURCE_TYPES>> _levels;
+
+  List<Hex> stack = RESOURCE_TYPES.values
+      .where((type) => !MapStorageBuilder.hiddenResources.contains(type))
       .map((type) => Hex(0, 0, 0, output: Resource.fromType(type)))
       .toList();
   Map<String, Hex> map;
-  GameMode gameMode;
-  List<List<RESOURCE_TYPES>> _levels;
+  late GameMode gameMode;
 
-  MapStorageBuilder({this.gameMode, this.map}) {
-    gameMode = gameMode ?? GameModeClassic();
+  MapStorageBuilder({GameMode? gameMode, required this.map}) {
+    this.gameMode = gameMode ?? GameModeClassic();
     var start = Hex(0, 0, 0);
     start.visible = true;
     start.owned = true;
@@ -217,20 +224,20 @@ class MapStorageBuilder extends MapStorage {
     _levels = [
       [RESOURCE_TYPES.GRAINS],
       [RESOURCE_TYPES.FOOD],
-      gameMode.simpleResources,
-      gameMode.simpleResources,
-      gameMode.higherLevel,
-      gameMode.higherLevel,
-      gameMode.moneyMakers,
-      gameMode.military,
-      gameMode.military,
-      gameMode.army,
-      gameMode.army,
-      gameMode.highLevelArmy,
+      this.gameMode.simpleResources,
+      this.gameMode.simpleResources,
+      this.gameMode.higherLevel,
+      this.gameMode.higherLevel,
+      this.gameMode.moneyMakers,
+      this.gameMode.military,
+      this.gameMode.military,
+      this.gameMode.army,
+      this.gameMode.army,
+      this.gameMode.highLevelArmy,
     ];
   }
 
-  Tuple2<bool, List<Resource>> ownHex(Hex hex) {
+  Tuple2<bool, List<Resource>?> ownHex(Hex hex) {
     var satisfaction = satisfiesResourceRequirement(hex.toRequirement());
     if (!satisfaction.item1) {
       return satisfaction;
@@ -239,12 +246,12 @@ class MapStorageBuilder extends MapStorage {
     hex.owned = true;
     hex.visible = true;
     addHex(hex);
-    totalPoints += hex.output.points;
+    totalPoints += hex.output!.points;
     hex.allNeighbours().forEach((h) {
       var onMap = getOrCreate(h);
       onMap.visible = true;
     });
-    addResource(hex.output);
+    addResource(hex.output!);
     save();
     _innerChanges.add(STORAGE_EVENTS.ADD);
     return Tuple2(true, null);
@@ -337,11 +344,12 @@ class MapStorageBuilder extends MapStorage {
 
 class MapStorageExpansion extends MapStorage {
   Map<String, Hex> map;
-  GameMode gameMode;
+  late GameMode gameMode;
 
-  MapStorageExpansion({this.map, this.gameMode}) {
-    gameMode = gameMode ?? GameModeClassic();
+  MapStorageExpansion({GameMode? map, GameMode? gameMode}) {
+    this.gameMode = gameMode ?? GameModeClassic();
     cities = gameMode.cities;
+    this.map = map;
   }
 
   void processRings(radius) {
@@ -404,12 +412,12 @@ class MapStorageExpansion extends MapStorage {
       counter++;
     }
 
-    var first = map[Hex(0, 0, 0).toHash()];
+    var first = map[Hex(0, 0, 0).toHash()]!;
     first.visible = true;
     first.owned = true;
     var neighbours = first.allNeighbours();
     neighbours.forEach((element) {
-      map[element.toHash()].visible = true;
+      map[element.toHash()]!.visible = true;
     });
 
     return map;

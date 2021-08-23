@@ -4,7 +4,7 @@ import 'package:locadesertahex/components/image_fitter_view.dart';
 class ScaffoldWithMapBackground extends StatelessWidget {
   final Widget child;
 
-  ScaffoldWithMapBackground({this.child});
+  ScaffoldWithMapBackground({required this.child});
 
   @override
   Widget build(BuildContext context) {

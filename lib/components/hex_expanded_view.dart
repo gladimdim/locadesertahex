@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
+import 'package:locadesertahex/components/title_text.dart';
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
@@ -17,7 +17,8 @@ class HexExpandedView extends StatefulWidget {
   final Hex hex;
   final MapStorage storage;
 
-  HexExpandedView({this.size, this.hex, this.storage});
+  HexExpandedView(
+      {required this.size, required this.hex, required this.storage});
 
   @override
   _HexExpandedViewState createState() => _HexExpandedViewState();
@@ -54,7 +55,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
                 child: Center(
                   child: TitleText(
                     HexLocalizations.of(
-                        context)[widget.hex.output.localizedKey],
+                        context)[widget.hex.output!.localizedKey],
                   ),
                 ),
               ),
@@ -62,7 +63,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
             Expanded(
               flex: 5,
               child: ResourceImageView(
-                resource: widget.hex.output,
+                resource: widget.hex.output!,
                 size: 140,
                 showAmount: true,
               ),
@@ -138,7 +139,7 @@ class _HexExpandedViewState extends State<HexExpandedView> {
     var result = widget.storage.ownHex(widget.hex.clone());
     if (result.item1) {
       widget.storage.clearSelectedHex();
-      SoundManager.instance.playSoundForResourceType(widget.hex.output.type);
+      SoundManager.instance.playSoundForResourceType(widget.hex.output!.type);
     } else {
       SoundManager.instance.playSound(SOUND_TYPE.REJECT);
       setState(() {

@@ -11,14 +11,14 @@ class GameExpansionView extends StatefulWidget {
   final MapStorageExpansion storage;
   final Function(Locale) onLocaleChange;
 
-  GameExpansionView({this.storage, this.onLocaleChange});
+  GameExpansionView({required this.storage, required this.onLocaleChange});
 
   @override
   _GameExpansionViewState createState() => _GameExpansionViewState();
 }
 
 class _GameExpansionViewState extends State<GameExpansionView> {
-  MapStorageExpansion storage;
+  late MapStorageExpansion storage;
 
   @override
   void initState() {

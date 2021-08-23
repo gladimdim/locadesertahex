@@ -12,22 +12,20 @@ class GameBuilderView extends StatefulWidget {
   final Function(Locale) onLocaleChange;
   final MapStorageBuilder storage;
 
-  GameBuilderView({this.onLocaleChange, this.storage});
+  GameBuilderView({required this.onLocaleChange, required this.storage});
 
   @override
   _GameBuilderViewState createState() => _GameBuilderViewState();
 }
 
 class _GameBuilderViewState extends State<GameBuilderView> {
-  MapStorageBuilder storage;
+  late MapStorageBuilder storage;
 
   @override
   void initState() {
     super.initState();
     storage = widget.storage;
   }
-
-  Hex selectedHandHex;
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +50,12 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                 height: 50,
                 color: Colors.white.withAlpha(155),
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 12.0, left: 8, right: 8),
+                  padding:
+                      const EdgeInsets.only(bottom: 12.0, left: 8, right: 8),
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border(
-                        bottom:
-                            BorderSide(color: Colors.green[800], width: 2),
+                        bottom: BorderSide(color: Colors.green[800]!, width: 2),
                       ),
                     ),
                     child: Row(
@@ -68,8 +65,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                         Expanded(
                           flex: 1,
                           child: Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               StreamBuilder(
                                 stream: storage.changes,
@@ -77,8 +73,8 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                     "${HexLocalizations.of(context).labelPoints}: ${storage.totalPoints}"),
                               ),
                               if (storage.isGameOver())
-                                Text(HexLocalizations.of(context)
-                                    .labelGameOver),
+                                Text(
+                                    HexLocalizations.of(context).labelGameOver),
                             ],
                           ),
                         ),
@@ -93,8 +89,8 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                   Icons.refresh_outlined,
                                   color: Colors.green[700],
                                 ),
-                                tooltip: HexLocalizations.of(context)
-                                    .tooltipNewGame,
+                                tooltip:
+                                    HexLocalizations.of(context).tooltipNewGame,
                                 onPressed: () async {
                                   var mode = await Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
@@ -102,25 +98,23 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                   }));
                                   if (mode != null) {
                                     setState(() {
-                                      storage = MapStorageBuilder.generate(mode);
+                                      storage =
+                                          MapStorageBuilder.generate(mode);
                                     });
                                   }
                                 },
                               ),
-
                               IconButton(
                                 icon: Icon(
-                                  soundOn
-                                      ? Icons.music_note
-                                      : Icons.music_off,
+                                  soundOn ? Icons.music_note : Icons.music_off,
                                   // size: 24,
                                   color: Colors.green[700],
                                 ),
-                                tooltip: HexLocalizations.of(context)
-                                    .tooltipSounds,
+                                tooltip:
+                                    HexLocalizations.of(context).tooltipSounds,
                                 onPressed: () async {
-                                  var current = AppPreferences.instance
-                                      .getSoundEnabled();
+                                  var current =
+                                      AppPreferences.instance.getSoundEnabled();
                                   await AppPreferences.instance
                                       .setSoundEnabled(!current);
                                   setState(() {});
@@ -139,8 +133,7 @@ class _GameBuilderViewState extends State<GameBuilderView> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => SettingsView(
-                                        onLocaleChange:
-                                            widget.onLocaleChange,
+                                        onLocaleChange: widget.onLocaleChange,
                                       ),
                                     ),
                                   );

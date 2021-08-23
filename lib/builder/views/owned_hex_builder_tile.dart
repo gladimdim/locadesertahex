@@ -5,17 +5,16 @@ class OwnedHexBuilderTile extends StatelessWidget {
   final double size;
   final Hex hex;
 
-  OwnedHexBuilderTile({this.size, this.hex});
+  OwnedHexBuilderTile({required this.size, required this.hex});
 
   @override
   Widget build(BuildContext context) {
-    var imagePath = hex.isHome()
-        ? "images/buildings/home.png"
-        : hex.output.toImagePath();
+    var imagePath =
+        hex.isHome() ? "images/buildings/home.png" : hex.output!.toImagePath();
     var width = hex.isHome() ? size : size * 0.4;
-    var color = hex.isHome() ? null : hex.output.toColor();
+    var color = hex.isHome() ? null : hex.output!.toColor().withAlpha(150);
     return Container(
-      color: hex.isHome() ? null : color.withAlpha(150),
+      color: color,
       child: Center(
         child: Image.asset(
           imagePath,

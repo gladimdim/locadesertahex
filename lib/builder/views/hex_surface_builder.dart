@@ -2,10 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:locadesertahex/builder/views/hex_builder_on_surface.dart';
+import 'package:locadesertahex/components/expansion/hex_surface.dart';
 import 'package:locadesertahex/components/hex_clipper.dart';
 import 'package:locadesertahex/components/hex_item_tile.dart';
-
-import 'package:locadesertahex/components/expansion/hex_surface.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
@@ -17,7 +16,10 @@ class HexSurfaceBuilder extends StatefulWidget {
   final Function(Hex) onSelection;
 
   HexSurfaceBuilder(
-      {this.dimension, this.size, this.storage, this.onSelection});
+      {required this.dimension,
+      required this.size,
+      required this.storage,
+      required this.onSelection});
 
   @override
   _HexSurfaceBuilderState createState() => _HexSurfaceBuilderState();
@@ -91,18 +93,20 @@ class _HexSurfaceBuilderState extends State<HexSurfaceBuilder> {
                 return widget.storage.selectedHex() == null
                     ? Container()
                     : HexItemTile(
-                        hex: widget.storage.selectedHex(),
-                        size: increasedSize(widget.size, widget.storage.selectedHex()),
+                        hex: widget.storage.selectedHex()!,
+                        size: increasedSize(
+                            widget.size, widget.storage.selectedHex()!),
                         storage: widget.storage,
                         center: Point(dimension / 2, dimension / 2),
                         dimension: widget.dimension,
                         onPress: (expanded) {},
                         expanded: true,
                         hexOnSurface: HexBuilderOnSurface(
-                          size: increasedSize(widget.size, widget.storage.selectedHex()),
+                          size: increasedSize(
+                              widget.size, widget.storage.selectedHex()!),
                           storage: widget.storage,
                           expanded: true,
-                          hex: widget.storage.selectedHex(),
+                          hex: widget.storage.selectedHex()!,
                         ),
                         onSelection: (hex) {
                           widget.storage.clearSelectedHex();

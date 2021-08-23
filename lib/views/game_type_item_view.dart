@@ -6,7 +6,7 @@ import 'package:locadesertahex/models/game_type.dart';
 class GameTypeItemView extends StatelessWidget {
   final GameType gameType;
 
-  GameTypeItemView({this.gameType});
+  GameTypeItemView({required this.gameType});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,8 @@ class GameTypeItemView extends StatelessWidget {
                   HexLocalizations.of(context)[gameType.localizedKey],
                 ),
                 Text(
-                  HexLocalizations.of(context)[gameType.localizedDescriptionKey],
+                  HexLocalizations.of(
+                      context)[gameType.localizedDescriptionKey],
                 ),
               ],
             ),

@@ -7,7 +7,12 @@ class OtherGame {
   final String urlEn;
   final String urlUkr;
 
-  OtherGame({this.image, this.titleKey, this.urlEn, this.urlUkr,});
+  OtherGame({
+    required this.image,
+    required this.titleKey,
+    required this.urlEn,
+    required this.urlUkr,
+  });
 
   void openUrlFor(Locale locale) async {
     var name = locale.languageCode;

@@ -1,14 +1,12 @@
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart'
+    show debugDefaultTargetPlatformOverride, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:flutter/foundation.dart'
-    show debugDefaultTargetPlatformOverride, kIsWeb;
-
 import 'package:locadesertahex/loaders/sound_manager.dart';
 import 'package:locadesertahex/localization/hex_localizations.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
@@ -42,7 +40,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale;
+  late Locale _locale;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         locale: _locale,
         localeResolutionCallback: (locale, list) {
           if (HexLocalizations.supportedLanguageCodes
-              .contains(locale.languageCode)) {
+              .contains(locale!.languageCode)) {
             _locale = locale;
           } else {
             _locale = Locale("en");
@@ -93,10 +91,10 @@ var mainTheme = ThemeData(
       }),
       backgroundColor: MaterialStateProperty.resolveWith<Color>(
         (Set<MaterialState> states) {
-          if (states.contains(MaterialState.hovered)) return Colors.green[900];
+          if (states.contains(MaterialState.hovered)) return Colors.green[900]!;
           if (states.contains(MaterialState.focused) ||
-              states.contains(MaterialState.pressed)) return Colors.green[600];
-          return Colors.green[400]; // Defer to the widget's default.
+              states.contains(MaterialState.pressed)) return Colors.green[600]!;
+          return Colors.green[400]!; // Defer to the widget's default.
         },
       ),
       foregroundColor: MaterialStateProperty.resolveWith((states) {

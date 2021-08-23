@@ -6,7 +6,7 @@ class AppPreferences {
   AppPreferences._internal();
 
   static final AppPreferences instance = AppPreferences._internal();
-  SharedPreferences _preferences;
+  late SharedPreferences _preferences;
   String _languageCode = "languageCode";
   String _savedGameExpansion = "saved_game_expansion";
   String _savedGameBuilder = "saved_game_builder";
@@ -39,7 +39,7 @@ class AppPreferences {
     return saveMap(mapJson, _savedGameBuilder);
   }
 
-  Map<String, dynamic> loadMap(sMapName) {
+  Map<String, dynamic>? loadMap(sMapName) {
     try {
       var s = _preferences.getString(sMapName);
       if (s != null) {
@@ -53,16 +53,16 @@ class AppPreferences {
     }
   }
 
-  Map<String, dynamic> loadExpansionMap() {
+  Map<String, dynamic>? loadExpansionMap() {
     return loadMap(_savedGameExpansion);
   }
 
-  Map<String, dynamic> loadBuilderMap() {
+  Map<String, dynamic>? loadBuilderMap() {
     return loadMap(_savedGameBuilder);
   }
 
   String getUILanguage() {
-    return _preferences.getString(_languageCode);
+    return _preferences.getString(_languageCode) ?? "uk";
   }
 
   Future setUILanguage(String languageCode) async {

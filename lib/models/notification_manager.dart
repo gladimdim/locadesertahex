@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:collection';
 
 import 'package:bot_toast/bot_toast.dart';
@@ -6,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/resource_image_view.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 
-const NOTIFICATION_BAR_HEIGHT = 100.0 ;
+const NOTIFICATION_BAR_HEIGHT = 100.0;
+
 class NotificationManager {
   Color colorSuccess = Colors.amber;
   Color colorError = Colors.red;
@@ -18,7 +18,6 @@ class NotificationManager {
   static final NotificationManager instance = NotificationManager._internal();
   final Duration defaultDuration = Duration(milliseconds: 1200);
   Queue<Function> queue = Queue();
-  Timer timer;
 
   void showNotification(Widget payload, [Color color = Colors.amber]) {
     payload = payload ?? Container();

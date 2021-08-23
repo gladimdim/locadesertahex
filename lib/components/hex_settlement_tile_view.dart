@@ -10,7 +10,7 @@ class HexSettlementExpandedView extends StatelessWidget {
   final double size;
   final MapStorage storage;
 
-  HexSettlementExpandedView({this.size, this.storage});
+  HexSettlementExpandedView({required this.size, required this.storage});
 
   final List<RESOURCE_TYPES> resources = [
     RESOURCE_TYPES.FOOD,

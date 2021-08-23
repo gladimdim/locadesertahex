@@ -7,7 +7,7 @@ class OwnedHexTile extends StatelessWidget {
   final double size;
   final Hex hex;
 
-  OwnedHexTile({this.size, this.hex});
+  OwnedHexTile({required this.size, required this.hex});
 
   @override
   Widget build(BuildContext context) {

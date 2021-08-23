@@ -31,14 +31,14 @@ class SoundManager extends SoundManagerClass {
   Soundpool pool = Soundpool(streamType: StreamType.music);
   static final SoundManager instance = SoundManager._internal();
 
-
   playSoundForResourceType(RESOURCE_TYPES type) async {
     var action = resourceTypeToSoundType(type);
     if (action != null) {
       playSound(action);
     }
   }
+
   playSound(SOUND_TYPE action) async {
-    playWebAudio(actionMapping[action]);
+    playWebAudio(actionMapping[action]!);
   }
 }

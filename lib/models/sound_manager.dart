@@ -11,11 +11,12 @@ class SoundManager extends SoundManagerClass {
   SoundManager._internal();
 
   Future initSounds() async {
+    pool = Soundpool(streamType: StreamType.music);
     if (sounds.isNotEmpty) {
       return;
     }
     await Future.forEach(actionMapping.keys, ((element) async {
-      String path = actionMapping[element];
+      String path = actionMapping[element]!;
       ByteData soundData = await rootBundle.load(path);
       int soundId;
       soundId = await pool.load(soundData);
@@ -23,7 +24,7 @@ class SoundManager extends SoundManagerClass {
     }));
   }
 
-  Soundpool pool = Soundpool(streamType: StreamType.music);
+  late Soundpool pool;
   static final SoundManager instance = SoundManager._internal();
 
   playSoundForResourceType(RESOURCE_TYPES type) async {
@@ -41,7 +42,7 @@ class SoundManager extends SoundManagerClass {
   playSound(SOUND_TYPE action) async {
     var soundOn = AppPreferences.instance.getSoundEnabled();
     if (soundOn) {
-      await pool.play(sounds[actionMapping[action]]);
+      await pool.play(sounds[actionMapping[action]]!);
     }
   }
 }

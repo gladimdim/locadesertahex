@@ -1,9 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
-import 'package:locadesertahex/components/hex_item_tile.dart';
 import 'package:locadesertahex/components/expansion/hex_on_surface.dart';
+import 'package:locadesertahex/components/hex_item_tile.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
@@ -14,9 +13,12 @@ class HexSurface extends StatefulWidget {
   final double dimension;
   final double size;
   final MapStorage storage;
-  final Function(Hex) onHexSelected;
 
-  HexSurface({this.dimension, this.size, this.storage, this.onHexSelected});
+  HexSurface({
+    required this.dimension,
+    required this.size,
+    required this.storage,
+  });
 
   @override
   _HexSurfaceState createState() => _HexSurfaceState();
@@ -172,5 +174,5 @@ class FogCirclePoint {
   final Point coords;
   final double radius;
 
-  FogCirclePoint({this.coords, this.radius});
+  FogCirclePoint({required this.coords, required this.radius});
 }

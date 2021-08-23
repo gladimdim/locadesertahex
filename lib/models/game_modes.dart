@@ -66,7 +66,6 @@ abstract class GameMode {
       case GAME_MODES.EXPANSION:
         return GameModeExpansion();
     }
-    throw "Game mode $mode was not recognized";
   }
 }
 

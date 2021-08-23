@@ -4,15 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:locadesertahex/components/expansion/hex_surface.dart';
 
 class HexClipper extends CustomClipper<Path> {
-  final Color color;
-
-  const HexClipper({
-    this.color,
-  });
+  const HexClipper();
 
   @override
   Path getClip(Size size) {
-    Point center = Point(size.width / 2, size.height / 2);
+    Point<double> center = Point(size.width / 2, size.height / 2);
 
     Path path = Path();
     var point = pointHexCorner(center, size.width / 2, 0);
@@ -31,7 +27,7 @@ class HexClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-Point pointHexCorner(Point center, double size, int i) {
+Point<double> pointHexCorner(Point center, double size, int i) {
   var angleDeg = 60 * i;
   var angleRad = pi / 180 * angleDeg;
   return Point(
@@ -43,7 +39,7 @@ Point pointHexCorner(Point center, double size, int i) {
 class HexPainter extends CustomPainter {
   final Color color;
 
-  HexPainter({this.color});
+  HexPainter({required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {

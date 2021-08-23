@@ -21,10 +21,11 @@ import 'package:locadesertahex/models/resources/tower.dart';
 import 'package:locadesertahex/models/resources/wall.dart';
 import 'package:locadesertahex/models/resources/wood.dart';
 
+const defaultValue = 10.0;
+
 abstract class Resource {
   String localizedKey;
   double value;
-  double defaultValue = 10;
   RESOURCE_TYPES type;
   int points = 1;
 
@@ -36,9 +37,7 @@ abstract class Resource {
     return "images/resources/${localizedKey}_128.png";
   }
 
-  Resource([this.value])  {
-    value = value ?? defaultValue;
-  }
+  Resource([this.value = defaultValue]);
 
   List<Resource> toRequirement() {
     return [];
@@ -71,25 +70,25 @@ abstract class Resource {
       case RESOURCE_TYPES.CANNON:
         return Colors.black54;
       case RESOURCE_TYPES.GRAINS:
-        return Colors.yellow[100];
+        return Colors.yellow[100]!;
       case RESOURCE_TYPES.PLANKS:
-        return Colors.brown[200];
+        return Colors.brown[200]!;
       case RESOURCE_TYPES.CHARCOAL:
         return Colors.black;
       case RESOURCE_TYPES.METAL_PARTS:
-        return Colors.indigo[600];
+        return Colors.indigo[600]!;
       case RESOURCE_TYPES.CART:
-        return Colors.brown[300];
+        return Colors.brown[300]!;
       case RESOURCE_TYPES.BOAT:
-        return Colors.blue[200];
+        return Colors.blue[200]!;
       case RESOURCE_TYPES.TOWER:
         return Colors.teal;
       case RESOURCE_TYPES.WALL:
-        return Colors.teal[300];
+        return Colors.teal[300]!;
     }
   }
 
-  static Resource fromType(RESOURCE_TYPES type, [double value]) {
+  static Resource fromType(RESOURCE_TYPES type, [double? value]) {
     switch (type) {
       case RESOURCE_TYPES.FIREARM:
         return FireArm(value);
@@ -132,10 +131,9 @@ abstract class Resource {
       case RESOURCE_TYPES.WALL:
         return Wall(value);
     }
-    throw "Resource Type $type is not recognized";
   }
 
-  static Resource fromKey(String key, [double value]) {
+  static Resource fromKey(String key, [double? value]) {
     switch (key) {
       case 'firearm':
         return FireArm(value);

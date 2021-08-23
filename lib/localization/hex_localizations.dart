@@ -51,9 +51,11 @@ class HexLocalizations {
       "tooltipNewGame": "New Game",
       "tooltipShuffle": "Shuffle",
       "gameType.expansion": "Conqueror",
-      "gameType.expansionDescription": "Capture territory on the pre-generated hex canvas.",
+      "gameType.expansionDescription":
+          "Capture territory on the pre-generated hex canvas.",
       "gameType.builder": "Builder",
-      "gameType.builderDescription": "Freestyle game type. You can pick any hex from the list of available.",
+      "gameType.builderDescription":
+          "Freestyle game type. You can pick any hex from the list of available.",
       "gameMode.titleEasy": "Easy",
       "gameMode.descriptionEasy": "No Walls. Plenty of resources. Enjoy!",
       "gameMode.titleClassic": "Classic",
@@ -133,7 +135,8 @@ class HexLocalizations {
       "gameMode.descriptionExpansion":
           "Купа ворожих ґексів, багато стін та з десяток укріплених місць. Справжнє випробовування!",
       "gameType.expansion": "Завойовник",
-      "gameType.expansionDescription": "Захоплюйте територію на попередньо згенерованому тлі гри.",
+      "gameType.expansionDescription":
+          "Захоплюйте територію на попередньо згенерованому тлі гри.",
       "gameType.builder": "Будівельник",
       "gameType.builderDescription": "Пазл з вільним вибором ґексів.",
       "textHowToPlay": """
@@ -202,7 +205,8 @@ class HexLocalizations {
       "gameMode.descriptionExpansion":
           "Много вражеских гексов. Больше уровней стен. Около десятка укрепленых городов. Настоящее испытание!",
       "gameType.expansion": "Захватчик",
-      "gameType.expansionDescription": "Захватывайте территорию на сгенерированой игровой карте.",
+      "gameType.expansionDescription":
+          "Захватывайте территорию на сгенерированой игровой карте.",
       "gameType.builder": "Строитель",
       "gameType.builderDescription": "Пазл со свободным выбором гексом.",
       "textHowToPlay": """
@@ -229,63 +233,63 @@ class HexLocalizations {
   };
 
   String get labelTitle {
-    return _localizedValues[locale.languageCode]["labelTitle"];
+    return _localizedValues[locale.languageCode]!["labelTitle"]!;
   }
 
   String get labelPoints {
-    return _localizedValues[locale.languageCode]["labelPoints"];
+    return _localizedValues[locale.languageCode]!["labelPoints"]!;
   }
 
   String get labelGameOver {
-    return _localizedValues[locale.languageCode]["labelGameOver"];
+    return _localizedValues[locale.languageCode]!["labelGameOver"]!;
   }
 
   String get labelCapture {
-    return _localizedValues[locale.languageCode]["labelCapture"];
+    return _localizedValues[locale.languageCode]!["labelCapture"]!;
   }
 
   String get labelAbout {
-    return _localizedValues[locale.languageCode]["labelAbout"];
+    return _localizedValues[locale.languageCode]!["labelAbout"]!;
   }
 
   String get labelBack {
-    return _localizedValues[locale.languageCode]["labelBack"];
+    return _localizedValues[locale.languageCode]!["labelBack"]!;
   }
 
   String get labelToMaiMenu {
-    return _localizedValues[locale.languageCode]["labelToMainMenu"];
+    return _localizedValues[locale.languageCode]!["labelToMainMenu"]!;
   }
 
   String get labelPickGameType {
-    return _localizedValues[locale.languageCode]["labelPickGameType"];
+    return _localizedValues[locale.languageCode]!["labelPickGameType"]!;
   }
 
   String get textHowToPlay {
-    return _localizedValues[locale.languageCode]["textHowToPlay"];
+    return _localizedValues[locale.languageCode]!["textHowToPlay"]!;
   }
 
   String get tooltipSettings {
-    return _localizedValues[locale.languageCode]["tooltipSettings"];
+    return _localizedValues[locale.languageCode]!["tooltipSettings"]!;
   }
 
   String get tooltipSounds {
-    return _localizedValues[locale.languageCode]["tooltipSounds"];
+    return _localizedValues[locale.languageCode]!["tooltipSounds"]!;
   }
 
   String get tooltipNewGame {
-    return _localizedValues[locale.languageCode]["tooltipNewGame"];
+    return _localizedValues[locale.languageCode]!["tooltipNewGame"]!;
   }
 
   String get tooltipShuffle {
-    return _localizedValues[locale.languageCode]["tooltipShuffle"];
+    return _localizedValues[locale.languageCode]!["tooltipShuffle"]!;
   }
 
   String get labelOtherGames {
-    return _localizedValues[locale.languageCode]["labelOtherGames"];
+    return _localizedValues[locale.languageCode]!["labelOtherGames"]!;
   }
 
   String operator [](String key) {
-    return _localizedValues[locale.languageCode][key] ?? key;
+    return _localizedValues[locale.languageCode]![key] ?? key;
   }
 }
 

@@ -15,7 +15,10 @@ class HexBuilderOnSurface extends StatelessWidget {
   final MapStorage storage;
 
   HexBuilderOnSurface(
-      {this.size, this.hex, this.expanded = false, this.storage});
+      {required this.size,
+      required this.hex,
+      this.expanded = false,
+      required this.storage});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class HexBuilderOnSurface extends StatelessWidget {
         return HexBuilderExpandedView(
           size: getSizeForHex(hex),
           hex: hex,
-          storage: storage,
+          storage: storage as MapStorageBuilder,
         );
       }
     } else if (hex.output == null && !hex.isHome()) {
@@ -51,6 +54,8 @@ class HexBuilderOnSurface extends StatelessWidget {
   }
 
   bool enemyHex(Hex hex) {
-    return !hex.owned && hex.output != null && [RESOURCE_TYPES.WALL, RESOURCE_TYPES.TOWER].contains(hex.output.type);
+    return !hex.owned &&
+        hex.output != null &&
+        [RESOURCE_TYPES.WALL, RESOURCE_TYPES.TOWER].contains(hex.output!.type);
   }
 }

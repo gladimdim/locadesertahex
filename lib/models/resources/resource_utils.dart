@@ -64,7 +64,6 @@ String resourceTypesToString(RESOURCE_TYPES type) {
     case RESOURCE_TYPES.WALL:
       return "WALL";
   }
-  throw 'Resource type $type is not recognized';
 }
 
 RESOURCE_TYPES stringToResourceType(String type) {

@@ -1,17 +1,26 @@
 class GameType {
-  String localizedKey;
-  String localizedDescriptionKey;
-  String thumbnailImagePath;
+  final String localizedKey;
+  final String localizedDescriptionKey;
+  final String thumbnailImagePath;
+
+  GameType(
+      {required this.localizedDescriptionKey,
+      required this.thumbnailImagePath,
+      required this.localizedKey});
 }
 
 class GameTypeExpansion extends GameType {
-  final String localizedKey = "gameType.expansion";
-  final String localizedDescriptionKey = "gameType.expansionDescription";
-  String thumbnailImagePath = "images/thumbnails/expansion.jpeg";
+  GameTypeExpansion()
+      : super(
+            localizedKey: "gameType.expansion",
+            localizedDescriptionKey: "gameType.expansionDescription",
+            thumbnailImagePath: "images/thumbnails/expansion.jpeg");
 }
 
 class GameTypeBuilder extends GameType {
-  final String localizedKey = "gameType.builder";
-  final String localizedDescriptionKey = "gameType.builderDescription";
-  String thumbnailImagePath = "images/thumbnails/builder.jpeg";
+  GameTypeBuilder()
+      : super(
+            localizedKey: "gameType.builder",
+            localizedDescriptionKey: "gameType.builderDescription",
+            thumbnailImagePath: "images/thumbnails/builder.jpeg");
 }

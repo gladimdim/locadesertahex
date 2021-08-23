@@ -14,7 +14,7 @@ import 'package:locadesertahex/views/settings_view.dart';
 class GameTypeSelectionView extends StatelessWidget {
   final Function(Locale locale) onLocaleChange;
 
-  GameTypeSelectionView({this.onLocaleChange});
+  GameTypeSelectionView({required this.onLocaleChange});
 
   @override
   Widget build(BuildContext context) {

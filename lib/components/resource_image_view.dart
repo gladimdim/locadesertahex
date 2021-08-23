@@ -5,9 +5,12 @@ class ResourceImageView extends StatelessWidget {
   final Resource resource;
   final bool showAmount;
   final double size;
-  final Color color;
+  Color? color;
   ResourceImageView(
-      {@required this.resource, this.showAmount = false, this.size = 92, this.color});
+      {required this.resource,
+      this.showAmount = false,
+      this.size = 92,
+      this.color});
 
   @override
   Widget build(BuildContext context) {

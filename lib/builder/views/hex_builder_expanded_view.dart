@@ -16,14 +16,15 @@ class HexBuilderExpandedView extends StatefulWidget {
   final Hex hex;
   final MapStorageBuilder storage;
 
-  HexBuilderExpandedView({this.size, this.hex, this.storage});
+  HexBuilderExpandedView(
+      {required this.size, required this.hex, required this.storage});
 
   @override
   _HexBuilderExpandedViewState createState() => _HexBuilderExpandedViewState();
 }
 
 class _HexBuilderExpandedViewState extends State<HexBuilderExpandedView> {
-  RESOURCE_TYPES failedHexType;
+  RESOURCE_TYPES? failedHexType;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class _HexBuilderExpandedViewState extends State<HexBuilderExpandedView> {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: widget.storage.stack.getRange(start, end).map((hex) {
-          var isFailed = hex.output.type == failedHexType;
+          var isFailed = hex.output!.type == failedHexType;
           if (isFailed) {
             return MirrorAnimation<double>(
               tween: 0.2.tweenTo(0.8),
@@ -88,20 +89,19 @@ class _HexBuilderExpandedViewState extends State<HexBuilderExpandedView> {
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: InkWell(
-        child: ResourceImageView(resource: hex.output, size: 72),
+        child: ResourceImageView(resource: hex.output!, size: 72),
         onTap: () {
-          var candidate = widget.storage.selected.cloneWithOutput(hex.output);
+          var candidate = widget.storage.selected!.cloneWithOutput(hex.output!);
 
           var result = widget.storage.tryToPlaceHex(candidate);
           if (result.item1) {
-            SoundManager.instance
-                .playSoundForResourceType(hex.output.type);
+            SoundManager.instance.playSoundForResourceType(hex.output!.type);
           } else {
             SoundManager.instance.playSound(SOUND_TYPE.REJECT);
             NotificationManager.instance
                 .processNotificationWithResource(result.item2);
             setState(() {
-              failedHexType = hex.output.type;
+              failedHexType = hex.output!.type;
             });
           }
         },
