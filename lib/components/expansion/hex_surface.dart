@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:locadesertahex/components/hex_item_tile.dart';
 import 'package:locadesertahex/components/expansion/hex_on_surface.dart';
+import 'package:locadesertahex/components/resized_image.dart';
 import 'package:locadesertahex/models/abstract/map_storage.dart';
 import 'package:locadesertahex/models/hex.dart';
 import 'package:locadesertahex/models/hex_cacher.dart';
@@ -153,7 +154,7 @@ class _HexSurfaceState extends State<HexSurface> {
             clipper: FogOfWarClipper(
               holes: holes,
             ),
-            child: Image.asset(
+            child: ResizedImage(
               "images/background/map_bw.png",
               width: widget.dimension,
               fit: BoxFit.contain,

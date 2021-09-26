@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/resized_image.dart';
 import 'package:locadesertahex/models/hex.dart';
 
 class OwnedHexBuilderTile extends StatelessWidget {
@@ -17,7 +18,7 @@ class OwnedHexBuilderTile extends StatelessWidget {
     return Container(
       color: hex.isHome() ? null : color.withAlpha(150),
       child: Center(
-        child: Image.asset(
+        child: ResizedImage(
           imagePath,
           width: width,
         ),

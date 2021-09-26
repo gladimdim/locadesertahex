@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/resized_image.dart';
 import 'package:locadesertahex/models/resources/resource.dart';
 
 class ResourceImageView extends StatelessWidget {
@@ -15,7 +16,7 @@ class ResourceImageView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Image.asset(
+        ResizedImage(
           resource.toImagePath(),
           width: size,
           color: color,

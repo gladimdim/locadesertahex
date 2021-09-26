@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locadesertahex/components/resized_image.dart';
 
 class ImageFitterView extends StatelessWidget {
   final String path;
@@ -8,7 +9,7 @@ class ImageFitterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(builder: (context, orientation) {
-      return Image.asset(
+      return ResizedImage(
         path,
         // fit: BoxFit.contain,
         width: MediaQuery.of(context).size.width,
