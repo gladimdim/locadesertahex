@@ -25,6 +25,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
     super.initState();
     storage = widget.storage;
   }
+
   @override
   Widget build(BuildContext context) {
     var soundOn = AppPreferences.instance.getSoundEnabled();
@@ -47,8 +48,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                 height: 50,
                 color: Colors.white.withAlpha(155),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: 12.0, left: 8, right: 8),
+                  padding: const EdgeInsets.only(bottom: 12.0),
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border(
@@ -69,11 +69,11 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                                 builder: (context, data) => Text(
                                     "${HexLocalizations.of(context).labelPoints}: ${storage.totalPoints}"),
                               ),
-                              if (!storage.isGameOver()) Text(
-                                HexLocalizations.of(context)[storage.gameMode
-                                    .localizedKeyTitle],
-                              ),
-
+                              if (!storage.isGameOver())
+                                Text(
+                                  HexLocalizations.of(context)[
+                                      storage.gameMode.localizedKeyTitle],
+                                ),
                               if (storage.isGameOver())
                                 Text(
                                     HexLocalizations.of(context).labelGameOver),
@@ -90,6 +90,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                                 icon: Icon(
                                   Icons.refresh_outlined,
                                   color: Colors.green[700],
+                                  size: 22,
                                 ),
                                 tooltip:
                                     HexLocalizations.of(context).tooltipNewGame,
@@ -100,7 +101,8 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                                   }));
                                   if (mode != null) {
                                     setState(() {
-                                      storage = MapStorageExpansion.generate(mode);
+                                      storage =
+                                          MapStorageExpansion.generate(mode);
                                     });
                                   }
                                 },
@@ -108,7 +110,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                               IconButton(
                                 icon: Icon(
                                   Icons.shuffle,
-                                  size: 24,
+                                  size: 22,
                                   color: Colors.green[700],
                                 ),
                                 tooltip:
@@ -122,7 +124,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                               IconButton(
                                 icon: Icon(
                                   soundOn ? Icons.music_note : Icons.music_off,
-                                  // size: 24,
+                                  size: 22,
                                   color: Colors.green[700],
                                 ),
                                 tooltip:
@@ -138,7 +140,7 @@ class _GameExpansionViewState extends State<GameExpansionView> {
                               IconButton(
                                 icon: Icon(
                                   Icons.help,
-                                  // size: 24,
+                                  size: 22,
                                   color: Colors.green[700],
                                 ),
                                 tooltip: HexLocalizations.of(context)
