@@ -1,16 +1,26 @@
 # locadesertahex
 
-A new Flutter project.
+Third game in the Loca Deserta universe. Try yourself in this time killer puzzle and see how many points you can get!
 
-## Getting Started
+# About
 
-This project is a starting point for a Flutter application.
+This is the full source code + art of my puzzle game Hex. The development is paused, only patches and ocasional performance improvements are released.
 
-A few resources to get you started if this is your first Flutter project:
+# Links to download
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+All available builds for Android, iOS and web are available here: [Loca Deserta: Hex](http://locadeserta.com/locadesertahex/index_en.html)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Screenshots
+
+## Map
+![Map](app_stores\android\en\Screenshot_1613287997.png)
+
+## Cossacks
+![Cossacks](app_stores\android\en\Screenshot_1613288070.png)
+
+## Menu
+![Menu](app_stores\android\en\Screenshot_1613288035.png)
+
+# Copyright
+
+All art and source code belongs to Dmytro Gladkyi
