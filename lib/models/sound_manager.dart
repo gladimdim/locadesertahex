@@ -3,6 +3,7 @@ import 'package:locadesertahex/models/abstract/sound_manager.dart';
 import 'package:locadesertahex/models/app_preferences.dart';
 import 'package:locadesertahex/models/resources/resource_utils.dart';
 import 'package:soundpool/soundpool.dart';
+import 'package:locadesertahex/utils/platform/platform_loader.dart';
 
 class SoundManager extends SoundManagerClass {
   // contains ids of loaded sounds
@@ -11,6 +12,12 @@ class SoundManager extends SoundManagerClass {
   SoundManager._internal();
 
   Future initSounds() async {
+    if (UniversalPlatform.windows || UniversalPlatform.linux) {
+      return;
+    } else {
+      pool = Soundpool.fromOptions(
+          options: SoundpoolOptions(streamType: StreamType.music));
+    }
     if (sounds.isNotEmpty) {
       return;
     }
@@ -23,7 +30,7 @@ class SoundManager extends SoundManagerClass {
     }));
   }
 
-  Soundpool pool = Soundpool(streamType: StreamType.music);
+  Soundpool pool;
   static final SoundManager instance = SoundManager._internal();
 
   playSoundForResourceType(RESOURCE_TYPES type) async {
@@ -41,7 +48,9 @@ class SoundManager extends SoundManagerClass {
   playSound(SOUND_TYPE action) async {
     var soundOn = AppPreferences.instance.getSoundEnabled();
     if (soundOn) {
-      await pool.play(sounds[actionMapping[action]]);
+      if (pool != null) {
+        await pool.play(sounds[actionMapping[action]]);
+      }
     }
   }
 }

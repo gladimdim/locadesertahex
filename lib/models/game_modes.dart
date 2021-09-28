@@ -228,6 +228,8 @@ GAME_MODES gameModeFromString(String mode) {
       return GAME_MODES.CLASSIC;
     case "GAME_MODES.EASY":
       return GAME_MODES.EASY;
+    case "GAME_MODE.EXPANSION":
+      return GAME_MODES.EXPANSION;
     default:
       return GAME_MODES.CLASSIC;
   }
@@ -239,6 +241,8 @@ String gameModeToString(GAME_MODES mode) {
       return "GAME_MODES.CLASSIC";
     case GAME_MODES.EASY:
       return "GAME_MODES.EASY";
+    case GAME_MODES.EXPANSION:
+      return "GAME_MODES.EXPANSION";
     default:
       throw "Game mode $mode is not recognized";
   }
