@@ -39,7 +39,6 @@ class HexItemTile extends StatefulWidget {
 }
 
 class _HexItemTileState extends State<HexItemTile> {
-
   @override
   Widget build(BuildContext context) {
     var hex = widget.hex;
@@ -136,7 +135,15 @@ class _HexItemTileState extends State<HexItemTile> {
     } else if (widget.hex.owned) {
       return Colors.transparent;
     } else {
-      return Colors.green[200];
+      bool hasOutput = widget.hex.output != null;
+      if (!hasOutput ||
+          widget.storage
+              .satisfiesResourceRequirement(widget.hex.toRequirement())
+              .item1) {
+        return Colors.green[200];
+      } else {
+        return Colors.red[400];
+      }
     }
   }
 
