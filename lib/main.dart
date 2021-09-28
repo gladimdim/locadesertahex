@@ -26,8 +26,10 @@ void main() async {
 
   if (!kIsWeb) {
     _setTargetPlatformForDesktop();
-    await SystemChrome.setEnabledSystemUIOverlays([]);
   }
+
+
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   await SoundManager.instance.initSounds();
   await AppPreferences.instance.init();
