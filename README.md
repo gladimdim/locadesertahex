@@ -13,13 +13,13 @@ All available builds for Android, iOS and web are available here: [Loca Deserta:
 # Screenshots
 
 ## Map
-![Map](app_stores\android\en\Screenshot_1613287997.png)
+![Map](app_stores/android/en/Screenshot_1613287997.png)
 
 ## Cossacks
-![Cossacks](app_stores\android\en\Screenshot_1613288070.png)
+![Cossacks](app_stores/android/en/Screenshot_1613288070.png)
 
 ## Menu
-![Menu](app_stores\android\en\Screenshot_1613288035.png)
+![Menu](app_stores/android/en/Screenshot_1613288035.png)
 
 # Copyright
 
